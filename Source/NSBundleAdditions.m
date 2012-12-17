@@ -202,8 +202,8 @@
             { 	 
               const char *nam = [_tag cString]; 	 
               const char *type; 	 
-              unsigned int size; 	 
-              int offset; 	 
+              size_t size; 	 
+              ptrdiff_t offset; 	 
               
               /* 	 
                * Use the GNUstep additional function to set the instance 	 
