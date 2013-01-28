@@ -171,7 +171,7 @@ APPKIT_EXPORT NSSize NSTokenSize;
   id            _firstResponder;
   id            _futureFirstResponder;
   NSView        *_initialFirstResponder;
-PACKAGE_SCOPE
+@public /* used by ProjectCenter FIXME!!!!! */
   id            _delegate;
 @protected
   id            _fieldEditor;

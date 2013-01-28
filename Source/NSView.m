@@ -82,7 +82,7 @@
 /*
  * We need a fast array that can store objects without retain/release ...
  */
-#define GSI_ARRAY_TYPES		GSUNION_OBJ
+#define GSI_ARRAY_TYPES		GSUNION_OBJ|GSUNION_PTR
 #define GSI_ARRAY_NO_RELEASE	1
 #define GSI_ARRAY_NO_RETAIN	1
 

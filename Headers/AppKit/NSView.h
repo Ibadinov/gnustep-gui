@@ -105,11 +105,11 @@ typedef enum _NSFocusRingType {
   id _matrixFromWindow;
 
   NSView* _super_view;
-PACKAGE_SCOPE
+@public /* used by libgmodel.bundle O_o */
   NSMutableArray *_sub_views;
 @protected
   NSWindow *_window;
-PACKAGE_SCOPE
+@public /* used by ProjectCenter FIXME!!!!! */
   NSMutableArray *_tracking_rects;
   NSMutableArray *_cursor_rects;
 @protected
