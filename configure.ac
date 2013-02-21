@@ -462,11 +462,15 @@ GSCUPS_LIBS=
 GSCUPS_DATADIR=
 BUILD_GSCUPS=NO
 
-AC_ARG_ENABLE(cups,
-  [  --disable-cups          Disable cups printing support],,
-  enable_cups=yes)
+# CUPS is linked to Apple's CoreFoundation on OSX, which renders it unusable there
+case "$target_os" in
+    darwin*) AC_ARG_ENABLE(cups, [  --enable-cups           Enable use of CUPS for printing support], enable_cups="$enableval", enable_cups=no)   ;;
+    *)       AC_ARG_ENABLE(cups, [  --disable-cups          Disable use of CUPS for printing support], enable_cups="$enableval", enable_cups=yes) ;;
+esac
 
-if test $enable_cups = yes; then
+AC_MSG_CHECKING(whether we should try to use CUPS for printing support)
+if test "$enable_cups" = yes; then
+  AC_MSG_RESULT(yes)
   BUILD_GSCUPS=YES
   AC_CHECK_PROG(have_cups, cups-config, yes, no)
 
@@ -500,6 +504,8 @@ if test $enable_cups = yes; then
     CPPFLAGS="${orig_CPPFLAGS}"
     LDFLAGS="${orig_LDFLAGS}"
   fi
+else
+  AC_MSG_RESULT(no)
 fi
 AC_SUBST(GSCUPS_CFLAGS)
 AC_SUBST(GSCUPS_LDFLAGS)
