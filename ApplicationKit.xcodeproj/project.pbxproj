@@ -449,7 +449,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		187527F5169ED7BA001C1D58 /* ApplicationKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApplicationKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		187527F5169ED7BA001C1D58 /* AppKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		187527F8169ED7BA001C1D58 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		187527FB169ED7BA001C1D58 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		187527FC169ED7BA001C1D58 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -944,7 +944,7 @@
 		187527F6169ED7BA001C1D58 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				187527F5169ED7BA001C1D58 /* ApplicationKit.framework */,
+				187527F5169ED7BA001C1D58 /* AppKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1696,9 +1696,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		187527F4169ED7BA001C1D58 /* ApplicationKit */ = {
+		187527F4169ED7BA001C1D58 /* AppKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1875280A169ED7BA001C1D58 /* Build configuration list for PBXNativeTarget "ApplicationKit" */;
+			buildConfigurationList = 1875280A169ED7BA001C1D58 /* Build configuration list for PBXNativeTarget "AppKit" */;
 			buildPhases = (
 				187527F0169ED7BA001C1D58 /* Sources */,
 				187527F1169ED7BA001C1D58 /* Frameworks */,
@@ -1709,9 +1709,9 @@
 			);
 			dependencies = (
 			);
-			name = ApplicationKit;
+			name = AppKit;
 			productName = ApplicationKit;
-			productReference = 187527F5169ED7BA001C1D58 /* ApplicationKit.framework */;
+			productReference = 187527F5169ED7BA001C1D58 /* AppKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -1734,7 +1734,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				187527F4169ED7BA001C1D58 /* ApplicationKit */,
+				187527F4169ED7BA001C1D58 /* AppKit */,
 			);
 		};
 /* End PBXProject section */
@@ -2022,6 +2022,7 @@
 		1875280B169ED7BA001C1D58 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -2030,6 +2031,7 @@
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
 					/usr/GNUstep/Local/Library/Headers,
+					"$(SRCROOT)/Headers",
 				);
 				INFOPLIST_FILE = "Support/ApplicationKit/ApplicationKit-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -2043,7 +2045,7 @@
 					"-fconstant-string-class=NSConstantString",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "Headers/Additions/GNUstepGUI Headers/Additions/";
+				USER_HEADER_SEARCH_PATHS = "Headers/Additions/GNUstepGUI Headers/Additions/ Headers/";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -2051,6 +2053,7 @@
 		1875280C169ED7BA001C1D58 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -2059,6 +2062,7 @@
 				HEADER_SEARCH_PATHS = (
 					/opt/local/include,
 					/usr/GNUstep/Local/Library/Headers,
+					"$(SRCROOT)/Headers",
 				);
 				INFOPLIST_FILE = "Support/ApplicationKit/ApplicationKit-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -2072,7 +2076,7 @@
 					"-fconstant-string-class=NSConstantString",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "Headers/Additions/GNUstepGUI Headers/Additions/";
+				USER_HEADER_SEARCH_PATHS = "Headers/Additions/GNUstepGUI Headers/Additions/ Headers/";
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -2089,7 +2093,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1875280A169ED7BA001C1D58 /* Build configuration list for PBXNativeTarget "ApplicationKit" */ = {
+		1875280A169ED7BA001C1D58 /* Build configuration list for PBXNativeTarget "AppKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1875280B169ED7BA001C1D58 /* Debug */,
