@@ -1,19 +1,558 @@
+2013-03-18  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Tests/gui/NSImage/basic.m: Add basic tests for NSImage.
+	* Tests/gui/NSCell/basic.m: Extend basic tests for NSCell.
+	* Source/NSImage.m: Try to correct keyed encoding/decoding. Add
+	incomplete isEqual: method.
+
+2013-03-17  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/NSViewController.m: Retain the view.
+	* Source/NSOutline.m(-drawRow:clipRect:): The selected cell shows
+	its first responder state.
+	Patch by Frank LeGrand <frank.legrand@testplant.com>
+
+2013-03-17  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/NSEvent.m,
+	* Source/NSParagraphStyle.m: Use NSInteger instead of enumerator
+	type name for decoding and encoding.
+	* Header/AppKit/NSFontPanel.h,
+	* Header/AppKit/NSOpenPanel.h,
+	* Header/AppKit/NSDataLinkPanel.h,
+	* Source/NSDataLinkPanel.m,
+	* Header/AppKit/NSForm.h,
+	* Source/NSForm.m,
+	* Header/AppKit/NSHelpPanel.h,
+	* Source/NSHelpPanel.m,
+	* Source/NSColorPanel.m: Remove unused encoding/decoding methods.
+	* Source/NSCustomImageRep.m,
+	* Source/NSEPSImageRep.m,
+	* Source/NSMovie.m,
+	* Source/NSRulerMarker.m,
+	* Source/NSColorList.m: Flag missing keyed encoding/decoding.
+
+2013-03-15  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/NSTableView.m: Use new method -_isCellSelectableColumn:row:,
+	that checks the cells selectable state, in -mouseDown:.
+
+2013-03-10  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/GSNibLoading.m (NSCustomView -nibInstantiateWithCoder:):
+	Re-add call to -replaceObject:withObject: on decoder, but this
+	time in the right place.
+
+2013-03-09  Eric Wasylishen  <ewasylishen@gmail.com>
+
+	* Images/GNUmakefile:
+	* Images/nsmapping.strings:
+	* Images/common_Info.svg:
+	* Images/common_Info.tiff: Add NSInfo image.
+
+2013-03-08  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Tests/gui/NSSavePanel/setDelegate_reload.m: Rewrite to remove
+	use of @defs().
+	Base on idea by Wolfgang Lux  <wolfgang.lux@gmail.com>
+
+2013-03-08  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/NSTableColumn.m (-initWithCoder:): Make columns
+	non-editable by default.
+	* Source/NSTableView.m (-editColumn:...select:): Make editing here
+	independ of the datasource.
+	* Source/NSTableView.m: Split -_isCellEditableColumn:row: in two
+	methods and ignore the cell isEditable state in -mouseDown:.
+
+2013-03-08  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/AppKit/NSTextView.h: Make NSTextViewDelegate a formal protocol.
+
+2013-03-08  Fred Kiefer <FredKiefer@gmx.de>
+
+	* configure.ac: Correct change for libpng.
+	Patch by Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+	* configure: Regenerated.
+
+2013-03-08  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/NSBezierPath.m (-elementAtIndex:associatedPoints:): Fix
+	handling of close element.
+	Patch by Bluna Ratimonkey <object@gmail.com>.
+
+2013-03-05  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/GSHorizontalTypesetter.m: Change floats into CGFloats to
+	stop infinite loop.
+
+2013-03-04  Fred Kiefer <FredKiefer@gmx.de>
+
+	* configure.ac: Use CPPFLAGS instead of CFLAGS for libpng.
+	Patch by Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+	* configure: Regenerated.
+
+2013-03-04  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/NSBezierPath.m: Implement keyed coding and complete keyed
+	decoding.
+	Patch by Christopher Armstrong <carmstrong@fastmail.com.au>
+	* Source/NSBezierPath.m: Rewrote -elementAtIndex:associatedPoints:
+	to return a point for NSClosePathBezierPathElement. And adjust all
+	callers to make use of that point. Complete non-keyed coding and
+	decoding.
+	* Tests/gui/NSBezierPath/basic.m: Add basic tests for NSBezierPath.
+
+2013-03-02 Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+
+	* Source/NSMenuItemCell.m
+	* Headers/AppKit/NSMenuItemCell.h
+	  float -> CGFloat transitions
+	* ColorPickers/GSColorSliderCell.m
+	  more float -> CGFloat transitions
+	* Headers/AppKit/NSOutlineView.h
+	  int -> NSInteger transitions for NSOutlineView protocol
+
+2013-03-01  Richard Frith-Macdonald <rfm@gnu.org>
+
+        * Version ... bump subminor number in preparation for next release.
+
+2013-03-01  Richard Frith-Macdonald <rfm@gnu.org>
+
+        Make release
+	* Version 0.23.0
+	* Update release notes
+
+2013-02-28  Eric Wasylishen  <ewasylishen@gmail.com>
+
+	* Source/GSPDFPrintOperation.m: Update -_print and -deliverResult
+	to match GSEPSPrintOperation to get the class to at least partly
+	working. Output is appearing up-side-down for me though.
+
+2013-02-23  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/NSWindow.m (-setDelegate:): Don't unregister delegate
+	notifications if same delegate is set twice.
+	Patch by Doug Simons <doug.simons@testplant.com>
+
+2013-02-22  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/NSWindow.m (-initWithCoder:),
+	* Source/NSBitmapImageRep.m (-_convertToFormatBitsPerSample:...):
+	Correct problem found by valgrind.
+
+2013-02-22  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/GSToolTips.m
+	* Source/NSProgressIndicator.m
+	* Source/NSTextView.m: Add the timers for NSModalPanelRunLoopMode
+	as well.
+
+2013-02-22  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/NSTabView.m (-minimumSize, -contentRect): Make the values
+	here consistent with the code in GSThemeDrawing.
+	* Source/GSThemeDrawing.m (-drawTabViewRect:...): Remove useless
+	line of code.
+
+2013-02-21 Riccardo Mottola <rm@gnu.org>
+
+	* Source/NSParagraphStyle.m
+	Encode and decode lineBreakMode with NSInteger and not NSLineBreakMode
+
+2013-02-21  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/NSBitmapImageRep+PNG.m
+	(-_PNGRepresentationWithProperties:): Revert last change and don't
+	use png_info_init_3() on PNG >= 1.5.
+
+2013-02-21 Riccardo Mottola <rm@gnu.org>
+
+	* Source/NSBitmapImageRep+PNG.m
+	Define png_sizeof() to allow compilation on 1.6.
+
+2013-02-19  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Tools/make_services.m (main, CheckDirectory)
+	Improve the last fix by using newer method.
+
+2013-02-19  Quentin Mathe <quentin.mathe@gmail.com>
+
+	* Source/NSTableView.m (-_drawDropIndicator,
+	-_setDropOperationAndRow:usingPositionInRow:atPoint:,
+        -draggingUpdated:):
+	Cleaned code a bit more.
+
+2013-02-19  Quentin Mathe <quentin.mathe@gmail.com>
+
+	* Source/NSTableView.m (-draggingUpdated:):
+        Don't update the drop row and operation if the drop target hasn't
+        changed (this prevents to overwrite a
+	custom drop row and operation set by the user in
+	-tableView:handleValidateDrop:proposedRow:proposedOperation:).
+
+2013-02-19  Quentin Mathe <quentin.mathe@gmail.com>
+
+	* Source/NSTableView.m (-draggingUpdated:): Extracted drop indicator
+	drawing into a new method -_drawDropIndicator.
+
+2013-02-19  Quentin Mathe <quentin.mathe@gmail.com>
+
+	* Source/NSTableView.m (-draggingUpdated:):
+        Modularized the first part of
+	the method into several smaller methods -_dropRowFromQuarterPosition:,
+	-_setDropOperationAndRow:usingPositionInRow:atPoint: and
+	_scrollRowAtPointToVisible:.
+
+2013-02-18 Riccardo Mottola <rm@gnu.org>
+
+	* Tools/make_services.m (main)
+	Check Library directory before checking and attempting to create
+        Services subdir
+
+2013-02-18  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/GSDragView.m
+	* Source/NSTextView.m
+	Fix compiler warnings reported by
+	Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+
+2013-02-17  German A. Arias <german@xelalug.org>
+
+	* Resources/Spanish.lproj/Localizable.strings: Translations.
+
+2013-02-17  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/AppKit/NSScrollView.h
+	* Headers/AppKit/NSScroller.h
+	* Headers/AppKit/NSSlider.h
+	* Headers/AppKit/NSSliderCell.h
+	* Headers/AppKit/NSTableColumn.h
+	* Headers/AppKit/NSTableHeaderView.h
+	* Headers/AppKit/NSTableView.h
+	* Headers/AppKit/NSTextContainer.h
+	* Headers/AppKit/NSTextTable.h
+	* Source/NSScrollView.m
+	* Source/NSScroller.m
+	* Source/NSSlider.m
+	* Source/NSSliderCell.m
+	* Source/NSTableColumn.m
+	* Source/NSTableHeaderView.m
+	* Source/NSTableView.m
+	* Source/NSTextBlock.m
+	* Source/NSTextContainer.m
+	* Source/NSTextTable.m
+	More CGFloat, NSUInteger and NSInteger changes.
+
+2013-02-17  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/AppKit/NSGraphicsContext.h
+	* Headers/AppKit/NSWindow.h
+	* Source/NSActionCell.m
+	* Source/NSBrowser.m
+	* Source/NSCell.m
+	* Source/NSEvent.m
+	* Source/NSImageRep.m
+	* Source/NSMatrix.m
+	* Source/NSMenuItem.m
+	* Source/NSParagraphStyle.m
+	* Source/NSRulerMarker.m
+	* Source/NSRulerView.m
+	* Source/NSSegmentedCell.m
+	* Source/NSView.m
+	* Source/NSWindow.m:
+	Correct coding/decoding after type changes.
+
+2013-02-17  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/NSBezierPath.m: More keyed decoding.
+
+2013-02-17  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/AppKit/NSBrowser.h
+	* Headers/AppKit/NSClipView.h
+	* Headers/AppKit/NSComboBox.h
+	* Headers/AppKit/NSComboBoxCell.h
+	* Headers/AppKit/NSForm.h
+	* Headers/AppKit/NSFormCell.h
+	* Headers/AppKit/NSParagraphStyle.h
+	* Source/NSAttributedString.m
+	* Source/NSBrowser.m
+	* Source/NSClipView.m
+	* Source/NSComboBox.m
+	* Source/NSComboBoxCell.m
+	* Source/NSForm.m
+	* Source/NSFormCell.m
+	* Source/NSParagraphStyle.m
+	More CGFloat, NSUInteger and NSInteger changes.
+
+2013-02-16  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/AppKit/NSDragging.h
+	* Headers/AppKit/NSInputManager.h
+	* Headers/AppKit/NSLayoutManager.h
+	* Headers/AppKit/NSRulerView.h
+	* Headers/AppKit/NSText.h
+	* Headers/AppKit/NSTextView.h
+	* Source/NSInputManager.m
+	* Source/NSLayoutManager.m
+	* Source/NSText.m
+	* Source/NSTextView.m
+	* Source/NSTextView_actions.m
+	More CGFloat, NSUInteger and NSInteger changes.
+
+2013-02-16  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/Additions/GNUstepGUI/GSWindowDecorationView.h
+	* Headers/AppKit/NSBitmapImageRep.h
+	* Headers/AppKit/NSForm.h
+	* Headers/AppKit/NSImage.h
+	* Headers/AppKit/NSMenuItem.h
+	* Headers/AppKit/NSRulerMarker.h
+	* Headers/AppKit/NSRulerView.h
+	* Headers/AppKit/NSSegmentedCell.h
+	* Headers/AppKit/NSSegmentedControl.h
+	* Headers/AppKit/NSWindow.h
+	* Source/GSStandardWindowDecorationView.m
+	* Source/GSWindowDecorationView.m
+	* Source/NSBitmapImageRep.m
+	* Source/NSForm.m
+	* Source/NSImage.m
+	* Source/NSMenuItem.m
+	* Source/NSRulerMarker.m
+	* Source/NSRulerView.m
+	* Source/NSSegmentedCell.m
+	* Source/NSSegmentedControl.m
+	* Source/NSWindow.m
+	More CGFloat, NSUInteger and NSInteger changes.
+
+2013-02-14  Quentin Mathe <quentin.mathe@gmail.com>
+
+	* Headers/AppKit/NSTableView.h
+	* Source/NSTableView.m
+	* Source/NSOutline.m
+	(-_dataCellForTableColumn:row:, -preparedCellAtColumn:row:):
+	Replaced _dataCellForTableColumn:row: by -preparedCellAtColumn:row:
+	new public method from Mac OS X 10.5.
+
+2013-02-14  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/GSXibLoader.m (GSXibKeyedUnarchiver -_preProcessXib:):
+	Release the document.
+	Patch by Doug Simons <doug.simons@testplant.com>
+	* Source/GSXibLoader.m: Fix a problem where owner,
+        firstResponder and application
+ 	were put in the list of top-level objects, creating a retain-cycle.
+	* Source/NSViewController.m: Fix a problem where view controllers
+	did not release their top-level objects as expected.
+	* Source/NSWindowController.m: Fix a problem where window
+	controllers did not release their top-level objects as expected.
+	Changes made in occordance with
+	https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/LoadingResources/CocoaNibs/CocoaNibs.html
+	Patch by Jonathan Gillaspie <jonathan.gillaspie@testplant.com>
+
+2013-02-14  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/GSDragView.m
+	* Source/GSSlideView.m
+	* Source/NSApplication.m
+	Resolve clang warnings about wrong format specifiers for NSLog.
+	Patch by Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+
+2013-02-13  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/GSXibLoader.m: Resolve memory leak for GSXibElement.
+
+2013-02-13  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/AppKit/NSEvent.h
+	* Source/NSEvent.m
+	* Source/GSDragView.m
+	* Source/GSTitleView.m
+	* Source/NSComboBoxCell.m
+	* Source/NSInputManager.m
+	* Source/NSMatrix.m
+	* Source/NSMenuView.m
+	* Source/NSRulerMarker.m
+	* Source/NSScroller.m
+	* Source/NSSlider.m
+	* Source/NSSliderCell.m
+	* Source/NSTableHeaderView.m
+	* Source/NSTableView.m:
+	Change NSEvent to CGFloat, NSUInteger and NSInteger.
+
+2013-02-10  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/AppKit/NSSplitView.h
+	* Source/NSSplitView.m: Change to CGFloat, NSUInteger and NSInteger.
+	Patch partly by Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+
+2013-02-08  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Sound/SndfileSource.m (dataRead): Remove unused variable range.
+	Patch by Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+
+2013-02-08  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/AppKit/NSPageLayout.h
+	* Source/NSPageLayout.m: Change int to NSInteger.
+	Patch by Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+
+2013-02-08  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Resources/English.lproj/Localizable.strings
+	* Resources/Esperanto.lproj/Localizable.strings
+	* Resources/French.lproj/Localizable.strings
+	* Resources/German.lproj/Localizable.strings
+	* Resources/Italian.lproj/Localizable.strings
+	* Resources/Lojban.lproj/Localizable.strings
+	* Resources/Spanish.lproj/Localizable.strings
+	Regenerate string files. Translations are still missing.
+
+2013-02-07 Riccardo Mottola <rm@gnu.org>
+
+	* Source/NSSavePanel.m (initWithoutGModel):
+	Add tooltips to buttons.
+
+2013-02-06  Quentin Mathe <quentin.mathe@gmail.com>
+
+	* Source/NSView.m (-encodeWithCoder:): Fixed to encode the superview
+	conditionally as Cocoa does (Apple discusses superview encoding as a
+	use case for conditional encoding in the Archiving related
+        documentation).
+	View can now be archived (or copied) without having to remove the view
+	from its hierarchy before archiving it.
+
+2013-02-05  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/Additions/GNUstepGUI/GSMethodTable.h
+	* Headers/AppKit/DPSOperators.h
+	* Headers/AppKit/NSCachedImageRep.h
+	* Headers/AppKit/NSGraphicsContext.h
+	* Headers/AppKit/NSImageRep.h
+	* Headers/AppKit/PSOperators.h
+	* Source/Functions.m
+	* Source/NSAffineTransform.m
+	* Source/NSCachedImageRep.m
+	* Source/NSGraphicsContext.m: Change DPS/PS functions to CGFloat
+	and NSInteger.
+
+2013-02-05  David Chisnall <theraven@gna.org>
+
+	* Source/NSMenu.m: When displaying the horizontal menu, set the
+	title of the main menu to the name of the application, not the
+	name of the process, if the info bundle contains an application
+	name.
+	* Source/NSSavePanel.m: Fix the NSBrowser delegate methods in
+	NSSavePanel to have the correct types.
+
+2013-02-01  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/NSBezierPath.m: Started the implementation of keyed
+	encoding and decoding.
+
+2013-02-01  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/AppKit/NSBezierPath.h
+	* Source/GSThemeTools.m
+	* Source/NSBezierPath.m
+	* Source/NSGraphicsContext.m
+	* Source/NSLayoutManager.m: More NSInteger/NSUInteger/CGFloat cleanup
+
+2013-01-30  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/AppKit/NSBrowser.h
+	* Headers/AppKit/NSFontPanel.h
+	* Headers/AppKit/NSMatrix.h
+	* Headers/AppKit/NSTableView.h
+	* Source/NSBrowser.m
+	* Source/NSFontPanel.m
+	* Source/NSMatrix.m: Small fixes to last change.
+
+2013-01-30  David Chisnall <theraven@gna.org>
+
+	* ColorPickers/GSNamedColorPicker.m
+	* Headers/Additions/GNUstepGUI/GSDisplayServer.h
+	* Headers/AppKit/NSArrayController.h
+	* Headers/AppKit/NSBrowser.h
+	* Headers/AppKit/NSControl.h
+	* Headers/AppKit/NSMatrix.h
+	* Headers/AppKit/NSTableView.h
+	* Headers/AppKit/NSToolbar.h
+	* Source/GSDisplayServer.m
+	* Source/GSDragView.m
+	* Source/GSLayoutManager.m
+	* Source/GSMemoryPanel.m
+	* Source/GSNibLoading.m
+	* Source/GSTheme.m
+	* Source/GSToolTips.m
+	* Source/GSXibLoader.m
+	* Source/NSActionCell.m
+	* Source/NSAlert.m
+	* Source/NSApplication.m
+	* Source/NSBrowser.m
+	* Source/NSButtonCell.m
+	* Source/NSCell.m
+	* Source/NSColor.m
+	* Source/NSColorList.m
+	* Source/NSComboBoxCell.m
+	* Source/NSControl.m
+	* Source/NSEvent.m
+	* Source/NSFontPanel.m
+	* Source/NSGraphicsContext.m
+	* Source/NSHelpManager.m
+	* Source/NSHelpPanel.m
+	* Source/NSMatrix.m
+	* Source/NSNibBindingConnector.m
+	* Source/NSOutlineView.m
+	* Source/NSPrintPanel.m
+	* Source/NSSearchFieldCell.m
+	* Source/NSTableView.m
+	* Source/NSTextView.m
+	* Source/NSWindow.m
+	* Source/NSWorkspace.m
+	* Tools/make_services.m:
+        Fix all current compiler warnings on FreeBSD/x86-64.
+
+2013-01-30  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/externs.m: Change predefined colour values to CGFloat.
+
+2013-01-29  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/AppKit/NSCell.h
+	* Headers/AppKit/NSColor.h
+	* Headers/AppKit/NSGraphics.h
+	* Headers/AppKit/NSView.h
+	* Source/Functions.m
+	* Source/GSThemeDrawing.m
+	* Source/GSTitleView.m
+	* Source/NSApplication.m
+	* Source/NSCell.m
+	* Source/NSView.m: More NSInteger/NSUInteger/CGFloat cleanup
+
+2013-01-29  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/AppKit/NSApplication.h
+	* Source/NSApplication.m: NSInteger/NSUInteger cleanup
+	* Source/externs.m: Add NSAppKitVersionNumber.
+
 2013-01-27  Fred Kiefer <FredKiefer@gmx.de>
 
-	* gui/Headers/Additions/GNUstepGUI/GSWindowDecorationView.h
-	* gui/Headers/AppKit/NSActionCell.h
-	* gui/Headers/AppKit/NSAlert.h
-	* gui/Headers/AppKit/NSGraphics.h
-	* gui/Headers/AppKit/NSPanel.h
-	* gui/Headers/AppKit/NSWindow.h
-	* gui/Source/GSStandardWindowDecorationView.m
-	* gui/Source/GSToolTips.m
-	* gui/Source/GSWindowDecorationView.m
-	* gui/Source/NSActionCell.m
-	* gui/Source/NSAlert.m
-	* gui/Source/NSDrawer.m
-	* gui/Source/NSPanel.m
-	* gui/Source/NSWindow.m: First set of NSInteger/NSUInteger cleanup
+	* Headers/Additions/GNUstepGUI/GSWindowDecorationView.h
+	* Headers/AppKit/NSActionCell.h
+	* Headers/AppKit/NSAlert.h
+	* Headers/AppKit/NSGraphics.h
+	* Headers/AppKit/NSPanel.h
+	* Headers/AppKit/NSWindow.h
+	* Source/GSStandardWindowDecorationView.m
+	* Source/GSToolTips.m
+	* Source/GSWindowDecorationView.m
+	* Source/NSActionCell.m
+	* Source/NSAlert.m
+	* Source/NSDrawer.m
+	* Source/NSPanel.m
+	* Source/NSWindow.m: First set of NSInteger/NSUInteger cleanup
 	in gui.
 
 2013-01-27  Fred Kiefer <FredKiefer@gmx.de>
@@ -85,9 +624,11 @@
 
 	* Headers/Additions/GNUstepGUI/GSLayoutManager_internal.h: Make
 	-_invalidateEverything visible.
-	* Source/GSLayoutManager.m (-invalidateGlyphsForCharacterRange:...): Call
+	* Source/GSLayoutManager.m (-invalidateGlyphsForCharacterRange:...):
+        Call
 	-_invalidateEverything when the whole character range is invalidated.
-	* Source/NSStringDrawing.m: Remove workarounds for full layout invalidation.
+	* Source/NSStringDrawing.m:
+        Remove workarounds for full layout invalidation.
 	Move initialisation check into cache_lock().
 	Extract size match code in function.
 	Put #ifdef around all statistics code.
@@ -104,7 +645,8 @@
 	initWithCoder so that it may marshall the pixel attributes prior to
 	initWithAttributes:. Change the getValues:... method to take an
 	int argument instead of long. GLint is mapped to int on most systems.
-	* Source/NSOpenGLContext.m: Use the format decoding to decode an OpenGL context.
+	* Source/NSOpenGLContext.m:
+        Use the format decoding to decode an OpenGL context.
 	Patch by Clint Smullen <daemonae>.
 
 	* Source/GSLayoutManager.m: Small cleanup in glyph code.
@@ -125,7 +667,8 @@
 	orderFrontCharacterPalette:] and do nothing instead of throwing a
 	run-time exception.
 	* Source/NSTextView.m (-_stopInsertionTimer, -_startInsertionTimer):
-	Extract this helper methods from -updateInsertionPointStateAndRestartTimer:.
+	Extract this helper methods from
+        -updateInsertionPointStateAndRestartTimer:.
 	* Source/NSTextView.m (-cleanUpAfterDragOperation): Add cleanup code to
 	cleanUpAfterDragOperation. Gets invoked from concludeDragOperation:.
 	Fix drag and drop of file objects.
@@ -155,7 +698,8 @@
 
 2012-10-31  Fred Kiefer <FredKiefer@gmx.de>
 
-	* Source/NSTabView.m (-dealloc): Reset _selected to nil at top of dealloc.
+	* Source/NSTabView.m (-dealloc):
+        Reset _selected to nil at top of dealloc.
 	* Source/NSBox.m(-drawRect:, -initWithCoder:): Implement
 	transparent handling for custom boxes.
 	Patch by Marcian Lytwyn <marcian.lytwyn@advcsi.com>
@@ -219,7 +763,8 @@
 	* Headers/AppKit/NSTextStorage.h,
 	* Source/NSTextStorage.m: Add font/setFont methods to NSTextStorage
 	Patch by Marcian Lytwyn <marcian.lytwyn@advcsi.com>
-        * NSWindow.m (-center): Center on the main screen if window is off screen.
+        * NSWindow.m (-center):
+        Center on the main screen if window is off screen.
 	Patch by Doug Simons <doug.simons@testplant.com>
 
 2012-10-12  Fred Kiefer <FredKiefer@gmx.de>
@@ -1407,16 +1952,16 @@
 	Improved the menu theming to support some common menu look variations.
 	Fixed bug #34792 too.
 	* Headers/Additions/GNUstepGUI/GSTheme.h
-	* Source/GSThemeDrawing.m 
+	* Source/GSThemeDrawing.m
 	(-menuBackgroundColor, -menuItemBackgroundColor, -menuBorderColor
-	-menuBorderColorForEdge:isHorizontal:, 
-	-drawsBorderForMenuItemCell:state:isHorizontal:, 
-	-drawTitleForMenuItemCell:withFrame:inView:state:isHorizontal:, 
+	-menuBorderColorForEdge:isHorizontal:,
+	-drawsBorderForMenuItemCell:state:isHorizontal:,
+	-drawTitleForMenuItemCell:withFrame:inView:state:isHorizontal:,
 	-menuSeparatorInset): Added.
 	(-menuBarBackgroundColor, -menuBarBorderColor): Added but not yet used.
 	(-menuSeparatorColor): Renamed -menuSeparatorItemColor.
-	* Source/NSMenuItemCell.m 
-	(-backgroundColor:): Changed to get the background color from 
+	* Source/NSMenuItemCell.m
+	(-backgroundColor:): Changed to get the background color from
 	-menuItemBackgroundColor.
 	(-themeControlState): Added.
 	(-drawTitleWithFrame:inView:): Moved drawing code to GSTheme.
@@ -1472,7 +2017,7 @@
 	cell classes that need it.
 	* Source/NSButtonCell.m:
 	* Headers/AppKit/NSButtonCell.h: Implement -imageScaling and
-	-setImageScaling methods. 
+	-setImageScaling methods.
 	* Source/GSThemeDrawing.m:
 	* Headers/Additions/GNUstepGUI/GSTheme.h: Remove the
 	-drawImage:inButtonCell:withFrame:position: API intended
@@ -2268,7 +2813,7 @@
 	  ivars with the non-fragile ABI.
 
 2011-06-28  Eric Wasylishen  <ewasylishen@gmail.com>
-	
+
 	* Headers/Additions/GNUstepGUI/GSImageMagickImageRep.h:
 	* Source/GNUmakefile:
 	* Source/NSImageRep.m:
@@ -17319,4 +17864,3 @@
 	the correct background/highlight colors and NSCompositeSourceOver for
 	image cells.
 	(-setHighlighted): Use controlHighlightColor instead of controlColor.
-
