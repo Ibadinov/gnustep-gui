@@ -554,7 +554,7 @@ static NSSize scaledIconSizeForSize(NSSize imageSize)
                 location = [_window mouseLocationOutsideOfEventStream];
                 if (NSEqualPoints(location, lastLocation) == NO)
                   {
-                    NSPoint        origin = [_window frame].origin;
+                    NSPoint origin = [_window frame].origin;
 
                     origin.x += (location.x - lastLocation.x);
                     origin.y += (location.y - lastLocation.y);
@@ -729,7 +729,7 @@ static NSNotificationCenter *nc = nil;
                                         styleMask: aStyle];
 }
 
-+ (float) minFrameWidthWithTitle: (NSString *)aTitle
++ (CGFloat) minFrameWidthWithTitle: (NSString *)aTitle
                        styleMask: (NSUInteger)aStyle
 {
   if (!windowDecorator)
@@ -1040,7 +1040,7 @@ many times.
   // FIXME: This hack is here to work around a gorm decoding problem.
   if (_windowNum)
     {
-      NSLog(@"Window already initialized %d", _windowNum);
+      NSLog(@"Window already initialized %d", (int)_windowNum);
       return self;
     }
 
@@ -1156,11 +1156,11 @@ many times.
 - (id) initWithWindowRef: (void *)windowRef
 {
   NSRect contentRect;
-  unsigned aStyle;
+  unsigned int aStyle;
   NSBackingStoreType bufferingType;
   NSScreen* aScreen;
   int screen;
-  int winNum;
+  NSInteger winNum;
   GSDisplayServer *srv = GSCurrentServer();
 
   // Get the properties for the underlying window
@@ -1337,7 +1337,7 @@ titleWithRepresentedFilename(NSString *representedFilename)
 // FIXME
 }
 
-- (void) setAlphaValue: (float)windowAlpha
+- (void) setAlphaValue: (CGFloat)windowAlpha
 {
   _alphaValue = windowAlpha;
   if (_windowNum)
@@ -1346,7 +1346,7 @@ titleWithRepresentedFilename(NSString *representedFilename)
     }
 }
 
-- (float) alphaValue
+- (CGFloat) alphaValue
 {
   return _alphaValue;
 }
@@ -1380,7 +1380,7 @@ titleWithRepresentedFilename(NSString *representedFilename)
   return _context;
 }
 
-- (float) userSpaceScaleFactor
+- (CGFloat) userSpaceScaleFactor
 {
   if (_styleMask & NSUnscaledWindowMask)
     {
@@ -2102,7 +2102,7 @@ titleWithRepresentedFilename(NSString *representedFilename)
 - (NSRect) constrainFrameRect: (NSRect)frameRect toScreen: (NSScreen*)screen
 {
   NSRect screenRect = [screen visibleFrame];
-  float difference;
+  CGFloat difference;
 
   /* Move top edge of the window inside the screen */
   difference = NSMaxY (frameRect) - NSMaxY (screenRect);
@@ -3968,10 +3968,10 @@ resetCursorRectsForView(NSView *theView)
           switch (sub)
             {
             case GSAppKitWindowMoved:
-              _frame.origin.x = (float)[theEvent data1];
-              _frame.origin.y = (float)[theEvent data2];
+              _frame.origin.x = (CGFloat)[theEvent data1];
+              _frame.origin.y = (CGFloat)[theEvent data2];
               NSDebugLLog(@"Moving", @"Move event: %d %@",
-                          _windowNum, NSStringFromPoint(_frame.origin));
+                          (int)_windowNum, NSStringFromPoint(_frame.origin));
               if (_autosaveName != nil)
                 {
                   [self saveFrameUsingName: _autosaveName];
@@ -4083,7 +4083,7 @@ resetCursorRectsForView(NSView *theView)
 		}
               if ([self canBecomeKeyWindow] == YES)
 		{
-		  NSDebugLLog(@"Focus", @"Making %d key", _windowNum);
+		  NSDebugLLog(@"Focus", @"Making %d key", (int)_windowNum);
 		  [self makeKeyWindow];
 		  [self makeMainWindow];
 		  [NSApp activateIgnoringOtherApps: YES];
@@ -4705,14 +4705,14 @@ current key view.<br />
   // if toolbar is showing, adjust saved frame to add the toolbar back in
   if ([_toolbar isVisible])
     {
-      float toolbarHeight = [[_toolbar _toolbarView] frame].size.height;
+      CGFloat toolbarHeight = [[_toolbar _toolbarView] frame].size.height;
       fRect.size.height += toolbarHeight;
       fRect.origin.y -= toolbarHeight;
     }
   // if window has a menu, adjust saved frame to add the menu back in
   if ([_wv hasMenu])
     {
-      float menuBarHeight = [[GSTheme theme] menuHeightForWindow: self];
+      CGFloat menuBarHeight = [[GSTheme theme] menuHeightForWindow: self];
       fRect.size.height += menuBarHeight;
       fRect.origin.y -= menuBarHeight;
     }
@@ -4860,14 +4860,14 @@ current key view.<br />
   // if toolbar is showing, adjust saved frame to not include the toolbar
   if ([_toolbar isVisible])
     {
-      float toolbarHeight = [[_toolbar _toolbarView] frame].size.height;
+      CGFloat toolbarHeight = [[_toolbar _toolbarView] frame].size.height;
       fRect.size.height -= toolbarHeight;
       fRect.origin.y += toolbarHeight;
     }
   // if window has a menu, adjust saved frame to not include the menu
   if ([_wv hasMenu])
     {
-      float menuBarHeight = [[GSTheme theme] menuHeightForWindow: self];
+      CGFloat menuBarHeight = [[GSTheme theme] menuHeightForWindow: self];
       fRect.size.height -= menuBarHeight;
       fRect.origin.y += menuBarHeight;
     }
@@ -5234,6 +5234,12 @@ current key view.<br />
 */
 - (void) setDelegate: (id)anObject
 {
+  if (anObject == _delegate)
+    {
+      // don't remove previously registered notifications if delegate is unchanged!
+      return;
+    }	  	 
+
   if (_delegate)
     {
       [nc removeObserver: _delegate name: nil object: self];
@@ -5283,8 +5289,9 @@ current key view.<br />
   [super encodeWithCoder: aCoder];
 
   [aCoder encodeRect: [[self contentView] frame]];
-  [aCoder encodeValueOfObjCType: @encode(unsigned) at: &_styleMask];
-  [aCoder encodeValueOfObjCType: @encode(int) at: &_backingType];
+  [aCoder encodeValueOfObjCType: @encode(NSUInteger) at: &_styleMask];
+  // This used to be int, we need to stay compatible
+  [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &_backingType];
 
   [aCoder encodePoint: NSMakePoint(NSMinX([self frame]), NSMaxY([self frame]))];
   [aCoder encodeObject: _contentView];
@@ -5296,7 +5303,7 @@ current key view.<br />
   [aCoder encodeSize: _minimumSize];
   [aCoder encodeSize: _maximumSize];
 
-  [aCoder encodeValueOfObjCType: @encode(int) at: &_windowLevel];
+  [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &_windowLevel];
 
   flag = _f.menu_exclude;
   [aCoder encodeValueOfObjCType: @encode(BOOL) at: &flag];
@@ -5345,13 +5352,14 @@ current key view.<br />
       NSPoint p;
       NSUInteger aStyle;
       NSBackingStoreType aBacking;
-      int anInt;
+      NSInteger level;
       id obj;
 
       aRect = [aDecoder decodeRect];
-      [aDecoder decodeValueOfObjCType: @encode(unsigned)
+      [aDecoder decodeValueOfObjCType: @encode(NSUInteger)
                                    at: &aStyle];
-      [aDecoder decodeValueOfObjCType: @encode(int)
+      // This used to be int, we need to stay compatible
+      [aDecoder decodeValueOfObjCType: @encode(NSInteger)
                                    at: &aBacking];
 
       // call the designated initializer....
@@ -5377,9 +5385,9 @@ current key view.<br />
       aSize = [aDecoder decodeSize];
       [self setMaxSize: aSize];
 
-      [aDecoder decodeValueOfObjCType: @encode(int)
-                                   at: &anInt];
-      [self setLevel: anInt];
+      [aDecoder decodeValueOfObjCType: @encode(NSInteger)
+                                   at: &level];
+      [self setLevel: level];
 
       [aDecoder decodeValueOfObjCType: @encode(BOOL) at: &flag];
       [self setExcludedFromWindowsMenu: flag];

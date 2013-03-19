@@ -1083,6 +1083,9 @@ static BOOL _isInInterfaceBuilder = NO;
       NSEnumerator *en = nil;
       id v = nil;
 
+      // Tell the decoder that the object gets replaced before decoding subviews
+      [(NSKeyedUnarchiver *)coder replaceObject: self withObject: _view];
+
       prevKeyView = [coder decodeObjectForKey: @"NSPreviousKeyView"];
       nextKeyView = [coder decodeObjectForKey: @"NSNextKeyView"];
       if (nextKeyView != nil)
@@ -1174,7 +1177,7 @@ static BOOL _isInInterfaceBuilder = NO;
                    NSStringFromClass([coder class])];
     }
 
-  return _view;
+  return (id)_view;
 }
 
 - (void) encodeWithCoder: (NSCoder *)coder
@@ -2300,7 +2303,7 @@ static BOOL _isInInterfaceBuilder = NO;
     }
 
   RELEASE(self);
-  return dn;
+  return (id)dn;
 }
 
 @end
