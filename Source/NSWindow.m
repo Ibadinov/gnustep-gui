@@ -888,8 +888,8 @@ many times.
 
 - (NSString*) description
 {
-  return [[super description] stringByAppendingFormat: @"Number: %d Title: %@",
-    [self windowNumber], [self title]];
+  return [[super description] stringByAppendingFormat: @"Number: %ld Title: %@",
+    (long)[self windowNumber], [self title]];
 }
 
 - (void) _startBackendWindow

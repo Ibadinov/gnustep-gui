@@ -5817,8 +5817,8 @@ This method is deprecated, use -columnIndexesInRect:. */
   [self _didClickTableColumn: tc];
 }
 
-- (void) _editNextCellAfterRow: (int) row
-		inColumn: (int) column
+- (void) _editNextCellAfterRow: (NSInteger) row
+                      inColumn: (NSInteger) column
 {
   if (++row >= _numberOfRows)
     row = 0;
@@ -5838,10 +5838,10 @@ This method is deprecated, use -columnIndexesInRect:. */
     }
 }
 
--(BOOL) _editNextEditableCellAfterRow: (int)row
-                               column: (int)column
+-(BOOL) _editNextEditableCellAfterRow: (NSInteger)row
+                               column: (NSInteger)column
 {
-  int i, j;
+  NSInteger i, j;
   
   if (row > -1)
     {
@@ -5906,8 +5906,8 @@ This method is deprecated, use -columnIndexesInRect:. */
   return NO;
 }
 
--(BOOL) _editPreviousEditableCellBeforeRow: (int)row
-				    column: (int)column
+-(BOOL) _editPreviousEditableCellBeforeRow: (NSInteger)row
+				    column: (NSInteger)column
 {
   NSInteger i, j;
 
@@ -6470,16 +6470,16 @@ For a more detailed explanation, -setSortDescriptors:. */
       object: self];
 }
 
-- (void) _postColumnDidMoveNotificationWithOldIndex: (int) oldIndex
-					   newIndex: (int) newIndex
+- (void) _postColumnDidMoveNotificationWithOldIndex: (NSInteger) oldIndex
+					   newIndex: (NSInteger) newIndex
 {
   [nc postNotificationName: NSTableViewColumnDidMoveNotification
       object: self
       userInfo: [NSDictionary 
 		  dictionaryWithObjectsAndKeys:
-		  [NSNumber numberWithInt: newIndex],
+		  [NSNumber numberWithInteger: newIndex],
 		  @"NSNewColumn",
-		    [NSNumber numberWithInt: oldIndex],
+		    [NSNumber numberWithInteger: oldIndex],
 		  @"NSOldColumn",
 		  nil]];
 }
@@ -6510,7 +6510,7 @@ For a more detailed explanation, -setSortDescriptors:. */
   return YES;
 }
 
-- (BOOL) _shouldSelectRow: (int)rowIndex
+- (BOOL) _shouldSelectRow: (NSInteger)rowIndex
 {
   if ([_delegate respondsToSelector: 
 		   @selector (tableView:shouldSelectRow:)] == YES) 
@@ -6559,7 +6559,7 @@ For a more detailed explanation, -setSortDescriptors:. */
 }
 
 - (BOOL) _shouldEditTableColumn: (NSTableColumn *)tableColumn
-			    row: (int) rowIndex
+			    row: (NSInteger) rowIndex
 {
   if ([_delegate respondsToSelector: 
 		     @selector(tableView:shouldEditTableColumn:row:)])
@@ -6571,8 +6571,8 @@ For a more detailed explanation, -setSortDescriptors:. */
   return YES;
 }
 
-- (BOOL) _isEditableColumn: (int) columnIndex
-                       row: (int) rowIndex
+- (BOOL) _isEditableColumn: (NSInteger) columnIndex
+                       row: (NSInteger) rowIndex
 {
   NSTableColumn *tableColumn = [_tableColumns objectAtIndex: columnIndex];
 
@@ -6580,8 +6580,8 @@ For a more detailed explanation, -setSortDescriptors:. */
                                                               row: rowIndex];
 }
 
-- (BOOL) _isCellSelectableColumn: (int) columnIndex
-                             row: (int) rowIndex
+- (BOOL) _isCellSelectableColumn: (NSInteger) columnIndex
+                             row: (NSInteger) rowIndex
 {
   if (![self _isEditableColumn: columnIndex row: rowIndex])
     {
@@ -6595,8 +6595,8 @@ For a more detailed explanation, -setSortDescriptors:. */
     }
 }
 
-- (BOOL) _isCellEditableColumn: (int) columnIndex
-			   row: (int) rowIndex
+- (BOOL) _isCellEditableColumn: (NSInteger) columnIndex
+			   row: (NSInteger) rowIndex
 {
   if (![self _isEditableColumn: columnIndex row: rowIndex])
     {
@@ -6612,7 +6612,7 @@ For a more detailed explanation, -setSortDescriptors:. */
 
 - (void) _willDisplayCell: (NSCell*)cell
 	   forTableColumn: (NSTableColumn *)tb
-		      row: (int)index
+		      row: (NSInteger)index
 {
   if (_del_responds)
     {
@@ -6624,7 +6624,7 @@ For a more detailed explanation, -setSortDescriptors:. */
 }
 
 - (id) _objectValueForTableColumn: (NSTableColumn *)tb
-			      row: (int) index
+			      row: (NSInteger) index
 {
   id result = nil;
   GSKeyValueBinding *theBinding;
@@ -6649,7 +6649,7 @@ For a more detailed explanation, -setSortDescriptors:. */
 
 - (void) _setObjectValue: (id)value
 	  forTableColumn: (NSTableColumn *)tb
-		     row: (int) index
+		     row: (NSInteger) index
 {
   if ([_dataSource respondsToSelector:
 		    @selector(tableView:setObjectValue:forTableColumn:row:)])

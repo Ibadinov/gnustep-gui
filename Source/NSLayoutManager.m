@@ -2260,7 +2260,7 @@ static void GSDrawPatternLine(NSPoint start, NSPoint end, NSInteger pattern, CGF
 }
 
 -(void) insertTextContainer: (NSTextContainer *)aTextContainer
-		    atIndex: (unsigned int)index
+		    atIndex: (NSUInteger)index
 {
   int i;
 
@@ -2271,7 +2271,7 @@ static void GSDrawPatternLine(NSPoint start, NSPoint end, NSInteger pattern, CGF
     [[textcontainers[i].textContainer textView] _updateMultipleTextViews];
 }
 
--(void) removeTextContainerAtIndex: (unsigned int)index
+-(void) removeTextContainerAtIndex: (NSUInteger)index
 {
   int i;
   NSTextView *tv = [textcontainers[index].textContainer textView];

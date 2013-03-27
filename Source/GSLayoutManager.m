@@ -773,7 +773,7 @@ Fills in all glyph holes up to last. only looking at levels below level
   if (!r)
     {
       [NSException raise: NSRangeException
-                   format: @"%s character index %d out of range", __PRETTY_FUNCTION__, target];
+                   format: @"%s character index %lu out of range", __PRETTY_FUNCTION__, (unsigned long)target];
       return NULL;
     }
 

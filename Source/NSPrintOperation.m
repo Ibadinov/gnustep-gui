@@ -1139,7 +1139,7 @@ scaleRect(NSRect rect, double scale)
 
       label = nil;
       if (info.nup == 1)
-        label = [NSString stringWithFormat: @"%d", currentPage];
+        label = [NSString stringWithFormat: @"%ld", (long)currentPage];
 
       DPSgsave(ctxt);
       [self beginPage: floor((currentPage - info.first)/info.nup)+1

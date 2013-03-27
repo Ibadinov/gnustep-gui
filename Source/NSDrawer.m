@@ -890,8 +890,8 @@ static NSNotificationCenter *nc = nil;
 	  else      
 	    {
 	      [NSException raise: NSInternalInconsistencyException
-		format: @"Invalid version of NSDrawer (version = %d).",
-		version];
+		format: @"Invalid version of NSDrawer (version = %ld).",
+		(long)version];
 	      return nil; // not reached, but keeps gcc happy...
 	    }
 	}

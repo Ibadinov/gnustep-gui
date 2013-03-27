@@ -75,7 +75,7 @@
 /* Read the ppm image. Assume it is a ppm file and imageData is not nil */
 -(id) _initBitmapFromPNM: (NSData *)imageData  errorMessage: (NSString **)error
 {
-  NSInteger num, xsize, ysize, levels;
+  int num, xsize, ysize, levels;
   char ptype;
   char buffer[256];
   unsigned char *pchar;

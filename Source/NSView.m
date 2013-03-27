@@ -4326,8 +4326,8 @@ static NSView* findByTag(NSView *view, NSInteger aTag, NSUInteger *level)
 - (NSAttributedString *) pageFooter
 {
   return [[[NSAttributedString alloc] initWithString:
-		  [NSString stringWithFormat:@"Page %d", 
-			    [[NSPrintOperation currentOperation] currentPage]]] 
+		  [NSString stringWithFormat:@"Page %ld", 
+			    (long)[[NSPrintOperation currentOperation] currentPage]]] 
 	     autorelease];
 }
 

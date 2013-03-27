@@ -706,7 +706,7 @@
   NSMutableDictionary *properties;
   NSUInteger idLength;
 
-  idString = [NSString stringWithFormat: @"%d.", objectID];
+  idString = [NSString stringWithFormat: @"%ld.", (long)objectID];
   idLength = [idString length];
   properties = [[NSMutableDictionary alloc] init];
   en = [flattenedProperties keyEnumerator];

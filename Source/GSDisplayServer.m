@@ -819,7 +819,7 @@ GSCurrentServer(void)
 }
 
 /** Sets the transparancy value for the whole window */
-- (void) setalpha: (CGFloat)alpha: (NSInteger) win
+- (void) setalpha: (CGFloat)alpha : (NSInteger) win
 {
   //[self subclassResponsibility: _cmd];
 }
