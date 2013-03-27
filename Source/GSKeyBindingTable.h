@@ -51,7 +51,7 @@ struct _GSKeyBinding
    * NSShiftKeyMask, NSControlKeyMask, NSAlternateKeyMask,
    * NSNumericPadKeyMask.
    */
-  int modifiers;  
+  NSUInteger modifiers;  
 
   /* The action, or NULL if there's no action associated.  NB - the action
    * is retained here.  */
@@ -103,7 +103,7 @@ struct _GSKeyBinding
  * action (or nil if none), and the further keybinding table (or nil
  * if none) to use for interpreting the next keystrokes.  */
 - (BOOL) lookupKeyStroke: (unichar)character
-	       modifiers: (int)flags
+	       modifiers: (NSUInteger)flags
        returningActionIn: (GSKeyBindingAction **)action
 		 tableIn: (GSKeyBindingTable **)table;
 

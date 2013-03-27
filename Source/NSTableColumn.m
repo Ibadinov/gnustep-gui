@@ -487,7 +487,7 @@ to YES. */
       [aCoder encodeFloat: _width forKey: @"NSWidth"];
       [aCoder encodeObject: _sortDescriptorPrototype 
               forKey: @"NSSortDescriptorPrototype"];
-      [aCoder encodeInt: _resizing_mask forKey: @"NSResizingMask"];
+      [aCoder encodeInteger: _resizing_mask forKey: @"NSResizingMask"];
       [aCoder encodeObject: _headerToolTip forKey: @"NSHeaderToolTip"];
       [aCoder encodeBool: _is_hidden forKey: @"NSHidden"];
       [aCoder encodeObject: _tableView forKey: @"NSTableView"];
@@ -575,7 +575,7 @@ to YES. */
     }
   else
     {
-      int version = [aDecoder versionForClassName: 
+      NSInteger version = [aDecoder versionForClassName: 
 				  @"NSTableColumn"];
       
       self = [super init];

@@ -300,7 +300,7 @@ static Class         fontPanelClass = Nil;
 - (void) addFontTrait: (id)sender
 {
   _storedTag = NSAddTraitFontAction;
-  _trait = [sender tag];
+  _trait = (NSFontTraitMask)[sender tag];
   [self sendAction];
 
   // We update our own selected font
@@ -318,7 +318,7 @@ static Class         fontPanelClass = Nil;
 - (void) removeFontTrait: (id)sender
 {
   _storedTag = NSRemoveTraitFontAction;
-  _trait = [sender tag];
+  _trait = (NSFontTraitMask)[sender tag];
   [self sendAction];
 
   // We update our own selected font
@@ -335,7 +335,7 @@ static Class         fontPanelClass = Nil;
 
 - (void) modifyFont: (id)sender
 {
-  _storedTag = [sender tag];
+  _storedTag = (NSFontTag)[sender tag];
   [self sendAction];
 
   // We update our own selected font

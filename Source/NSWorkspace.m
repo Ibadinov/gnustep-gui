@@ -1711,8 +1711,8 @@ launchIdentifiers: (NSArray **)identifiers
 
   if (apps == nil)
     {
-      NSMutableArray    *m;
-      unsigned          count;
+      NSMutableArray *m;
+      NSUInteger count;
 
       apps = GSLaunched(nil, NO);
       apps = m = AUTORELEASE([apps mutableCopy]);
@@ -1809,8 +1809,8 @@ launchIdentifiers: (NSArray **)identifiers
 {
   NSArray		*volumes;
   NSMutableArray	*names;
-  unsigned		count;
-  unsigned		i;
+  NSUInteger		count;
+  NSUInteger		i;
 
   volumes = [self mountedLocalVolumePaths];
   count = [volumes count];
@@ -3217,7 +3217,7 @@ launchIdentifiers: (NSArray **)identifiers
 	    }
 	  else if ([when timeIntervalSinceNow] < -5.0)
 	    {
-	      int		result;
+	      NSInteger result;
 
 	      DESTROY(when);
               result = NSRunAlertPanel(appName,

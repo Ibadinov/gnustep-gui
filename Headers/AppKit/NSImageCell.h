@@ -43,7 +43,7 @@
  *  NSImageAlignLeft, NSImageAlignBottom, NSImageAlignBottomLeft,
  *  NSImageAlignBottomRight, NSImageAlignRight</code>.</p>
  */
-typedef enum {
+enum {
     NSImageAlignCenter = 0,
     NSImageAlignTop,
     NSImageAlignTopLeft,
@@ -53,7 +53,8 @@ typedef enum {
     NSImageAlignBottomLeft,
     NSImageAlignBottomRight,
     NSImageAlignRight
-} NSImageAlignment;
+};
+typedef NSUInteger NSImageAlignment;
 
 /**
  *  <p>Enumeration of the types of frame that can be used in an
@@ -61,13 +62,14 @@ typedef enum {
  *  NSImageFramePhoto, NSImageFrameGrayBezel, NSImageFrameGroove,
  *  NSImageFrameButton</code>.</p>
  */
-typedef enum {
+enum {
     NSImageFrameNone = 0,
     NSImageFramePhoto,
     NSImageFrameGrayBezel,
     NSImageFrameGroove,
     NSImageFrameButton
-} NSImageFrameStyle;
+};
+typedef NSUInteger NSImageFrameStyle;
 
 /**
  *  <p>An NSImageCell is a cell that can display a single image.  It

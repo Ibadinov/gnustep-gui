@@ -266,7 +266,7 @@ static Class cellClass;
 - (void) keyDown: (NSEvent *)ev
 {
   NSString *characters = [ev characters];
-  int i, length = [characters length];
+  NSInteger i, length = [characters length];
   double value = [self doubleValue];
   double min = [_cell minValue];
   double max = [_cell maxValue];

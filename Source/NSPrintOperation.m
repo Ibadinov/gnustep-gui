@@ -62,7 +62,7 @@
 #import "GNUstepGUI/GSPrintOperation.h"
 #import "GSGuiPrivate.h"
 
-#define NSNUMBER(a) [NSNumber numberWithInt: (a)]
+#define NSNUMBER(a) [NSNumber numberWithInteger: (a)]
 #define NSFNUMBER(a) [NSNumber numberWithDouble: (a)]
 
 /*
@@ -87,12 +87,12 @@ typedef struct _page_info_t {
                                 rotated if printing Landscape */
   NSRect sheetBounds;        /* Print area of a sheet in default user space */
   NSSize paperSize;          /* Size of the paper */
-  int xpages, ypages;        /* number of page segments for the view in both dimensions */
-  int first, last;           /* first and last page to print */
+  NSInteger xpages, ypages;        /* number of page segments for the view in both dimensions */
+  NSInteger first, last;           /* first and last page to print */
   double pageScale;          /* Scaling determined from page fitting */
   double printScale;         /* User specified scaling */
   double nupScale;           /* Scale required to fit nup pages on the sheet */
-  int    nup;                /* Number of pages to print on a sheet */
+  NSInteger nup;                /* Number of pages to print on a sheet */
   double lastWidth, lastHeight; /* max. values of last printed page (scaled) */
   NSPrintingOrientation orient;
   int    pageDirection;      /* NSPrintPageDirection */
@@ -103,15 +103,15 @@ typedef struct _page_info_t {
 - (BOOL) _runOperation;
 - (void) _setupPrintInfo;
 - (void)_printOperationDidRun:(NSPrintOperation *)printOperation 
-                   returnCode:(int)returnCode
+                   returnCode:(NSInteger)returnCode
                   contextInfo:(void *)contextInfo;
 - (void) _printPaginateWithInfo: (page_info_t *)info 
                      knowsRange: (BOOL)knowsRange;
-- (NSRect) _rectForPage: (int)page info: (page_info_t *)info 
-                  xpage: (int *)xptr
-                  ypage: (int *)yptr;
-- (NSRect) _adjustPagesFirst: (int)first 
-                        last: (int)last
+- (NSRect) _rectForPage: (NSInteger)page info: (page_info_t *)info 
+                  xpage: (NSInteger *)xptr
+                  ypage: (NSInteger *)yptr;
+- (NSRect) _adjustPagesFirst: (NSInteger)first 
+                        last: (NSInteger)last
                         info: (page_info_t *)info;
 - (void) _print;
 @end
@@ -444,7 +444,7 @@ static NSString *NSPrintOperationThreadKey = @"NSPrintOperationThreadKey";
 /** Returns the page currently being printing. Returns 0 if no page
     is currently being printed
 */
-- (int)currentPage
+- (NSInteger)currentPage
 {
   return _currentPage;
 }
@@ -498,7 +498,7 @@ static NSString *NSPrintOperationThreadKey = @"NSPrintOperationThreadKey";
   if ([self showsPrintPanel])
     {
       NSPrintPanel *panel = [self printPanel];
-      int button;
+      NSInteger button;
       
       [panel setAccessoryView: _accessory_view];
       [self _setupPrintInfo];
@@ -692,15 +692,15 @@ static NSString *NSPrintOperationThreadKey = @"NSPrintOperationThreadKey";
   knowsPageRange = [_view knowsPageRange: &viewPageRange]; 
   if (knowsPageRange == YES)
     {
-      int first = viewPageRange.location;
-      int last = NSMaxRange(viewPageRange) - 1;
+      NSInteger first = viewPageRange.location;
+      NSInteger last = NSMaxRange(viewPageRange) - 1;
       [dict setObject: NSNUMBER(first) forKey: NSPrintFirstPage];
       [dict setObject: NSNUMBER(last) forKey: NSPrintLastPage];
     }
 }
 
 - (void)_printOperationDidRun:(NSPrintOperation *)printOperation 
-                   returnCode:(int)returnCode  
+                   returnCode:(NSInteger)returnCode  
                   contextInfo:(void *)contextInfo
 {
   id delegate;
@@ -867,11 +867,11 @@ scaleRect(NSRect rect, double scale)
    Note, we assume this function is called in order from our first to last
    page. The returned pageRect is in the view's coordinate system
 */
-- (NSRect) _rectForPage: (int)page info: (page_info_t *)info 
-                  xpage: (int *)xptr
-                  ypage: (int *)yptr
+- (NSRect) _rectForPage: (NSInteger)page info: (page_info_t *)info 
+                  xpage: (NSInteger *)xptr
+                  ypage: (NSInteger *)yptr
 {
-  int xpage, ypage;
+  NSInteger xpage, ypage;
   NSRect pageRect;
 
   if (info->pageDirection == 1)
@@ -901,11 +901,11 @@ scaleRect(NSRect rect, double scale)
 /* Let the view adjust the page rect we calculated. See assumptions for
    _rectForPage:
 */
-- (NSRect) _adjustPagesFirst: (int)first 
-                        last: (int)last 
+- (NSRect) _adjustPagesFirst: (NSInteger)first 
+                        last: (NSInteger)last 
                         info: (page_info_t *)info
 {
-  int i, xpage, ypage;
+  NSInteger i, xpage, ypage;
   double hlimit, wlimit;
   NSRect pageRect = NSZeroRect; /* Silence compiler warning.  */
   hlimit = [_view heightAdjustLimit];
@@ -999,8 +999,8 @@ scaleRect(NSRect rect, double scale)
     [dict setObject: NSNUMBER(info.first-1) forKey: NSPrintLastPage];
   else
     [dict setObject: NSNUMBER(info.last) forKey: NSPrintLastPage];
-  NSDebugLLog(@"NSPrinting", @"Printing pages %d to %d", 
-              info.first, info.last);
+  NSDebugLLog(@"NSPrinting", @"Printing pages %ld to %ld", 
+              (long)info.first, (long)info.last);
   NSDebugLLog(@"NSPrinting", @"Printing rect %@, scaled %@",
               NSStringFromRect(_rect),
               NSStringFromRect(info.scaledBounds));
@@ -1056,8 +1056,8 @@ scaleRect(NSRect rect, double scale)
                                           info: &info];
         }
 
-      NSDebugLLog(@"NSPrinting", @" current page %d, rect %@", 
-                  _currentPage, NSStringFromRect(pageRect));
+      NSDebugLLog(@"NSPrinting", @" current page %ld, rect %@", 
+                  (long)_currentPage, NSStringFromRect(pageRect));
       if (NSIsEmptyRect(pageRect))
         break;
 
@@ -1115,8 +1115,8 @@ scaleRect(NSRect rect, double scale)
                    withInfo: (page_info_t)info
 	     knowsPageRange: (BOOL)knowsPageRange
 {
-  int currentPage;
-  int numberOnSheet;
+  NSInteger currentPage;
+  NSInteger numberOnSheet;
   CGFloat xoffset, yoffset, scale;
   NSPoint location;
   NSPrintOperation *printOp = [NSPrintOperation currentOperation];

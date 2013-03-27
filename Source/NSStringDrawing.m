@@ -61,9 +61,9 @@ from #GNUstep).
 
 typedef struct
 {
-  int used;
-  unsigned int string_hash;
-  int hasSize, useScreenFonts;
+  NSInteger used;
+  NSUInteger string_hash;
+  NSInteger hasSize, useScreenFonts;
 
   NSTextStorage *textStorage;
   NSLayoutManager *layoutManager;
@@ -103,7 +103,7 @@ static void NSStringDrawing_dump_stats(void)
 
 static void init_string_drawing(void)
 {
-  int i;
+  NSInteger i;
   NSTextStorage *textStorage;
   NSLayoutManager *layoutManager;
   NSTextContainer *textContainer;
@@ -163,7 +163,7 @@ static inline void cache_unlock()
   [cacheLock unlock];
 }
 
-static inline BOOL is_size_match(cache_t *c, int hasSize, NSSize size)
+static inline BOOL is_size_match(cache_t *c, NSInteger hasSize, NSSize size)
 {
   if ((!c->hasSize && !hasSize) ||
       (c->hasSize && hasSize && c->givenSize.width == size.width
@@ -179,14 +179,14 @@ static inline BOOL is_size_match(cache_t *c, int hasSize, NSSize size)
     }
 }
 
-static int cache_match(int hasSize, NSSize size, int useScreenFonts, int *matched)
+static NSInteger cache_match(NSInteger hasSize, NSSize size, NSInteger useScreenFonts, NSInteger *matched)
 {
-  int i, j;
+  NSInteger i, j;
   cache_t *c;
-  int least_used;
-  int replace;
-  int orig_used;
-  unsigned int string_hash = [[scratchTextStorage string] hash];
+  NSInteger least_used;
+  NSInteger replace;
+  NSInteger orig_used;
+  NSUInteger string_hash = [[scratchTextStorage string] hash];
 
 #ifdef STATS
   total++;
@@ -291,10 +291,10 @@ static inline void prepare_attributed_string(NSAttributedString *string)
                           withAttributedString: string];
 }
 
-static int cache_lookup(int hasSize, NSSize size, int useScreenFonts)
+static NSInteger cache_lookup(int hasSize, NSSize size, int useScreenFonts)
 {
   cache_t *c;
-  int ci, hit;
+  NSInteger ci, hit;
   NSLayoutManager *layoutManager;
   NSTextContainer *textContainer;
 
@@ -351,7 +351,7 @@ glyphs to be drawn upside-down, so we need to tell NSFont to flip the fonts.
 
 - (void) drawAtPoint: (NSPoint)point
 {
-  int ci;
+  NSInteger ci;
   cache_t *c;
 
   NSRange r;
@@ -412,7 +412,7 @@ glyphs to be drawn upside-down, so we need to tell NSFont to flip the fonts.
               options: (NSStringDrawingOptions)options
 {
   // FIXME: This ignores options
-  int ci;
+  NSInteger ci;
   cache_t *c;
 
   NSRange r;
@@ -500,7 +500,7 @@ glyphs to be drawn upside-down, so we need to tell NSFont to flip the fonts.
                         options: (NSStringDrawingOptions)options
 {
   // FIXME: This ignores options
-  int ci;
+  NSInteger ci;
   NSRect result = NSZeroRect;
   int hasSize = NSEqualSizes(NSZeroSize, size) ? 0 : 1;
 
@@ -529,7 +529,7 @@ glyphs to be drawn upside-down, so we need to tell NSFont to flip the fonts.
 
 - (void) drawAtPoint: (NSPoint)point withAttributes: (NSDictionary *)attrs
 {
-  int ci;
+  NSInteger ci;
   cache_t *c;
 
   NSRange r;
@@ -590,7 +590,7 @@ glyphs to be drawn upside-down, so we need to tell NSFont to flip the fonts.
            attributes: (NSDictionary *)attrs
 {
   // FIXME: This ignores options
-  int ci;
+  NSInteger ci;
   cache_t *c;
 
   NSRange r;
@@ -679,7 +679,7 @@ glyphs to be drawn upside-down, so we need to tell NSFont to flip the fonts.
                      attributes: (NSDictionary *)attrs
 {
   // FIXME: This ignores options
-  int ci;
+  NSInteger ci;
   NSRect result = NSZeroRect;
   int hasSize = NSEqualSizes(NSZeroSize, size) ? 0 : 1;
 
@@ -707,6 +707,7 @@ glyphs to be drawn upside-down, so we need to tell NSFont to flip the fonts.
 /*
 Dummy function; see comment in NSApplication.m, +initialize.
 */
+extern void GSStringDrawingDummyFunction(void);
 void GSStringDrawingDummyFunction(void)
 {
 }

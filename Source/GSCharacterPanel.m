@@ -273,7 +273,7 @@ static NSIndexSet *CodepointsWithNameContainingSubstring(NSString *str)
 {
   if (row >= 0 && row < [visibleCodepoints count])
     {
-      UChar32 utf32 = [self codepointAtVisibleRow: row];
+      UChar32 utf32 = (UChar32)[self codepointAtVisibleRow: row];
       UChar utf16buf[2];
       int32_t utf16bufLength = 0;
       UErrorCode error = U_ZERO_ERROR;
@@ -308,7 +308,7 @@ static NSIndexSet *CodepointsWithNameContainingSubstring(NSString *str)
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-  UChar32 utf32 = [self codepointAtVisibleRow: row];
+  UChar32 utf32 = (UChar32)[self codepointAtVisibleRow: row];
   
   if ([[tableColumn identifier] isEqualToString: @"char"])
     {

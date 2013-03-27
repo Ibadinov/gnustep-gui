@@ -582,7 +582,7 @@ this to return nil to indicate that we have no context menu.
 {
   if ([aKey isEqual: NSSelectedIndexBinding])
     {
-      return [NSNumber numberWithInt: [self indexOfSelectedItem]];
+      return [NSNumber numberWithInteger: [self indexOfSelectedItem]];
     }
   else if ([aKey isEqual: NSSelectedTagBinding])
     {
@@ -590,7 +590,7 @@ this to return nil to indicate that we have no context menu.
     }
   else if ([aKey isEqual: NSSelectedObjectBinding])
     {
-      return [NSNumber numberWithInt: [self selectedTag]];
+      return [NSNumber numberWithInteger: [self selectedTag]];
     }
   else
     {

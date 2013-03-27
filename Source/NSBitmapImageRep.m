@@ -351,14 +351,14 @@
       RELEASE(self);
       return nil;
     }
-  bps = [[dict objectForKey: @"BitsPerSample"] intValue];
+  bps = [[dict objectForKey: @"BitsPerSample"] integerValue];
   if (bps == 0)
     bps = 8;
-  spp = [[dict objectForKey: @"SamplesPerPixel"] intValue];
-  alpha = [[dict objectForKey: @"HasAlpha"] intValue];
+  spp = [[dict objectForKey: @"SamplesPerPixel"] integerValue];
+  alpha = [[dict objectForKey: @"HasAlpha"] integerValue];
   size = [[dict objectForKey: @"Size"] sizeValue];
   space = [dict objectForKey: @"ColorSpace"];
-  format = [[dict objectForKey: @"BitmapFormat"] intValue];
+  format = [[dict objectForKey: @"BitmapFormat"] integerValue];
   planes[0] = (unsigned char *)[_imageData bytes];
   self = [self initWithBitmapDataPlanes: planes
                pixelsWide: size.width
@@ -523,7 +523,7 @@
     {
       unsigned char *bits;
       NSUInteger length;
-      unsigned int i;
+      NSUInteger i;
 
       // No image data was given, allocate it.
       length = (NSUInteger)((_isPlanar) ? _numColors : 1) * _bytesPerRow * 
@@ -548,11 +548,11 @@
 
   if (alpha)
     {
-      unsigned char	*bData = (unsigned char*)[self bitmapData];
-      BOOL		allOpaque = YES;
-      unsigned		offset = _numColors - 1;
-      unsigned		limit = _size.height * _size.width;
-      unsigned		i;
+      unsigned char     *bData = (unsigned char*)[self bitmapData];
+      BOOL              allOpaque = YES;
+      NSUInteger        offset = _numColors - 1;
+      NSUInteger        limit = _size.height * _size.width;
+      NSUInteger        i;
 
       for (i = 0; i < limit; i++)
 	{
@@ -578,9 +578,9 @@
 }
 
 - (void)colorizeByMappingGray:(CGFloat)midPoint 
-		      toColor:(NSColor *)midPointColor 
-		 blackMapping:(NSColor *)shadowColor
-		 whiteMapping:(NSColor *)lightColor
+                      toColor:(NSColor *)midPointColor 
+                 blackMapping:(NSColor *)shadowColor
+                 whiteMapping:(NSColor *)lightColor
 {
   // TODO
 }
@@ -715,11 +715,11 @@
  * the value to cross a byte boundary, though it is unclear as to whether
  * this is strictly necessary for OpenStep tiffs.
  */
-static unsigned int
-_get_bit_value(unsigned char *base, long msb_off, int bit_width)
+static NSUInteger
+_get_bit_value(unsigned char *base, long msb_off, NSInteger bit_width)
 {
-  long lsb_off, byte1, byte2;
-  int shift, value;
+  long lsb_off, byte1, byte2, shift;
+  NSUInteger value;
 
   /*
    * Firstly we calculate the position of the msb and lsb in terms
@@ -806,12 +806,12 @@ _get_bit_value(unsigned char *base, long msb_off, int bit_width)
 }
 
 static void
-_set_bit_value(unsigned char *base, long msb_off, int bit_width, 
-               unsigned int value)
+_set_bit_value(unsigned char *base, long msb_off, NSInteger bit_width, 
+               NSUInteger value)
 {
   long lsb_off, byte1, byte2;
-  int shift;
-  int all;
+  long shift;
+  NSInteger all;
 
   /*
    * Firstly we calculate the position of the msb and lsb in terms
@@ -1455,15 +1455,16 @@ _set_bit_value(unsigned char *base, long msb_off, int bit_width,
 - (NSData*) TIFFRepresentationUsingCompression: (NSTIFFCompression)type
 					factor: (float)factor
 {
+  NSAssert(_pixelsWide < UINT32_MAX && _pixelsHigh < UINT32_MAX, @"Image to large");
   NSTiffInfo	info;
   TIFF		*image;
   char		*bytes = 0;
-  long		length = 0;
+  NSUInteger    length = 0;
 
   info.imageNumber = 0;
   info.subfileType = 255;
-  info.width = _pixelsWide;
-  info.height = _pixelsHigh;
+  info.width = (uint32_t)_pixelsWide;
+  info.height = (uint32_t)_pixelsHigh;
   info.bitsPerSample = _bitsPerSample;
   info.samplesPerPixel = _numColors;
 
@@ -1770,7 +1771,7 @@ _set_bit_value(unsigned char *base, long msb_off, int bit_width,
   else
     {
       unsigned char *bits;
-      unsigned int i;
+      NSUInteger i;
 
       bits = (unsigned char *)[copy->_imageData bytes];
       copy->_imagePlanes[0] = bits;

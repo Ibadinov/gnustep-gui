@@ -44,11 +44,11 @@
 @interface NSScreen : NSObject
 {
 @private
-  NSWindowDepth        _depth;
-  NSRect               _frame;
-  int                  _screenNumber;
-  NSWindowDepth		*_supportedWindowDepths;
-  void			*_reserved;
+  NSWindowDepth _depth;
+  NSRect        _frame;
+  NSInteger     _screenNumber;
+  NSWindowDepth *_supportedWindowDepths;
+  void          *_reserved;
 }
 
 /*
@@ -71,10 +71,10 @@
 - (NSRect) visibleFrame;
 #endif
 #if OS_API_VERSION(GS_API_NONE, GS_API_NONE)
-- (int) screenNumber;
+- (NSInteger) screenNumber;
 #endif
 #if OS_API_VERSION(MAC_OS_X_VERSION_10_4, GS_API_LATEST)
-- (float) userSpaceScaleFactor;
+- (CGFloat) userSpaceScaleFactor;
 #endif
 
 @end

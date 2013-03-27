@@ -86,8 +86,8 @@
 
 - (BOOL) commitEditing
 {
-  unsigned c = [_editors count];
-  unsigned i;
+  NSUInteger c = [_editors count];
+  NSUInteger i;
 
   for (i = 0; i < c; i++)
     {
@@ -104,8 +104,8 @@
                  didCommitSelector: (SEL)didCommitSelector
                        contextInfo: (void*)contextInfo
 {
-  unsigned c = [_editors count];
-  unsigned i;
+  NSUInteger c = [_editors count];
+  NSUInteger i;
 
   for (i = 0; i < c; i++)
     {

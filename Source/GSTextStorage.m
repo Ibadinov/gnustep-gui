@@ -234,8 +234,8 @@ unCacheAttributes(NSDictionary *attrs)
 @interface	GSTextInfo : NSObject
 {
 @public
-  unsigned	loc;
-  NSDictionary	*attrs;
+    NSUInteger	loc;
+    NSDictionary	*attrs;
 }
 
 + (GSTextInfo*) newWithZone: (NSZone*)z value: (NSDictionary*)a at: (unsigned)l;
@@ -383,7 +383,7 @@ _setAttributesFrom(
   NSRange	range;
   NSDictionary	*attr;
   GSTextInfo	*info;
-  unsigned	loc;
+  NSUInteger	loc;
 
   /*
    * remove any old attributes of the string.
@@ -417,14 +417,13 @@ _setAttributesFrom(
 }
 
 inline static NSDictionary*
-_attributesAtIndexEffectiveRange(
-  unsigned int index,
-  NSRange *aRange,
-  unsigned int tmpLength,
-  NSMutableArray *_infoArray,
-  unsigned int *foundIndex)
+_attributesAtIndexEffectiveRange(NSUInteger index,
+                                 NSRange *aRange,
+                                 NSUInteger tmpLength,
+                                 NSMutableArray *_infoArray,
+                                 NSUInteger *foundIndex)
 {
-  unsigned	low, high, used, cnt, nextLoc;
+  NSUInteger	low, high, used, cnt, nextLoc;
   GSTextInfo	*found = nil;
 
   used = (*cntImp)(_infoArray, cntSel);
@@ -514,10 +513,10 @@ _attributesAtIndexEffectiveRange(
 - (void) _sanity
 {
   GSTextInfo	*info;
-  unsigned	i;
-  unsigned	l = 0;
-  unsigned	len = [_textChars length];
-  unsigned	c = (*cntImp)(_infoArray, cntSel);
+  NSUInteger	i;
+  NSUInteger	l = 0;
+  NSUInteger	len = [_textChars length];
+  NSUInteger	c = (*cntImp)(_infoArray, cntSel);
 
   NSAssert(c > 0, NSInternalInconsistencyException);
   info = OBJECTAT(0);
@@ -625,7 +624,7 @@ _attributesAtIndexEffectiveRange(
 - (NSDictionary*) attributesAtIndex: (NSUInteger)index
 		     effectiveRange: (NSRange*)aRange
 {
-  unsigned dummy;
+  NSUInteger dummy;
 
   return _attributesAtIndexEffectiveRange(
     index, aRange, [_textChars length], _infoArray, &dummy);
@@ -643,14 +642,14 @@ _attributesAtIndexEffectiveRange(
  *	See also: - addAtributes: range: , - removeAttributes: range:
  */
 - (void) setAttributes: (NSDictionary*)attributes
-		 range: (NSRange)range
+                 range: (NSRange)range
 {
-  unsigned	tmpLength;
-  unsigned      arrayIndex = 0;
-  unsigned      arraySize;
+  NSUInteger	tmpLength;
+  NSUInteger      arrayIndex = 0;
+  NSUInteger      arraySize;
   NSRange	effectiveRange = NSMakeRange(0, NSNotFound);
   NSRange	originalRange = range;
-  unsigned	afterRangeLoc, beginRangeLoc;
+  NSUInteger	afterRangeLoc, beginRangeLoc;
   NSDictionary	*attrs;
   NSZone	*z = [self zone];
   GSTextInfo	*info;
@@ -776,13 +775,13 @@ changeInLength: 0];
 - (void) replaceCharactersInRange: (NSRange)range
 		       withString: (NSString*)aString
 {
-  unsigned	tmpLength;
-  unsigned      arrayIndex = 0;
-  unsigned      arraySize;
+  NSUInteger	tmpLength;
+  NSUInteger      arrayIndex = 0;
+  NSUInteger      arraySize;
   NSRange	effectiveRange = NSMakeRange(0, NSNotFound);
   GSTextInfo	*info;
-  int		moveLocations;
-  unsigned	start;
+  NSInteger		moveLocations;
+  NSUInteger	start;
 
 SANITY();
   if (aString == nil)
@@ -838,7 +837,7 @@ SANITY();
       info = OBJECTAT(arrayIndex);
       if (info->loc < NSMaxRange(range))
 	{
-	  unsigned int	next = arrayIndex + 1;
+	  NSUInteger	next = arrayIndex + 1;
 
 	  while (next < arraySize)
 	    {

@@ -2391,7 +2391,7 @@ static NSColor *dtxtCol;
       cFlags |= ([self isEnabled] == NO) ? 0x20000000 : 0;
       cFlags |= [self isHighlighted] ? 0x40000000 : 0;
       cFlags |= ([self state] == NSOnState) ? 0x80000000 : 0;
-      [aCoder encodeInt: cFlags forKey: @"NSCellFlags"];
+      [aCoder encodeInteger: cFlags forKey: @"NSCellFlags"];
       
       // flags part 2
       cFlags2 |= ([self controlTint] << 5);
@@ -2594,7 +2594,7 @@ static NSColor *dtxtCol;
       BOOL flag, wraps;
       unsigned int tmp_int;
       id formatter, menu;
-      int version = [aDecoder versionForClassName: @"NSCell"];
+      NSInteger version = [aDecoder versionForClassName: @"NSCell"];
 
       [aDecoder decodeValueOfObjCType: @encode(id) at: &_contents];
       [aDecoder decodeValueOfObjCType: @encode(id) at: &_cell_image];

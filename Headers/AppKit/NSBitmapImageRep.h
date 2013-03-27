@@ -75,33 +75,34 @@ typedef enum _NSTIFFCompression {
    <item> NSJPEG2000FileType. Not implemented </item>
   </list>
  */
-typedef enum _NSBitmapImageFileType {
+enum {
     NSTIFFFileType,
     NSBMPFileType,
     NSGIFFileType,
     NSJPEGFileType,
     NSPNGFileType,
-    NSJPEG2000FileType  // available in Mac OS X v10.4
-} NSBitmapImageFileType;
+    NSJPEG2000FileType /* available in Mac OS X v10.4 */
+};
+typedef NSUInteger NSBitmapImageFileType;
 
 #if OS_API_VERSION(MAC_OS_X_VERSION_10_4, GS_API_LATEST)
 
-typedef enum _NSBitmapFormat
-{
-  NSAlphaFirstBitmapFormat = 1,
-  NSAlphaNonpremultipliedBitmapFormat = 2,
-  NSFloatingPointSamplesBitmapFormat = 4
-} NSBitmapFormat;
+enum {
+    NSAlphaFirstBitmapFormat            = 1 << 0,
+    NSAlphaNonpremultipliedBitmapFormat = 1 << 1,
+    NSFloatingPointSamplesBitmapFormat  = 1 << 2
+};
+typedef NSUInteger NSBitmapFormat;
 
-typedef enum _NSImageRepLoadStatus
-{
-  NSImageRepLoadStatusUnknownType = -1,
-  NSImageRepLoadStatusReadingHeader = -2,
-  NSImageRepLoadStatusWillNeedAllData = -3,
-  NSImageRepLoadStatusInvalidData = -4,
-  NSImageRepLoadStatusUnexpectedEOF = -5,
-  NSImageRepLoadStatusCompleted = -6
-} NSImageRepLoadStatus;
+enum {
+    NSImageRepLoadStatusUnknownType     = -1,
+    NSImageRepLoadStatusReadingHeader   = -2,
+    NSImageRepLoadStatusWillNeedAllData = -3,
+    NSImageRepLoadStatusInvalidData     = -4,
+    NSImageRepLoadStatusUnexpectedEOF   = -5,
+    NSImageRepLoadStatusCompleted       = -6
+};
+typedef NSInteger NSImageRepLoadStatus;
 
 #endif
 

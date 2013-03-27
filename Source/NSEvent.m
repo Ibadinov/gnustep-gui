@@ -792,7 +792,7 @@ static const char *eventTypes[] = {
     }
   else
     {
-      int version = [aDecoder versionForClassName: @"NSEvent"];
+      NSInteger version = [aDecoder versionForClassName: @"NSEvent"];
       
       [aDecoder decodeValueOfObjCType: @encode(NSInteger) at: &event_type];
       location_point = [aDecoder decodePoint];

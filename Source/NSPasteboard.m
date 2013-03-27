@@ -637,13 +637,13 @@ static NSString	*namePrefix = @"NSTypedFilenamesPboardType:";
 {
   NSMutableSet	*types = [NSMutableSet setWithCapacity: 8];
   NSArray	*filters = [[GSServicesManager manager] filters];
-  unsigned	c = [filters count];
-  unsigned 	i;
+  NSUInteger	c = [filters count];
+  NSUInteger 	i;
 
   for (i = 0; i < [from count]; i++)
     {
-      NSString	*type = [from objectAtIndex: i];
-      unsigned 	j;
+      NSString *type = [from objectAtIndex: i];
+      NSUInteger j;
 
       [types addObject: type];	// Always include original type
 
@@ -696,9 +696,9 @@ static NSString	*namePrefix = @"NSTypedFilenamesPboardType:";
     }
   else
     {
-      NSArray	*filters;
-      unsigned	count;
-      unsigned	filterNumber = 0;
+      NSArray *filters;
+      NSUInteger count;
+      NSUInteger filterNumber = 0;
 
       /*
        * Locate the filter information needed, including the type we are
@@ -716,8 +716,8 @@ static NSString	*namePrefix = @"NSTypedFilenamesPboardType:";
 
 	  if ([returnTypes containsObject: type] == YES)
 	    {
-	      NSArray	*sendTypes = [info objectForKey: @"NSSendTypes"];
-	      unsigned 	i;
+	      NSArray *sendTypes = [info objectForKey: @"NSSendTypes"];
+	      NSUInteger i;
 
 	      for (i = 0; i < [originalTypes count]; i++)
 		{

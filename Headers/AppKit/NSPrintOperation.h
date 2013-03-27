@@ -77,7 +77,7 @@ typedef enum _NSPrintingPageOrder {
       unsigned int can_spawn_separate_thread:1;
       unsigned int RESERVED:29;
   } _flags;
-  int  _currentPage;
+  NSInteger  _currentPage;
 }
 
 //
@@ -164,7 +164,7 @@ typedef enum _NSPrintingPageOrder {
 //
 // Page Information
 //
-- (int)currentPage;
+- (NSInteger)currentPage;
 - (NSPrintingPageOrder)pageOrder;
 - (void)setPageOrder:(NSPrintingPageOrder)order;
 

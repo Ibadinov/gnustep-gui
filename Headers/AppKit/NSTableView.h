@@ -79,7 +79,7 @@ typedef enum _NSTableViewColumnAutoresizingStyle
   BOOL               _drawsGrid;
   NSColor           *_gridColor;
   NSColor           *_backgroundColor;
-  float              _rowHeight;
+  CGFloat           _rowHeight;
   NSSize             _intercellSpacing;
   id                 _delegate;
   NSTableHeaderView *_headerView;
@@ -87,13 +87,13 @@ typedef enum _NSTableViewColumnAutoresizingStyle
   SEL                _action;
   SEL                _doubleAction;
   id                 _target;
-  int                _clickedRow;
-  int                _clickedColumn;
+  NSInteger                _clickedRow;
+  NSInteger                _clickedColumn;
   NSTableColumn     *_highlightedTableColumn;
   NSMutableIndexSet    *_selectedColumns;
   NSMutableIndexSet    *_selectedRows;
-  int                _selectedColumn;
-  int                _selectedRow;
+  NSInteger                _selectedColumn;
+  NSInteger                _selectedRow;
   BOOL               _allowsMultipleSelection;
   BOOL               _allowsEmptySelection;
   BOOL               _allowsColumnSelection;
@@ -102,8 +102,8 @@ typedef enum _NSTableViewColumnAutoresizingStyle
   BOOL               _autoresizesAllColumnsToFit;
   BOOL               _selectingColumns;
   NSText            *_textObject;
-  int                _editedRow;
-  int                _editedColumn;
+  NSInteger                _editedRow;
+  NSInteger                _editedColumn;
   NSCell            *_editedCell;
   BOOL               _autosaveTableColumns;
   NSString          *_autosaveName;
@@ -118,8 +118,8 @@ typedef enum _NSTableViewColumnAutoresizingStyle
   /*
    * Ivars Acting as Cache 
    */
-  int    _numberOfRows;
-  int    _numberOfColumns;
+  NSInteger    _numberOfRows;
+  NSInteger    _numberOfColumns;
   /* YES if _delegate responds to
      tableView:willDisplayCell:forTableColumn:row: */
   BOOL   _del_responds;
@@ -132,13 +132,13 @@ typedef enum _NSTableViewColumnAutoresizingStyle
    * origin of each column).  When a column width is changed through
    * [NSTableColumn setWidth:], then [NSTableView tile] gets called,
    * which updates the cache.  */
-  float *_columnOrigins;
+  CGFloat *_columnOrigins;
 
   /*
    *  We keep the superview's width in order to know when to
    *  size the last column to fit
    */
-  float _superview_width;
+  CGFloat _superview_width;
 
   /* if YES [which happens only during a sizeToFit], we are doing
      computations on sizes so we ignore tile (produced for example by
@@ -261,7 +261,7 @@ typedef enum _NSTableViewColumnAutoresizingStyle
 - (NSInteger) columnAtPoint: (NSPoint)aPoint;
 - (NSInteger) rowAtPoint: (NSPoint)aPoint;
 - (NSRect) frameOfCellAtColumn: (NSInteger)columnIndex 
-			   row: (NSInteger)rowIndex;
+                           row: (NSInteger)rowIndex;
 - (void) setAutoresizesAllColumnsToFit: (BOOL)flag;
 - (BOOL) autoresizesAllColumnsToFit;
 - (void) sizeLastColumnToFit;
@@ -306,7 +306,7 @@ typedef enum _NSTableViewColumnAutoresizingStyle
 /* NB: ALL TODOS */
 - (NSImage *) indicatorImageInTableColumn: (NSTableColumn *)aTableColumn;
 - (void) setIndicatorImage: (NSImage *)anImage
-	     inTableColumn: (NSTableColumn *)aTableColumn;
+             inTableColumn: (NSTableColumn *)aTableColumn;
 
 /* highlighting columns */
 /* NB: ALL TODOS */
@@ -344,7 +344,7 @@ typedef enum _NSTableViewColumnAutoresizingStyle
 @interface NSTableView (GNUPrivate)
 - (void) _sendDoubleActionForColumn: (NSInteger)columnIndex;
 - (void) _selectColumn: (NSInteger)columnIndex  
-	     modifiers: (unsigned int)modifiers;
+             modifiers: (NSUInteger)modifiers;
 @end
 
 /* 
@@ -357,13 +357,12 @@ typedef enum _NSTableViewColumnAutoresizingStyle
  * Returns the number of records that the data source manages for <em>aTableView</em>.
  */
 - (NSInteger) numberOfRowsInTableView: (NSTableView *)aTableView;
-- (id) tableView: (NSTableView *)aTableView 
-objectValueForTableColumn: (NSTableColumn *)aTableColumn 
-	     row: (NSInteger)rowIndex;
+- (id) tableView: (NSTableView *)aTableView objectValueForTableColumn: (NSTableColumn *)aTableColumn 
+             row: (NSInteger)rowIndex;
 - (void) tableView: (NSTableView *)aTableView 
     setObjectValue: (id)anObject 
     forTableColumn: (NSTableColumn *)aTableColumn
-	       row: (NSInteger)rowIndex;
+               row: (NSInteger)rowIndex;
 
 /* Dragging */
 - (BOOL) tableView: (NSTableView*)tableView
@@ -373,7 +372,7 @@ objectValueForTableColumn: (NSTableColumn *)aTableColumn
 - (NSDragOperation) tableView: (NSTableView*)tableView
                  validateDrop: (id <NSDraggingInfo>)info
                   proposedRow: (NSInteger)row
-	proposedDropOperation: (NSTableViewDropOperation)operation;
+        proposedDropOperation: (NSTableViewDropOperation)operation;
 - (BOOL) tableView: (NSTableView*)tableView
          writeRows: (NSArray*)rows
       toPasteboard: (NSPasteboard*)pboard;
@@ -384,12 +383,9 @@ objectValueForTableColumn: (NSTableColumn *)aTableColumn
 #endif
 
 #if OS_API_VERSION(MAC_OS_X_VERSION_10_4, GS_API_LATEST)
-- (BOOL) tableView: (NSTableView*)tableView
-writeRowsWithIndexes: (NSIndexSet*)rows
+- (BOOL) tableView: (NSTableView*)tableView writeRowsWithIndexes: (NSIndexSet*)rows
       toPasteboard: (NSPasteboard*)pboard;
-- (NSArray *) tableView: (NSTableView *)aTableView
-namesOfPromisedFilesDroppedAtDestination: (NSURL *)dropDestination
-forDraggedRowsWithIndexes: (NSIndexSet *)indexSet;
+- (NSArray *) tableView: (NSTableView *)aTableView namesOfPromisedFilesDroppedAtDestination: (NSURL *)dropDestination forDraggedRowsWithIndexes: (NSIndexSet *)indexSet;
 #endif
 @end
 
@@ -406,36 +402,27 @@ APPKIT_EXPORT NSString *NSTableViewSelectionIsChangingNotification;
 
 - (BOOL) selectionShouldChangeInTableView: (NSTableView *)aTableView;
 #if OS_API_VERSION(MAC_OS_X_VERSION_10_3, GS_API_LATEST)
-- (void) tableView: (NSTableView*)tableView
-didClickTableColumn: (NSTableColumn *)tableColumn;
-- (void) tableView: (NSTableView*)tableView
-didDragTableColumn: (NSTableColumn *)tableColumn;
-- (void) tableView: (NSTableView*)tableView
-mouseDownInHeaderOfTableColumn: (NSTableColumn *)tableColumn;
+- (void) tableView: (NSTableView*)tableView didClickTableColumn: (NSTableColumn *)tableColumn;
+- (void) tableView: (NSTableView*)tableView didDragTableColumn: (NSTableColumn *)tableColumn;
+- (void) tableView: (NSTableView*)tableView mouseDownInHeaderOfTableColumn: (NSTableColumn *)tableColumn;
 #endif
-- (BOOL)tableView: (NSTableView *)aTableView 
-shouldEditTableColumn: (NSTableColumn *)aTableColumn 
-	      row: (NSInteger)rowIndex;
-- (BOOL) tableView: (NSTableView *)aTableView 
-   shouldSelectRow: (NSInteger)rowIndex;
-- (BOOL) tableView: (NSTableView *)aTableView 
-shouldSelectTableColumn: (NSTableColumn *)aTableColumn;
-- (void) tableView: (NSTableView *)aTableView 
-   willDisplayCell: (id)aCell 
-    forTableColumn: (NSTableColumn *)aTableColumn
-	       row: (NSInteger)rowIndex;
+- (BOOL)tableView: (NSTableView *)aTableView shouldEditTableColumn: (NSTableColumn *)aTableColumn 
+              row: (NSInteger)rowIndex;
+- (BOOL) tableView: (NSTableView *)aTableView shouldSelectRow: (NSInteger)rowIndex;
+- (BOOL) tableView: (NSTableView *)aTableView shouldSelectTableColumn: (NSTableColumn *)aTableColumn;
+- (void) tableView: (NSTableView *)aTableView willDisplayCell: (id)aCell forTableColumn: (NSTableColumn *)aTableColumn
+               row: (NSInteger)rowIndex;
 #if OS_API_VERSION(MAC_OS_X_VERSION_10_5, GS_API_LATEST)
-- (NSCell *) tableView: (NSTableView *)aTableView 
-dataCellForTableColumn: (NSTableColumn *)aTableColumn
-		   row: (NSInteger)rowIndex;
+- (NSCell *) tableView: (NSTableView *)aTableView dataCellForTableColumn: (NSTableColumn *)aTableColumn
+                   row: (NSInteger)rowIndex;
 #endif
 - (void) tableViewColumnDidMove: (NSNotification *)aNotification;
 - (void) tableViewColumnDidResize: (NSNotification *)aNotification;
 - (void) tableViewSelectionDidChange: (NSNotification *)aNotification;
 - (void) tableViewSelectionIsChanging: (NSNotification *)aNotification;
 #if OS_API_VERSION(MAC_OS_X_VERSION_10_4, GS_API_LATEST)
-- (CGFloat) tableView: (NSTableView *)tableView
-          heightOfRow: (NSInteger)row;
+- (CGFloat) tableView: (NSTableView *)tableView heightOfRow: (NSInteger)row;
+
 - (NSString *) tableView: (NSTableView *)tableView
           toolTipForCell: (NSCell *)cell
                     rect: (NSRect *)rect

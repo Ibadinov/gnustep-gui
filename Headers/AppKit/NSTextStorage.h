@@ -63,12 +63,12 @@ enum
  */
 @interface NSTextStorage : NSMutableAttributedString
 {
-  NSRange		_editedRange;
-  int			_editedDelta;
-  NSMutableArray	*_layoutManagers;
-  id			_delegate;
-  unsigned		_editedMask;
-  unsigned		_editCount;
+    NSRange		_editedRange;
+    NSInteger			_editedDelta;
+    NSMutableArray	*_layoutManagers;
+    id			_delegate;
+    NSUInteger		_editedMask;
+    NSUInteger		_editCount;
 }
 
 - (void) addLayoutManager: (GSLayoutManager*)obj;
@@ -97,7 +97,7 @@ enum
  *
  * the changeInLength is, well, positive if you added characters, negative
  * if you removed characters.  */
-- (void) edited: (unsigned)mask range: (NSRange)old changeInLength: (int)delta;
+- (void) edited: (NSUInteger)mask range: (NSRange)old changeInLength: (NSInteger)delta;
 
 /*
  * This method is called to process the editing once it's finished.
@@ -137,9 +137,9 @@ enum
  * The delegate can use the following methods when it receives a
  * notification that a change was made.  The methods tell him what
  * kind of change was made.  */
-- (unsigned) editedMask;
+- (NSUInteger) editedMask;
 - (NSRange) editedRange;
-- (int) changeInLength;
+- (NSInteger) changeInLength;
 
 - (void) setDelegate: (id)delegate;
 - (id) delegate;
@@ -161,6 +161,7 @@ enum
  * copy the object returned by this method rather than simply retaining it.
  */
 - (NSString*) string;
+
 @end
 
 

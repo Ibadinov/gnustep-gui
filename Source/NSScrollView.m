@@ -62,43 +62,43 @@
 typedef struct _scrollViewFlags 
 {
 #if GS_WORDS_BIGENDIAN == 1
-  unsigned int __unused6:14;
-  unsigned int __unused5:1;
-  unsigned int autohidesScrollers:1;
-  unsigned int __unused4:1;
-  unsigned int __unused3:1;
-  unsigned int __unused2:1;
-  unsigned int doesNotDrawBackground:1;
-  unsigned int __unused1:1;
-  unsigned int hasVRuler:1;
-  unsigned int hasHRuler:1;
-  unsigned int showRulers:1;
-  unsigned int oldRulerInstalled:1;
-  unsigned int nonDynamic:1;
-  unsigned int hasHScroller:1;
-  unsigned int hasVScroller:1;
-  unsigned int hScrollerRequired:1;
-  unsigned int vScrollerRequired:1;
-  NSBorderType border:2;
+  uint32_t __unused6:14;
+  uint32_t __unused5:1;
+  uint32_t autohidesScrollers:1;
+  uint32_t __unused4:1;
+  uint32_t __unused3:1;
+  uint32_t __unused2:1;
+  uint32_t doesNotDrawBackground:1;
+  uint32_t __unused1:1;
+  uint32_t hasVRuler:1;
+  uint32_t hasHRuler:1;
+  uint32_t showRulers:1;
+  uint32_t oldRulerInstalled:1;
+  uint32_t nonDynamic:1;
+  uint32_t hasHScroller:1;
+  uint32_t hasVScroller:1;
+  uint32_t hScrollerRequired:1;
+  uint32_t vScrollerRequired:1;
+  uint32_t border:2;
 #else
-  NSBorderType border:2;
-  unsigned int vScrollerRequired:1;
-  unsigned int hScrollerRequired:1;
-  unsigned int hasVScroller:1;
-  unsigned int hasHScroller:1;
-  unsigned int nonDynamic:1;
-  unsigned int oldRulerInstalled:1;
-  unsigned int showRulers:1;
-  unsigned int hasHRuler:1;
-  unsigned int hasVRuler:1;
-  unsigned int __unused1:1;
-  unsigned int doesNotDrawBackground:1;
-  unsigned int __unused2:1;
-  unsigned int __unused3:1;
-  unsigned int __unused4:1;
-  unsigned int autohidesScrollers:1;
-  unsigned int __unused5:1;
-  unsigned int __unused6:14;
+  uint32_t border:2;
+  uint32_t vScrollerRequired:1;
+  uint32_t hScrollerRequired:1;
+  uint32_t hasVScroller:1;
+  uint32_t hasHScroller:1;
+  uint32_t nonDynamic:1;
+  uint32_t oldRulerInstalled:1;
+  uint32_t showRulers:1;
+  uint32_t hasHRuler:1;
+  uint32_t hasVRuler:1;
+  uint32_t __unused1:1;
+  uint32_t doesNotDrawBackground:1;
+  uint32_t __unused2:1;
+  uint32_t __unused3:1;
+  uint32_t __unused4:1;
+  uint32_t autohidesScrollers:1;
+  uint32_t __unused5:1;
+  uint32_t __unused6:14;
 #endif  
 } GSScrollViewFlags;
 
@@ -1453,7 +1453,7 @@ static CGFloat scrollerWidth;
       
   if ([aCoder allowsKeyedCoding])
     {
-      unsigned long flags = 0;
+      NSUInteger flags = 0;
 
       [aCoder encodeObject: _horizScroller forKey: @"NSHScroller"];
       [aCoder encodeObject: _vertScroller forKey: @"NSVScroller"];
@@ -1473,19 +1473,19 @@ static CGFloat scrollerWidth;
       if (_autohidesScrollers)
         flags |= 512;
 
-      [aCoder encodeInt: flags forKey: @"NSsFlags"];
+      [aCoder encodeInteger: flags forKey: @"NSsFlags"];
     }
   else
     {
       [aCoder encodeObject: _contentView];
       // Was int, we need to stay compatible
-      [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &_borderType];
+      [aCoder encodeValueOfObjCType: @encode(NSUInteger) at: &_borderType];
       [aCoder encodeValueOfObjCType: @encode(BOOL) at: &_scrollsDynamically];
       [aCoder encodeValueOfObjCType: @encode(BOOL) at: &_rulersVisible];
-      [aCoder encodeValueOfObjCType: @encode(float) at: &_hLineScroll];
-      [aCoder encodeValueOfObjCType: @encode(float) at: &_hPageScroll];
-      [aCoder encodeValueOfObjCType: @encode(float) at: &_vLineScroll];
-      [aCoder encodeValueOfObjCType: @encode(float) at: &_vPageScroll];
+      [aCoder encodeValueOfObjCType: @encode(CGFloat) at: &_hLineScroll];
+      [aCoder encodeValueOfObjCType: @encode(CGFloat) at: &_hPageScroll];
+      [aCoder encodeValueOfObjCType: @encode(CGFloat) at: &_vLineScroll];
+      [aCoder encodeValueOfObjCType: @encode(CGFloat) at: &_vPageScroll];
       
       [aCoder encodeValueOfObjCType: @encode(BOOL) at: &_hasHorizScroller];
       if (_hasHorizScroller)
@@ -1540,7 +1540,7 @@ static CGFloat scrollerWidth;
 
       if ([aDecoder containsValueForKey: @"NSsFlags"])
         {
-          int flags = [aDecoder decodeInt32ForKey: @"NSsFlags"];
+          NSUInteger flags = [aDecoder decodeIntegerForKey: @"NSsFlags"];
 
           _borderType = flags & 3;
           _hasVertScroller = (flags & 16) == 16;
@@ -1593,17 +1593,17 @@ static CGFloat scrollerWidth;
     }
   else
     {
-      int version = [aDecoder versionForClassName: @"NSScrollView"];
+      NSInteger version = [aDecoder versionForClassName: @"NSScrollView"];
       NSDebugLLog(@"NSScrollView", @"NSScrollView: start decoding\n");
       _contentView = [aDecoder decodeObject];
       // Was int, we need to stay compatible
       [aDecoder decodeValueOfObjCType: @encode(NSInteger) at: &_borderType];
       [aDecoder decodeValueOfObjCType: @encode(BOOL) at: &_scrollsDynamically];
       [aDecoder decodeValueOfObjCType: @encode(BOOL) at: &_rulersVisible];
-      [aDecoder decodeValueOfObjCType: @encode(float) at: &_hLineScroll];
-      [aDecoder decodeValueOfObjCType: @encode(float) at: &_hPageScroll];
-      [aDecoder decodeValueOfObjCType: @encode(float) at: &_vLineScroll];
-      [aDecoder decodeValueOfObjCType: @encode(float) at: &_vPageScroll];
+      [aDecoder decodeValueOfObjCType: @encode(CGFloat) at: &_hLineScroll];
+      [aDecoder decodeValueOfObjCType: @encode(CGFloat) at: &_hPageScroll];
+      [aDecoder decodeValueOfObjCType: @encode(CGFloat) at: &_vLineScroll];
+      [aDecoder decodeValueOfObjCType: @encode(CGFloat) at: &_vPageScroll];
       
       [aDecoder decodeValueOfObjCType: @encode(BOOL) at: &_hasHorizScroller];
       if (_hasHorizScroller)
@@ -1636,7 +1636,7 @@ static CGFloat scrollerWidth;
         }
       else
         {
-          NSLog(@"unknown NSScrollView version (%d)", version);
+          NSLog(@"unknown NSScrollView version (%ld)", (long)version);
           DESTROY(self);
           return nil;
         }

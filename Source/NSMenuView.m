@@ -141,7 +141,7 @@ static NSMapTable *viewInfo = 0;
     }
 }
 
-+ (float) menuBarHeight
++ (CGFloat) menuBarHeight
 {
   static float height = 0.0;
 
@@ -249,8 +249,8 @@ static NSMapTable *viewInfo = 0;
 - (void) setMenu: (NSMenu*)menu
 {
   NSNotificationCenter *theCenter = [NSNotificationCenter defaultCenter];
-  unsigned count;
-  unsigned i;
+  NSUInteger count;
+  NSUInteger i;
 
   if (_attachedMenu != nil)
     {
@@ -284,7 +284,7 @@ static NSMapTable *viewInfo = 0;
   count = [[[self menu] itemArray] count];
   for (i = 0; i < count; i++)
     {
-      NSNumber *n = [NSNumber numberWithInt: i];
+      NSNumber *n = [NSNumber numberWithUnsignedInteger: i];
       NSDictionary *d;
 
       d = [NSDictionary dictionaryWithObject: n forKey: @"NSMenuItemIndex"];
@@ -444,13 +444,13 @@ static NSMapTable *viewInfo = 0;
   return [_attachedMenu isTornOff];
 }
 
-- (void) setHorizontalEdgePadding: (float)pad
+- (void) setHorizontalEdgePadding: (CGFloat)pad
 {
   _horizontalEdgePad = pad;
   [self setNeedsSizing: YES];
 }
 
-- (float) horizontalEdgePadding
+- (CGFloat) horizontalEdgePadding
 {
   return _horizontalEdgePad;
 }
@@ -476,11 +476,10 @@ static NSMapTable *viewInfo = 0;
 
 - (void) itemAdded: (NSNotification*)notification
 {
-  int index  = [[[notification userInfo]
-                    objectForKey: @"NSMenuItemIndex"] intValue];
+  NSInteger index  = [[[notification userInfo] objectForKey: @"NSMenuItemIndex"] integerValue];
   NSMenuItem *anItem = [_items_link objectAtIndex: index];
   id aCell  = [NSMenuItemCell new];
-  int wasHighlighted = _highlightedItemIndex;
+  NSInteger wasHighlighted = _highlightedItemIndex;
 
   // FIXME do we need to differentiate between popups and non popups
   [aCell setMenuItem: anItem];
@@ -514,9 +513,8 @@ static NSMapTable *viewInfo = 0;
 
 - (void) itemRemoved: (NSNotification*)notification
 {
-  int wasHighlighted = [self highlightedItemIndex];
-  int index = [[[notification userInfo] objectForKey: @"NSMenuItemIndex"]
-                intValue];
+  NSInteger wasHighlighted = [self highlightedItemIndex];
+  NSInteger index = [[[notification userInfo] objectForKey: @"NSMenuItemIndex"] integerValue];
 
   if (index <= wasHighlighted)
     {
@@ -682,9 +680,9 @@ static NSMapTable *viewInfo = 0;
 
   if (_horizontal == YES)
     {
-      unsigned i;
-      unsigned howMany = [_itemCells count];
-      float currentX = HORIZONTAL_MENU_LEFT_PADDING;
+      NSUInteger i;
+      NSInteger howMany = [_itemCells count];
+      CGFloat currentX = HORIZONTAL_MENU_LEFT_PADDING;
 //      NSRect scRect = [[NSScreen mainScreen] frame];
 
       GSIArrayRemoveAllItems(cellRects);
@@ -728,15 +726,15 @@ static NSMapTable *viewInfo = 0;
     }
   else
     {
-      unsigned i;
-      unsigned howMany = [_itemCells count];
-      unsigned wideTitleView = 1;
-      float    neededImageAndTitleWidth = 0.0;
-      float    neededKeyEquivalentWidth = 0.0;
-      float    neededStateImageWidth = 0.0;
-      float    accumulatedOffset = 0.0;
-      float    popupImageWidth = 0.0;
-      float    menuBarHeight = 0.0;
+      NSUInteger i;
+      NSUInteger howMany = [_itemCells count];
+      NSUInteger wideTitleView = 1;
+      CGFloat    neededImageAndTitleWidth = 0.0;
+      CGFloat    neededKeyEquivalentWidth = 0.0;
+      CGFloat    neededStateImageWidth = 0.0;
+      CGFloat    accumulatedOffset = 0.0;
+      CGFloat    popupImageWidth = 0.0;
+      CGFloat    menuBarHeight = 0.0;
 
       if (_titleView)
         {
@@ -896,7 +894,7 @@ static NSMapTable *viewInfo = 0;
   _needsSizing = NO;
 }
 
-- (float) stateImageOffset
+- (CGFloat) stateImageOffset
 {
   if (_needsSizing)
     [self sizeToFit];
@@ -904,7 +902,7 @@ static NSMapTable *viewInfo = 0;
   return _stateImageOffset;
 }
 
-- (float) stateImageWidth
+- (CGFloat) stateImageWidth
 {
   if (_needsSizing)
     [self sizeToFit];
@@ -912,7 +910,7 @@ static NSMapTable *viewInfo = 0;
   return _stateImageWidth;
 }
 
-- (float) imageAndTitleOffset
+- (CGFloat) imageAndTitleOffset
 {
   if (_needsSizing)
     [self sizeToFit];
@@ -920,7 +918,7 @@ static NSMapTable *viewInfo = 0;
   return _imageAndTitleOffset;
 }
 
-- (float) imageAndTitleWidth
+- (CGFloat) imageAndTitleWidth
 {
   if (_needsSizing)
     [self sizeToFit];
@@ -928,7 +926,7 @@ static NSMapTable *viewInfo = 0;
   return _imageAndTitleWidth;
 }
 
-- (float) keyEquivalentOffset
+- (CGFloat) keyEquivalentOffset
 {
   if (_needsSizing)
     [self sizeToFit];
@@ -936,7 +934,7 @@ static NSMapTable *viewInfo = 0;
   return _keyEqOffset;
 }
 
-- (float) keyEquivalentWidth
+- (CGFloat) keyEquivalentWidth
 {
   if (_needsSizing)
     [self sizeToFit];
@@ -1003,8 +1001,8 @@ static NSMapTable *viewInfo = 0;
 
 - (NSInteger) indexOfItemAtPoint: (NSPoint)point
 {
-  unsigned howMany = [_itemCells count];
-  unsigned i;
+  NSUInteger howMany = [_itemCells count];
+  NSUInteger i;
 
   for (i = 0; i < howMany; i++)
     {
@@ -1107,7 +1105,7 @@ static NSMapTable *viewInfo = 0;
   NSRect r;
   NSRect cellFrame;
   NSRect popUpFrame;
-  int items = [_itemCells count];
+  NSInteger items = [_itemCells count];
   BOOL growHeight = YES;
   BOOL resizeCell = NO;
   CGFloat borderOffsetInBaseCoords;
@@ -1365,8 +1363,8 @@ static NSMapTable *viewInfo = 0;
 {
   NSMenu     *candidateMenu = _attachedMenu;
   NSMenuView *targetMenuView;
-  int        indexToHighlight = index;
-  int        oldHighlightedIndex;
+  NSInteger  indexToHighlight = index;
+  NSInteger  oldHighlightedIndex;
 
   for (;;)
     {
@@ -1407,7 +1405,7 @@ static NSMapTable *viewInfo = 0;
 #define MOVE_THRESHOLD_DELTA 2.0
 #define DELAY_MULTIPLIER     10
 
-- (BOOL) _executeItemAtIndex: (int)indexOfActionToExecute
+- (BOOL) _executeItemAtIndex: (NSInteger)indexOfActionToExecute
 	       removeSubmenu: (BOOL)subMenusNeedRemoving
 {
   NSInterfaceStyle style =
@@ -1451,9 +1449,9 @@ static NSMapTable *viewInfo = 0;
   BOOL justAttachedNewSubmenu = NO;
   BOOL subMenusNeedRemoving = YES;
   BOOL shouldFinish = YES;
-  int delayCount = 0;
-  int indexOfActionToExecute = -1;
-  int firstIndex = -1;
+  NSInteger delayCount = 0;
+  NSInteger indexOfActionToExecute = -1;
+  NSInteger firstIndex = -1;
   NSEvent *original;
   NSEventType type;
 
@@ -1538,7 +1536,7 @@ static NSMapTable *viewInfo = 0;
       if (type == NSPeriodic || event == original)
         {
           NSPoint location;
-          int index;
+          NSInteger index;
 
           location = [_window mouseLocationOutsideOfEventStream];
           index = [self indexOfItemAtPoint: 
@@ -1680,7 +1678,7 @@ static NSMapTable *viewInfo = 0;
 		  if ([mainWindowMenuView 
                         hitTest: locationInMainWindow] != nil)
 		    {
-                      int index = [mainWindowMenuView indexOfItemAtPoint: 
+                      NSInteger index = [mainWindowMenuView indexOfItemAtPoint: 
                         [mainWindowMenuView 
                           convertPoint: locationInMainWindow
                               fromView: nil]];

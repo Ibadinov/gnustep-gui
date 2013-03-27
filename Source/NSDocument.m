@@ -424,7 +424,7 @@ withContentsOfURL: (NSURL *)url
 
 - (void) updateChangeCount: (NSDocumentChangeType)change
 {
-  int i, count = [_window_controllers count];
+  NSInteger i, count = [_window_controllers count];
   BOOL isEdited;
   
   switch (change)
@@ -464,7 +464,7 @@ withContentsOfURL: (NSURL *)url
 
 - (BOOL) canCloseDocument
 {
-  int result;
+  NSInteger result;
 
   if (![self isDocumentEdited])
     return YES;
@@ -810,7 +810,7 @@ withContentsOfURL: (NSURL *)url
   if (![fileManager movePath: newFileName toPath: backupFilename handler: nil] &&
       [self keepBackupFile])
     {
-      int result = NSRunAlertPanel(_(@"File Error"),
+      NSInteger result = NSRunAlertPanel(_(@"File Error"),
                                    _(@"Can't create backup file.  Save anyways?"),
                                    _(@"Save"), _(@"Cancel"), nil);
       
@@ -1121,7 +1121,7 @@ originalContentsURL: (NSURL *)orig
 - (void) _addItemsToSpaButtonFromArray: (NSArray *)types
 {
   NSString *type, *title;
-  int i, count = [types count];
+  NSInteger i, count = [types count];
 
   [_spa_button removeAllItems];
   for (i = 0; i < count; i++)
@@ -1254,7 +1254,7 @@ originalContentsURL: (NSURL *)orig
 {
   NSArray *types = [object_getClass(self) writableTypes];
   NSMutableArray *muTypes;
-  int i, len;
+  NSUInteger i, len;
 
   if (op == NSSaveToOperation)
     {
@@ -1651,7 +1651,7 @@ originalContentsURL: (NSURL *)orig
 
 - (IBAction) revertDocumentToSaved: (id)sender
 {
-  int result;
+  NSInteger result;
   NSError *error;
 
   result = NSRunAlertPanel 
@@ -1687,7 +1687,7 @@ originalContentsURL: (NSURL *)orig
 {
   if (_doc_flags.in_close == NO)
     {
-      int count = [_window_controllers count];
+      NSInteger count = [_window_controllers count];
       /* Closing a windowController will also send us a close, so make
          sure we don't go recursive */
       _doc_flags.in_close = YES;

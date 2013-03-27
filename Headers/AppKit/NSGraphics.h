@@ -123,8 +123,7 @@ APPKIT_EXPORT void NSRectClipList(const NSRect *rects, NSInteger count);
 APPKIT_EXPORT void NSRectFill(NSRect aRect);
 APPKIT_EXPORT void NSRectFillList(const NSRect *rects, NSInteger count);
 APPKIT_EXPORT void NSRectFillListWithGrays(const NSRect *rects,
-					   const CGFloat *grays,
-                                           NSInteger count);
+					   const CGFloat *grays, NSInteger count);
 
 /** Draws a set of edges of aRect.  The sides array should contain
     count edges, and grays the corresponding color.  Edges are drawn
@@ -132,8 +131,7 @@ APPKIT_EXPORT void NSRectFillListWithGrays(const NSRect *rects,
     inside previous edges (thus, they will never overlap).  */
 APPKIT_EXPORT NSRect NSDrawTiledRects(NSRect aRect, const NSRect clipRect,
                                       const NSRectEdge *sides,
-                                      const CGFloat *grays,
-                                      NSInteger count);
+                                      const CGFloat *grays, NSInteger count);
 
 APPKIT_EXPORT void NSDrawButton(const NSRect aRect, const NSRect clipRect);
 APPKIT_EXPORT void NSDrawGrayBezel(const NSRect aRect, const NSRect clipRect);
@@ -167,7 +165,7 @@ APPKIT_EXPORT void NSFrameRectWithWidthUsingOperation(const NSRect aRect, CGFloa
 
 APPKIT_EXPORT NSColor* NSReadPixel(NSPoint location);
 
-APPKIT_EXPORT void NSCopyBitmapFromGState(int srcGstate, NSRect srcRect, 
+APPKIT_EXPORT void NSCopyBitmapFromGState(NSInteger srcGstate, NSRect srcRect, 
 					  NSRect destRect);
 APPKIT_EXPORT void NSCopyBits(NSInteger srcGstate, NSRect srcRect, 
 			      NSPoint destPoint);
@@ -227,8 +225,8 @@ APPKIT_EXPORT NSWindow* GSWindowWithNumber(NSInteger num);
 
 #if OS_API_VERSION(GS_API_MACOSX, GS_API_LATEST)
 // Window operations
-APPKIT_EXPORT void NSConvertGlobalToWindowNumber(int globalNum, unsigned int *winNum);
-APPKIT_EXPORT void NSConvertWindowNumberToGlobal(int winNum, unsigned int *globalNum);
+APPKIT_EXPORT void NSConvertGlobalToWindowNumber(NSInteger globalNum, NSInteger *winNum);
+APPKIT_EXPORT void NSConvertWindowNumberToGlobal(NSInteger winNum, NSInteger *globalNum);
 
 // Rectangle drawing
 APPKIT_EXPORT NSRect NSDrawColorTiledRects(NSRect boundsRect, NSRect clipRect, 
@@ -254,9 +252,9 @@ APPKIT_EXPORT void NSDrawWindowBackground(NSRect aRect);
 
 // Context information
 APPKIT_EXPORT void NSCountWindowsForContext(NSInteger context, NSInteger *count);
-APPKIT_EXPORT void NSWindowListForContext(NSInteger context, NSInteger size, NSInteger **list);
-APPKIT_EXPORT int NSGetWindowServerMemory(int context, int *virtualMemory, 
-                                          int *windowBackingMemory, 
+APPKIT_EXPORT void NSWindowListForContext(NSInteger context, NSInteger size, NSInteger list[]);
+APPKIT_EXPORT int NSGetWindowServerMemory(NSInteger context, NSInteger *virtualMemory, 
+                                          NSInteger *windowBackingMemory, 
                                           NSString **windowDumpStream);
 
 #endif

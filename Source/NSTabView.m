@@ -614,7 +614,7 @@
     }
   else
     {
-      int version = [aDecoder versionForClassName: @"NSTabView"];
+      NSInteger version = [aDecoder versionForClassName: @"NSTabView"];
 
       [aDecoder decodeValueOfObjCType: @encode(id) at: &_items];
       [aDecoder decodeValueOfObjCType: @encode(id) at: &_font];
@@ -696,8 +696,7 @@
 {
   if ([aKey isEqual: NSSelectedIndexBinding])
     {
-      return [NSNumber numberWithInt: [self indexOfTabViewItem: 
-                                              [self selectedTabViewItem]]];
+      return [NSNumber numberWithInteger:[self indexOfTabViewItem:[self selectedTabViewItem]]];
     }
   else if ([aKey isEqual: NSFontNameBinding])
     {
@@ -705,11 +704,11 @@
     }
   else if ([aKey isEqual: NSFontSizeBinding])
     {
-      return [NSNumber numberWithDouble: (double)[[self font] pointSize]];
+      return [NSNumber numberWithDouble:(double)[[self font] pointSize]];
     }
   else
     {
-      return [super valueForKey: aKey];
+      return [super valueForKey:aKey];
     }
 }
 @end

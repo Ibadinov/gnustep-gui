@@ -49,10 +49,10 @@
   NSRulerView *_vertRuler;
   NSClipView *_headerClipView;
   NSView *_cornerView;
-  float _hLineScroll;
-  float _hPageScroll;
-  float _vLineScroll;
-  float _vPageScroll;
+  CGFloat _hLineScroll;
+  CGFloat _hPageScroll;
+  CGFloat _vLineScroll;
+  CGFloat _vPageScroll;
   NSBorderType _borderType;
   BOOL _hasHorizScroller;
   BOOL _hasVertScroller;

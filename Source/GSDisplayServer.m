@@ -72,7 +72,7 @@ static NSString *NSCurrentServerThreadKey;
 GSDisplayServer *
 GSServerForWindow(NSWindow *window)
 {
-  int num;
+  NSInteger num;
 
   if (windowmaps == NULL)
     {
@@ -331,7 +331,7 @@ GSCurrentServer(void)
   NSCountedSet	*old = (NSCountedSet*)NSMapGet(drag_types, (void*)win);
   NSEnumerator *drag_enum = [types objectEnumerator];
   id            type;
-  unsigned	originalCount;
+  NSUInteger	originalCount;
 
   /*
    * Make sure the set exists.
@@ -379,7 +379,7 @@ GSCurrentServer(void)
     }
   else
     {
-      unsigned	originalCount = [old count];
+      NSUInteger	originalCount = [old count];
       id o;
 
       while ((o = [drag_enum nextObject]))
@@ -410,14 +410,14 @@ GSCurrentServer(void)
   return [GSSlideView _slideImage: image from: from to: to];
 }
 
-- (void) restrictWindow: (int)win toImage: (NSImage*)image
+- (void) restrictWindow: (NSInteger)win toImage: (NSImage*)image
 {
   [self subclassResponsibility: _cmd];
 }
 
-- (int) findWindowAt: (NSPoint)screenLocation 
-           windowRef: (int*)windowRef 
-           excluding: (int)win
+- (NSInteger) findWindowAt: (NSPoint)screenLocation 
+           windowRef: (NSInteger*)windowRef 
+           excluding: (NSInteger)win
 {
   [self subclassResponsibility: _cmd];
   return 0;
@@ -426,7 +426,7 @@ GSCurrentServer(void)
 /* Screen information */
 /** Returns the resolution, in points, for the indicated screen of the
     display. */
-- (NSSize) resolutionForScreen: (int)screen
+- (NSSize) resolutionForScreen: (NSInteger)screen
 {
   /*[self subclassResponsibility: _cmd];*/
   return NSMakeSize(72, 72);
@@ -434,14 +434,14 @@ GSCurrentServer(void)
 
 /** Returns the bounds, in pixels, for the indicated screen of the
     display. */
-- (NSRect) boundsForScreen: (int)screen
+- (NSRect) boundsForScreen: (NSInteger)screen
 {
   [self subclassResponsibility: _cmd];
   return NSZeroRect;
 }
 
 /** Returns the default depth of windows that are created on screen. */
-- (NSWindowDepth) windowDepthForScreen: (int)screen
+- (NSWindowDepth) windowDepthForScreen: (NSInteger)screen
 {
   [self subclassResponsibility: _cmd];
   return 0;
@@ -449,7 +449,7 @@ GSCurrentServer(void)
 
 /** Returns a null terminated list of possible window depths for
     screen. */
-- (const NSWindowDepth *) availableDepthsForScreen: (int)screen
+- (const NSWindowDepth *) availableDepthsForScreen: (NSInteger)screen
 {
   [self subclassResponsibility: _cmd];
   return NULL;
@@ -479,7 +479,7 @@ GSCurrentServer(void)
    Returns a display dependant pointer that describes the internal
    window representation for win. On X-Windows, for example, this is a
    pointer to the <code>Window</code> variable. */
-- (void *) windowDevice: (int)win
+- (void *) windowDevice: (NSInteger)win
 {
   [self subclassResponsibility: _cmd];
   return NULL;
@@ -511,7 +511,7 @@ GSCurrentServer(void)
  * Returns a screenshot of the specified rectangle of the specified screen.
  * The mouse cursor should be ommitted from the returned image.
  */
-- (NSImage *) contentsOfScreen: (int)screen inRect: (NSRect)rect
+- (NSImage *) contentsOfScreen: (NSInteger)screen inRect: (NSRect)rect
 {
   return nil;
 }
@@ -527,7 +527,7 @@ GSCurrentServer(void)
     win. Concrete subclasses must call this function when creating a
     window. Do not call this method in any other case, particularly
     for a window that has already been created */
-- (void) _setWindowOwnedByServer: (int)win
+- (void) _setWindowOwnedByServer: (NSInteger)win
 {
   if (windowmaps != NULL)
     {
@@ -547,7 +547,7 @@ GSCurrentServer(void)
     Use -styleoffsets::::: to determine the extent of the decorations
     and determine the size of the drawable area inside them.
 */
-- (int) window: (NSRect)frame : (NSBackingStoreType)type : (unsigned int)style
+- (NSInteger) window: (NSRect)frame : (NSBackingStoreType)type : (NSUInteger)style
 {
   int sn = [[server_info objectForKey: GSScreenNumber] intValue];
 
@@ -556,8 +556,8 @@ GSCurrentServer(void)
 
 /** Like -window::: only there is an additional argument to specify which
     screen the window will display on */
-- (int) window: (NSRect)frame : (NSBackingStoreType)type : (unsigned int)style
-	      : (int)screen
+- (NSInteger) window: (NSRect)frame : (NSBackingStoreType)type : (NSUInteger)style
+                    : (NSInteger)screen
 {
   [self subclassResponsibility: _cmd];
   return 0;
@@ -565,18 +565,18 @@ GSCurrentServer(void)
 
 /** Destroys the representation of the window and frees and memory
     associated with it. */
-- (void) termwindow: (int) win
+- (void) termwindow: (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
 }
 
 /** Create all the backend structures for a reference to a native window and 
     return the extend, backing type, style and screen for that window. */ 
-- (int) nativeWindow: (void *)winref
-		    : (NSRect*)frame
-		    : (NSBackingStoreType*)type 
-		    : (unsigned int*)style
-		    : (int*)screen
+- (NSInteger) nativeWindow: (void *)winref
+                          : (NSRect*)frame
+                          : (NSBackingStoreType*)type 
+                          : (NSUInteger*)style
+                          : (NSInteger*)screen
 {
   [self subclassResponsibility: _cmd];
   return 0;
@@ -584,25 +584,25 @@ GSCurrentServer(void)
 
 /** Sets the style of the window. See [NSWindow-styleMask] for a
     description of the available styles */
-- (void) stylewindow: (unsigned int) style : (int) win
+- (void) stylewindow: (NSUInteger) style : (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
 }
 
 /** Changes window's the backing store to type */
-- (void) windowbacking: (NSBackingStoreType)type : (int) win
+- (void) windowbacking: (NSBackingStoreType)type : (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
 }
 
 /** Sets the window title */
-- (void) titlewindow: (NSString *) window_title : (int) win
+- (void) titlewindow: (NSString *) window_title : (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
 }
 
 /** Miniaturizes the window */
-- (void) miniwindow: (int) win
+- (void) miniwindow: (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
 }
@@ -621,7 +621,7 @@ GSCurrentServer(void)
     typically by calling [NSGraphicsContext-GSSetDevice:::],
     although depending on the concrete implmentation, more information
     than this may need to be exchanged. */
-- (void) windowdevice: (int)winNum
+- (void) windowdevice: (NSInteger)winNum
 {
   [self setWindowdevice: winNum forContext: GSCurrentContext()];
 }
@@ -630,7 +630,7 @@ GSCurrentServer(void)
     typically by calling [NSGraphicsContext-GSSetDevice:::],
     although depending on the concrete implmentation, more information
     than this may need to be exchanged. */
-- (void) setWindowdevice: (int)win forContext: (NSGraphicsContext *)ctxt
+- (void) setWindowdevice: (NSInteger)win forContext: (NSGraphicsContext *)ctxt
 {
   [self subclassResponsibility: _cmd];
 }
@@ -675,7 +675,7 @@ GSCurrentServer(void)
  *   </desc>
  * </deflist>
  */
-- (void) orderwindow: (int) op : (int) otherWin : (int) win
+- (void) orderwindow: (NSInteger) op : (NSInteger) otherWin : (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
 }
@@ -685,7 +685,7 @@ GSCurrentServer(void)
  * The position is expressed as an offset from the bottom left
  * corner of the screen.
  */ 
-- (void) movewindow: (NSPoint)loc : (int) win
+- (void) movewindow: (NSPoint)loc : (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
 }
@@ -695,7 +695,7 @@ GSCurrentServer(void)
  * any border/decorations.  Its position is expressed as an offset from
  * the bottom left corner of the screen.
  */
-- (void) placewindow: (NSRect)frame : (int) win
+- (void) placewindow: (NSRect)frame : (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
 }
@@ -705,7 +705,7 @@ GSCurrentServer(void)
  * any border/decorations.  Its position is expressed as an offset from
  * the bottom left corner of the screen.
  */
-- (NSRect) windowbounds: (int) win
+- (NSRect) windowbounds: (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
   return NSZeroRect;
@@ -717,13 +717,13 @@ GSCurrentServer(void)
  * -orderwindow::: method in the case where the position is 'above' or
  * 'below' and the other window number is zero.
  */
-- (void) setwindowlevel: (int) level : (int) win
+- (void) setwindowlevel: (NSInteger) level : (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
 }
 
 /** Returns the window level as in [NSWindow -level] */
-- (int) windowlevel: (int) win
+- (NSInteger) windowlevel: (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
   return 0;
@@ -738,7 +738,7 @@ GSCurrentServer(void)
 - (NSArray *) windowlist
 {
   NSMutableArray *list = [NSMutableArray arrayWithArray:[NSApp windows]];
-  int c = [list count];
+  NSInteger c = [list count];
 
   while (c-- > 0)
     {
@@ -751,26 +751,26 @@ GSCurrentServer(void)
 }
 
 /** Returns the depth of the window */
-- (int) windowdepth: (int) win
+- (NSInteger) windowdepth: (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
   return 0;
 }
 
 /** Set the maximum size (pixels) of the window */
-- (void) setmaxsize: (NSSize)size : (int) win
+- (void) setmaxsize: (NSSize)size : (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
 }
 
 /** Set the minimum size (pixels) of the window */
-- (void) setminsize: (NSSize)size : (int) win
+- (void) setminsize: (NSSize)size : (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
 }
 
 /** Set the resize incremenet of the window */
-- (void) setresizeincrements: (NSSize)size : (int) win
+- (void) setresizeincrements: (NSSize)size : (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
 }
@@ -778,7 +778,7 @@ GSCurrentServer(void)
 /** Causes buffered graphics to be flushed to the screen.
  * The value of rect is expressed in OpenStep window coordinates.
  */
-- (void) flushwindowrect: (NSRect)rect : (int) win
+- (void) flushwindowrect: (NSRect)rect : (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
 }
@@ -791,14 +791,14 @@ GSCurrentServer(void)
  * are no decorations outside the drawable window frame and this method
  * shouldn't be called.
  * */
-- (void) styleoffsets: (float*) l : (float*) r : (float*) t : (float*) b 
-		     : (unsigned int) style
+- (void) styleoffsets: (CGFloat*) l : (CGFloat*) r : (CGFloat*) t : (CGFloat*) b 
+                     : (NSUInteger) style
 {
   [self subclassResponsibility: _cmd];
 }
 
 /** Sets the document edited flag for the window */
-- (void) docedited: (int) edited : (int) win
+- (void) docedited: (NSInteger) edited : (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
 }
@@ -806,26 +806,26 @@ GSCurrentServer(void)
 /** Sets the input state for the window given by the
     GSWindowInputState constant.  Instructs the window manager that the
     specified window is 'key', 'main', or just a normal window.  */
-- (void) setinputstate: (int)state : (int)win
+- (void) setinputstate: (NSInteger)state : (NSInteger)win
 {
   [self subclassResponsibility: _cmd];
 }
 
 /** Forces focus to the window so that all key events are sent to this
     window */
-- (void) setinputfocus: (int) win
+- (void) setinputfocus: (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
 }
 
 /** Sets the transparancy value for the whole window */
-- (void) setalpha: (float)alpha : (int) win
+- (void) setalpha: (CGFloat)alpha: (NSInteger) win
 {
   //[self subclassResponsibility: _cmd];
 }
 
 /** Sets the window shadow */
-- (void) setShadow: (BOOL)hasShadow : (int)win
+- (void) setShadow: (BOOL)hasShadow : (NSInteger)win
 {
   //[self subclassResponsibility: _cmd];
 }
@@ -850,7 +850,7 @@ GSCurrentServer(void)
  * The location is expressed as an offset from the bottom left corner
  * of the screen.
  */
-- (NSPoint) mouseLocationOnScreen: (int)aScreen window: (int *)win
+- (NSPoint) mouseLocationOnScreen: (NSInteger)aScreen window: (NSInteger *)win
 {
   [self subclassResponsibility: _cmd];
   return NSZeroPoint;
@@ -860,7 +860,7 @@ GSCurrentServer(void)
     directed only to the window win. If successful, the return value
     is YES and this message must be balanced by a -releasemouse
     message.  */
-- (BOOL) capturemouse: (int) win
+- (BOOL) capturemouse: (NSInteger) win
 {
   [self subclassResponsibility: _cmd];
   return NO;
@@ -873,7 +873,7 @@ GSCurrentServer(void)
 }
 
 /** Set mouse cursor position. */
-- (void) setMouseLocation: (NSPoint)mouseLocation onScreen: (int)aScreen
+- (void) setMouseLocation: (NSPoint)mouseLocation onScreen: (NSInteger)aScreen
 {
   [self subclassResponsibility: _cmd];
 }
@@ -894,7 +894,7 @@ GSCurrentServer(void)
     pointer to the internal device representation that can be used
     later to make this cursor the current one
 */
-- (void) standardcursor: (int) style : (void**) cid
+- (void) standardcursor: (NSInteger) style : (void**) cid
 {
   [self subclassResponsibility: _cmd];
 }
@@ -938,8 +938,8 @@ GSCurrentServer(void)
   [self subclassResponsibility: _cmd];
 }
 
-- (void) setParentWindow: (int)parentWin 
-          forChildWindow: (int)childWin
+- (void) setParentWindow: (NSInteger)parentWin 
+          forChildWindow: (NSInteger)childWin
 {
   [self subclassResponsibility: _cmd];
 }
@@ -960,19 +960,19 @@ GSCurrentServer(void)
  * If no matching event is found and the limit date is reached, this method
  * returns nil.
  */
-- (NSEvent*) getEventMatchingMask: (unsigned)mask
-		       beforeDate: (NSDate*)limit
-			   inMode: (NSString*)mode
-			  dequeue: (BOOL)flag
+- (NSEvent*) getEventMatchingMask: (NSUInteger)mask
+                       beforeDate: (NSDate*)limit
+                           inMode: (NSString*)mode
+                          dequeue: (BOOL)flag
 {
-  unsigned	pos = 0;	/* Position in queue scanned so far	*/
+  NSUInteger	pos = 0;	/* Position in queue scanned so far	*/
   NSRunLoop	*loop = nil;
 
   do
     {
-      unsigned	count = [event_queue count];
+      NSUInteger	count = [event_queue count];
       NSEvent	*event;
-      unsigned	i = 0;
+      NSUInteger	i = 0;
 
       if (count == 0)
 	{
@@ -994,7 +994,7 @@ GSCurrentServer(void)
 	   */
 	  if (count > pos)
 	    {
-	      unsigned	end = count - pos;
+	      NSUInteger	end = count - pos;
 	      NSRange	r = NSMakeRange(pos, end);
 	      NSEvent	*events[end];
 
@@ -1047,10 +1047,10 @@ GSCurrentServer(void)
  * is earlier than that of limit wand which match the supplied mask
  * of event types.
  */
-- (void) discardEventsMatchingMask: (unsigned)mask
-		       beforeEvent: (NSEvent*)limit
+- (void) discardEventsMatchingMask: (NSUInteger)mask
+                       beforeEvent: (NSEvent*)limit
 {
-  unsigned		index = [event_queue count];
+  NSUInteger		index = [event_queue count];
 
   /*
    *	If there is a range to use - remove all the matching events in it

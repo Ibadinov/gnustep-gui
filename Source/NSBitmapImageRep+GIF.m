@@ -105,8 +105,9 @@ static int gs_gif_input(GifFileType *file, GifByteType *buffer, int len)
    allocated outside this function. */
 static void gs_gif_init_input_source(gs_gif_input_src *src, NSData *data)
 {
+  NSCParameterAssert([data length] < UINT_MAX);
   src->data   = [data bytes];
-  src->length = [data length];
+  src->length = (unsigned)[data length];
   src->pos    = 0;
 }
 

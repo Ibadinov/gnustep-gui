@@ -242,9 +242,9 @@ typedef struct {
   void (*GSSendBezierPath_)
         (NSGraphicsContext*, SEL, NSBezierPath *);
   void (*GSRectClipList__)
-        (NSGraphicsContext*, SEL, const NSRect *, int);
+        (NSGraphicsContext*, SEL, const NSRect *, NSInteger);
   void (*GSRectFillList__)
-        (NSGraphicsContext*, SEL, const NSRect *, int);
+        (NSGraphicsContext*, SEL, const NSRect *, NSInteger);
 
 /* ----------------------------------------------------------------------- */
 /* Window system ops */

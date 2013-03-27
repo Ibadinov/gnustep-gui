@@ -31,8 +31,8 @@
 #import "GSIconManager.h"
 
 @protocol GSIconManager
- - (NSRect) setWindow: (unsigned int)aWindowNumber appProcessId: (int)aProcessId;
- - (void) removeWindow: (unsigned int)aWindowNumber;
+ - (NSRect) setWindow: (NSInteger)aWindowNumber appProcessId: (int)aProcessId;
+ - (void) removeWindow: (NSInteger)aWindowNumber;
  - (NSSize) getSizeWindow;
  - (id) retain;
  - (void) release; 
@@ -98,7 +98,7 @@ GSRemoveIcon(NSWindow *window)
 
   if (gsim != nil)
     {
-      unsigned int winNum = 0;
+      NSInteger winNum = 0;
 
       NSConvertWindowNumberToGlobal([window windowNumber], &winNum);
       [gsim removeWindow: winNum];
@@ -122,7 +122,7 @@ GSGetIconFrame(NSWindow *window)
 
   if (gsim != nil)
     {
-      unsigned int winNum = 0;
+      NSInteger winNum = 0;
 
       NSConvertWindowNumberToGlobal([window windowNumber], &winNum);
       iconRect = [gsim setWindow: winNum

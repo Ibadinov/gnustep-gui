@@ -170,7 +170,7 @@ static Class textFieldCellClass;
       else
         {
           NSText *text = [_window fieldEditor: YES  forObject: self];
-          int length;
+          NSInteger length;
 
           if ([text superview] != nil)
             if ([text resignFirstResponder] == NO)

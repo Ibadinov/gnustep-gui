@@ -136,7 +136,7 @@ static NSString *commandKeyString = @"#";
 
 - (NSColor *) backgroundColor
 {
-  unsigned	mask;
+  NSInteger	mask;
   NSColor	*color;
   GSThemeControlState state = GSThemeNormalState;
 
@@ -226,7 +226,7 @@ static NSString *commandKeyString = @"#";
 - (NSString*) _keyEquivalentString
 {
   NSString *key = [_menuItem keyEquivalent];
-  unsigned int m = [_menuItem keyEquivalentModifierMask];
+  NSUInteger m = [_menuItem keyEquivalentModifierMask];
   NSString *ucKey = [key uppercaseString];
   unichar uchar;
 
@@ -626,7 +626,7 @@ static NSString *commandKeyString = @"#";
       if (_cell.is_bordered)
         {
           CGFloat yDelta = [_control_view isFlipped] ? 1. : 2.;
-          unsigned mask;
+          NSInteger mask;
           NSRect interiorFrame;
           
           if (_cell.is_highlighted)
@@ -668,7 +668,7 @@ static NSString *commandKeyString = @"#";
 
 - (GSThemeControlState) themeControlState
 {
-  unsigned mask;
+  NSInteger mask;
   GSThemeControlState state = GSThemeNormalState;
 
   // set the mask
@@ -820,7 +820,7 @@ static NSString *commandKeyString = @"#";
 
 - (void) drawInteriorWithFrame: (NSRect)cellFrame inView: (NSView*)controlView
 {
-  unsigned  mask;
+  NSInteger  mask;
 
   // Transparent buttons never draw
   if (_buttoncell_is_transparent)

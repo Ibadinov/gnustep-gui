@@ -698,13 +698,13 @@
   return [[objectRecords orderedObjects] objectEnumerator];
 }
 
-- (NSDictionary*) propertiesForObjectID: (int)objectID
+- (NSDictionary*) propertiesForObjectID: (NSInteger)objectID
 {
   NSEnumerator *en;
   NSString *idString;
   NSString *key;
   NSMutableDictionary *properties;
-  int idLength;
+  NSUInteger idLength;
 
   idString = [NSString stringWithFormat: @"%d.", objectID];
   idLength = [idString length];
@@ -1093,8 +1093,8 @@
               NSArray *xmlObjs = [[flatProps objectAtIndex:0] nodesForXPath:@"//object[@key=\"flattenedProperties\"]/object[@key=\"dict.values\"]/*" error:NULL];
               if ([xmlKeys count] != [xmlObjs count])
                 {
-                  NSLog(@"%s:keys to objs count mismatch - keys: %d objs: %d\n", __PRETTY_FUNCTION__,
-                        (int)[xmlKeys count], (int)[xmlObjs count]);
+                  NSLog(@"%s:keys to objs count mismatch - keys: %ld objs: %ld\n", __PRETTY_FUNCTION__,
+                        (long)[xmlKeys count], (long)[xmlObjs count]);
                 }
               else
                 {
@@ -1669,15 +1669,15 @@ didStartElement: (NSString*)elementName
 - (id) _decodeArrayOfObjectsForElement: (GSXibElement*)element
 {
   NSArray *values = [element values];
-  int max = [values count];
+  NSUInteger max = [values count];
   id list[max];
-  int i;
+  NSUInteger i;
 
   for (i = 0; i < max; i++)
     {
       list[i] = [self objectForXib: [values objectAtIndex: i]];
       if (list[i] == nil)
-        NSLog(@"No object for %@ at index %d", [values objectAtIndex: i], i);
+        NSLog(@"No object for %@ at index %ld", [values objectAtIndex: i], (long)i);
     }
 
   return [NSArray arrayWithObjects: list count: max];
@@ -1844,7 +1844,7 @@ didStartElement: (NSString*)elementName
 	{
 	  long long l = [o longLongValue];
 
-	  return l;
+	  return (int)l;
 	}
       else
 	{
@@ -1867,7 +1867,7 @@ didStartElement: (NSString*)elementName
 	{
 	  long long l = [o longLongValue];
 
-	  return l;
+	  return (int32_t)l;
 	}
       else
 	{

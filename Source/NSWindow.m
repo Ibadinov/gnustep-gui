@@ -124,7 +124,7 @@ BOOL GSViewAcceptsDrag(NSView *v, id<NSDraggingInfo> dragInfo);
 @end
 
 @interface NSScreen (PrivateMethods)
-- (id) _initWithScreenNumber: (int)screen;
+- (id) _initWithScreenNumber: (NSInteger)screen;
 @end
 
 @interface NSApplication(Inactive)
@@ -1156,10 +1156,10 @@ many times.
 - (id) initWithWindowRef: (void *)windowRef
 {
   NSRect contentRect;
-  unsigned int aStyle;
+  NSUInteger aStyle;
   NSBackingStoreType bufferingType;
   NSScreen* aScreen;
-  int screen;
+  NSInteger screen;
   NSInteger winNum;
   GSDisplayServer *srv = GSCurrentServer();
 
@@ -3412,7 +3412,7 @@ resetCursorRectsForView(NSView *theView)
  * loop status */
 - (NSPoint) mouseLocationOutsideOfEventStream
 {
-  int screen;
+  NSInteger screen;
   NSPoint p;
 
   screen = [_screen screenNumber];
@@ -3961,7 +3961,7 @@ resetCursorRectsForView(NSView *theView)
       case NSAppKitDefined:
         {
           id dragInfo;
-          int action;
+          NSInteger action;
           NSEvent *e;
           GSAppKitSubtype sub = [theEvent subtype];
 

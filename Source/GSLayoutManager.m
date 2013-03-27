@@ -60,7 +60,7 @@ static glyph_run_t *run_insert(glyph_run_head_t **context, int level)
 {
   glyph_run_head_t *h;
   glyph_run_t *r;
-  int i, size;
+  NSInteger i, size;
 
   size = sizeof(glyph_run_head_t) * level + sizeof(glyph_run_t);
   h = malloc(size);
@@ -151,19 +151,19 @@ static void run_fix_head(glyph_run_head_t *h)
 Private method used internally by GSLayoutManager for sanity checking.
 */
 @interface NSTextStorage (GSLayoutManagerSanityChecking)
--(unsigned int) _editCount;
+-(NSUInteger) _editCount;
 @end
 @implementation NSTextStorage (GSLayoutManagerSanityChecking)
--(unsigned int) _editCount;
+-(NSUInteger) _editCount;
 {
   return _editCount;
 }
 @end
 
 @interface GSLayoutManager (backend)
--(unsigned int) _findSafeBreakMovingBackwardFrom: (unsigned int)ch;
--(unsigned int) _findSafeBreakMovingForwardFrom: (unsigned int)ch;
--(void) _generateGlyphsForRun: (glyph_run_t *)run  at: (unsigned int)cpos;
+-(NSUInteger) _findSafeBreakMovingBackwardFrom: (NSUInteger)ch;
+-(NSUInteger) _findSafeBreakMovingForwardFrom: (NSUInteger)ch;
+-(void) _generateGlyphsForRun: (glyph_run_t *)run  at: (NSUInteger)cpos;
 @end
 
 /***** Glyph handling *****/
@@ -276,8 +276,8 @@ Private method used internally by GSLayoutManager for sanity checking.
     h = (glyph_run_t *)(glyphs + SKIP_LIST_DEPTH - 1)->next;
     for (; h; h = (glyph_run_t *)h->head.next)
       {
-        printf("%8p %i chars, %i glyphs, %i complete, prev %8p next %8p\n",
-               h, h->head.char_length, h->head.glyph_length, h->head.complete,
+        printf("%8p %ld chars, %ld glyphs, %i complete, prev %8p next %8p\n",
+               h, (long)h->head.char_length, (long)h->head.glyph_length, h->head.complete,
                h->prev, h->head.next);
         printf("         level %i, continued %i\n", h->level, h->continued);
         if (h->head.complete)
@@ -300,14 +300,14 @@ Private method used internally by GSLayoutManager for sanity checking.
 
     printf("    head: ");
     for (i = 0, h = glyphs + SKIP_LIST_DEPTH - 1; i < SKIP_LIST_DEPTH; i++, h--)
-      printf("%8p %i %3i %3i|", h->next, h->complete, h->char_length, h->glyph_length);
+      printf("%8p %i %3ld %3ld|", h->next, h->complete, (long)h->char_length, (long)h->glyph_length);
     printf("\n");
     h = (glyphs + SKIP_LIST_DEPTH - 1)->next;
     for (; h; h = h->next)
       {
         printf("%8p: ", h);
         for (g = h, i = ((glyph_run_t *)h)->level; i >= 0; i--, g--)
-          printf("%8p %i %3i %3i|", g->next, g->complete, g->char_length, g->glyph_length);
+          printf("%8p %i %3ld %3ld|", g->next, g->complete, (long)g->char_length, (long)g->glyph_length);
         printf("\n");
       }
   }
@@ -334,9 +334,9 @@ Private method used internally by GSLayoutManager for sanity checking.
  * glyph_pos and char_pos, when supplied, will contain the starting 
  * glyph/character index for this run.
  */
-- (glyph_run_t *)run_for_glyph_index: (unsigned int)glyphIndex
-				    : (unsigned int *)glyph_pos
-				    : (unsigned int *)char_pos
+- (glyph_run_t *)run_for_glyph_index: (NSUInteger)glyphIndex
+				    : (NSUInteger *)glyph_pos
+				    : (NSUInteger *)char_pos
 {
   int level;
   glyph_run_head_t *h;
@@ -344,7 +344,7 @@ Private method used internally by GSLayoutManager for sanity checking.
 
   if (glyphs->glyph_length <= glyphIndex)
     {
-      NSLog(@"run_for_glyph_index failed for %d", glyphIndex);
+      NSLog(@"run_for_glyph_index failed for %ld", (long)glyphIndex);
       return NULL;
     }
 
@@ -373,7 +373,7 @@ Private method used internally by GSLayoutManager for sanity checking.
           level--;
           if (!level)
             {
-              NSLog(@"run_for_glyph_index failed for %d", glyphIndex);
+              NSLog(@"run_for_glyph_index failed for %ld", (long)glyphIndex);
               return NULL;
             }
           continue;
@@ -386,7 +386,7 @@ Private method used internally by GSLayoutManager for sanity checking.
           h = h->next;
           if (!h)
             {
-              NSLog(@"run_for_glyph_index failed for %d", glyphIndex);
+              NSLog(@"run_for_glyph_index failed for %ld", (long)glyphIndex);
               return NULL;
             }
           continue;
@@ -418,9 +418,9 @@ Private method used internally by GSLayoutManager for sanity checking.
  * glyph_pos and char_pos, when supplied, will contain the starting 
  * glyph/character index for this run.
  */
-- (glyph_run_t *)run_for_character_index: (unsigned int)charIndex
-					: (unsigned int *)glyph_pos
-					: (unsigned int *)char_pos
+- (glyph_run_t *)run_for_character_index: (NSUInteger)charIndex
+					: (NSUInteger *)glyph_pos
+					: (NSUInteger *)char_pos
 {
   int level;
   glyph_run_head_t *h;
@@ -429,7 +429,7 @@ Private method used internally by GSLayoutManager for sanity checking.
 
   if (glyphs->char_length <= charIndex)
     {
-      NSLog(@"run_for_character_index failed for %d", charIndex);
+      NSLog(@"run_for_character_index failed for %ld", (long)charIndex);
       return NULL;
     }
 
@@ -461,7 +461,7 @@ Private method used internally by GSLayoutManager for sanity checking.
           h = h->next;
           if (!h)
             {
-              NSLog(@"run_for_character_index failed for %d", charIndex);
+              NSLog(@"run_for_character_index failed for %ld", (long)charIndex);
               return NULL;
             }
         }
@@ -493,12 +493,12 @@ Private method used internally by GSLayoutManager for sanity checking.
  * Only appends to the end of the skip list.
  * Only called after setting up a complete new layout.
  */
--(void) _generateRunsToCharacter: (unsigned int)last
+-(void) _generateRunsToCharacter: (NSUInteger)last
 {
   glyph_run_head_t *context[SKIP_LIST_DEPTH];
   glyph_run_head_t *h;
-  unsigned int pos;
-  unsigned int length;
+  NSUInteger pos;
+  NSUInteger length;
   int level;
 
   length = [_textStorage length];
@@ -579,7 +579,7 @@ Private method used internally by GSLayoutManager for sanity checking.
       */
       if (curRange.length > MAX_RUN_LENGTH)
         {
-          unsigned int safe_break = curRange.location + MAX_RUN_LENGTH;
+          NSUInteger safe_break = curRange.location + MAX_RUN_LENGTH;
           safe_break = [self _findSafeBreakMovingForwardFrom: safe_break];
           if (safe_break < NSMaxRange(curRange))
             curRange.length = safe_break - curRange.location;
@@ -630,8 +630,8 @@ Returns number of valid glyphs under h after generating up to last (sortof,
 not completely accurate).
 Fills in all glyph holes up to last. only looking at levels below level
 */
--(unsigned int) _generateGlyphs_char_r: (unsigned int)last : (unsigned int)cpos
-                                      : (unsigned int)gpos : (int)level
+-(unsigned int) _generateGlyphs_char_r: (NSUInteger)last : (NSUInteger)cpos
+                                      : (NSUInteger)gpos : (NSInteger)level
                                       : (glyph_run_head_t *)h : (glyph_run_head_t *)stop
                                       : (BOOL *)all_complete
 {
@@ -696,9 +696,9 @@ Fills in all glyph holes up to last. only looking at levels below level
 /*
  * Generate all glyphs up to the character index last.
  */
--(void) _generateGlyphsUpToCharacter: (unsigned int)last
+-(void) _generateGlyphsUpToCharacter: (NSUInteger)last
 {
-  unsigned int length;
+  NSUInteger length;
   BOOL dummy;
 
   if (!_textStorage)
@@ -734,9 +734,9 @@ Fills in all glyph holes up to last. only looking at levels below level
   // [self _glyphDumpRuns];
 }
 
--(void) _generateGlyphsUpToGlyph: (unsigned int)last
+-(void) _generateGlyphsUpToGlyph: (NSUInteger)last
 {
-  unsigned int length;
+  NSUInteger length;
 
   if (!_textStorage)
     return;
@@ -745,7 +745,7 @@ Fills in all glyph holes up to last. only looking at levels below level
   while (glyphs->glyph_length <= last && (glyphs->char_length < length || !glyphs->complete))
     {
       // Make an estimate for the character position
-      unsigned int char_last;
+      NSUInteger char_last;
 
       if (glyphs->glyph_length == 0)
         char_last = last;
@@ -760,14 +760,14 @@ Fills in all glyph holes up to last. only looking at levels below level
 /*
  * Find the glyph run that contains target and the glyph that matches to that char index.
  */
-- (glyph_run_t *) _glyphForCharacter: (unsigned int)target
-                               index: (unsigned int *)rindex
-                           positions: (unsigned int *)rpos 
-                                    : (unsigned int *)rcpos
+- (glyph_run_t *) _glyphForCharacter: (NSUInteger)target
+                               index: (NSUInteger *)rindex
+                           positions: (NSUInteger *)rpos 
+                                    : (NSUInteger *)rcpos
 {
   glyph_run_t *r;
-  unsigned int pos, cpos;
-  int lo, hi, mid, i;
+  NSUInteger pos, cpos;
+  NSInteger lo, hi, mid, i;
 
   r = [self run_for_character_index: target : &pos : &cpos];
   if (!r)
@@ -820,13 +820,13 @@ Fills in all glyph holes up to last. only looking at levels below level
 
 @implementation GSLayoutManager (glyphs)
 
-- (unsigned int) numberOfGlyphs
+- (NSUInteger) numberOfGlyphs
 {
   [self _generateGlyphsUpToCharacter: -1];
   return glyphs->glyph_length;
 }
 
-- (NSGlyph) glyphAtIndex: (unsigned int)glyphIndex
+- (NSGlyph) glyphAtIndex: (NSUInteger)glyphIndex
 {
   BOOL valid;
   NSGlyph g;
@@ -839,11 +839,11 @@ Fills in all glyph holes up to last. only looking at levels below level
   return g;
 }
 
-- (NSGlyph) glyphAtIndex: (unsigned int)glyphIndex
+- (NSGlyph) glyphAtIndex: (NSUInteger)glyphIndex
             isValidIndex: (BOOL *)isValidIndex
 {
   glyph_run_t *r;
-  unsigned int pos;
+  NSUInteger pos;
 
   if (isValidIndex != NULL)
     *isValidIndex = NO;
@@ -873,9 +873,9 @@ Fills in all glyph holes up to last. only looking at levels below level
   return r->glyphs[glyphIndex - pos].g;
 }
 
-- (BOOL) isValidGlyphIndex: (unsigned int)glyphIndex
+- (BOOL) isValidGlyphIndex: (NSUInteger)glyphIndex
 {
- if (glyphIndex == (unsigned int)-1)
+ if (glyphIndex == (NSUInteger)-1)
     return NO;
 
   if (glyphs->glyph_length <= glyphIndex)
@@ -888,14 +888,14 @@ Fills in all glyph holes up to last. only looking at levels below level
     }
 }
 
-- (unsigned int) getGlyphs: (NSGlyph *)glyphArray
-                     range: (NSRange)glyphRange
+- (NSUInteger) getGlyphs: (NSGlyph *)glyphArray
+                   range: (NSRange)glyphRange
 {
   glyph_run_t *r;
   NSGlyph *g;
-  unsigned int pos;
-  unsigned int num;
-  unsigned int i, j, k;
+  NSUInteger pos;
+  NSUInteger num;
+  NSUInteger i, j, k;
 
   if (glyphRange.length == 0)
     {
@@ -954,10 +954,10 @@ Fills in all glyph holes up to last. only looking at levels below level
   return num;
 }
 
-- (unsigned int) characterIndexForGlyphAtIndex: (unsigned int)glyphIndex
+- (NSUInteger) characterIndexForGlyphAtIndex: (NSUInteger)glyphIndex
 {
   glyph_run_t *r;
-  unsigned int pos, cpos;
+  NSUInteger pos, cpos;
 
   if (glyphs->glyph_length <= glyphIndex)
     {
@@ -989,10 +989,10 @@ Fills in all glyph holes up to last. only looking at levels below level
 /**
  * GNUstep extension
  */
-- (NSSize) advancementForGlyphAtIndex: (unsigned int)glyphIndex
+- (NSSize) advancementForGlyphAtIndex: (NSUInteger)glyphIndex
 {
   glyph_run_t *r;
-  unsigned int pos, cpos;
+  NSUInteger pos, cpos;
 
   if (glyphs->glyph_length <= glyphIndex)
     {
@@ -1028,8 +1028,8 @@ Fills in all glyph holes up to last. only looking at levels below level
 {
   glyph_run_t *r;
   NSRange real_range, char_range;
-  unsigned int cpos, pos;
-  unsigned j;
+  NSUInteger cpos, pos;
+  NSUInteger j;
 
   if (NSMaxRange(glyphRange) == 0)
     {
@@ -1071,8 +1071,8 @@ Fills in all glyph holes up to last. only looking at levels below level
   /* scan backwards to find the real first glyph */
   {
     glyph_run_t *r2;
-    unsigned int adj, cadj;
-    int i;
+    NSUInteger adj, cadj;
+    NSInteger i;
 
     i = glyphRange.location - pos;
     r2 = r;
@@ -1120,9 +1120,9 @@ Fills in all glyph holes up to last. only looking at levels below level
   /* scan forwards to find the real last glyph */
   {
     glyph_run_t *r2;
-    unsigned int adj, cadj;
-    unsigned int last = 0;
-    unsigned int i;
+    NSUInteger adj, cadj;
+    NSUInteger last = 0;
+    NSUInteger i;
 
     i = glyphRange.location + glyphRange.length - 1 - pos;
     r2 = r;
@@ -1161,8 +1161,8 @@ Fills in all glyph holes up to last. only looking at levels below level
 {
   NSRange char_range, glyph_range;
   glyph_run_t *r;
-  unsigned int cpos, pos;
-  unsigned int i, target;
+  NSUInteger cpos, pos;
+  NSUInteger i, target;
 
   /* TODO: should this really be valid?
 
@@ -1243,18 +1243,18 @@ Internally, we switch between before- and after-indices. Comments mark the
 places where we switch.
 */
 - (void) invalidateGlyphsForCharacterRange: (NSRange)range
-                            changeInLength: (int)lengthChange
+                            changeInLength: (NSInteger)lengthChange
                       actualCharacterRange: (NSRange *)actualRange
 {
   glyph_run_head_t *context[SKIP_LIST_DEPTH];
   glyph_run_head_t *h;
   glyph_run_t *r;
   NSRange rng;
-  int position[SKIP_LIST_DEPTH];
-  unsigned int cpos;
-  int level;
-  unsigned int ch;
-  unsigned int max;
+  NSInteger position[SKIP_LIST_DEPTH];
+  NSUInteger cpos;
+  NSInteger level;
+  NSUInteger ch;
+  NSUInteger max;
 
   /*
   We always clear out the cached run information to be safe. This is only needed 
@@ -1408,7 +1408,7 @@ places where we switch.
       This run begins before the invalidated range. Resize it so it ends
       just before it.
       */
-      int len = r->head.char_length;
+      NSUInteger len = r->head.char_length;
 
       r->head.char_length = ch - cpos;
       cpos += len;
@@ -1493,7 +1493,7 @@ places where we switch.
   { /* OPT: this is creating more runs than it needs to */
     NSDictionary *attributes;
     glyph_run_t *new;
-    unsigned int max = range.location + range.length;
+    NSUInteger max = range.location + range.length;
     int i;
 
     ch = range.location;
@@ -1573,7 +1573,7 @@ places where we switch.
         /* See comment in -_generateRunsToCharacter:. */
         if (rng.length > MAX_RUN_LENGTH)
           {
-            unsigned int safe_break = rng.location + MAX_RUN_LENGTH;
+            NSUInteger safe_break = rng.location + MAX_RUN_LENGTH;
             safe_break = [self _findSafeBreakMovingForwardFrom: safe_break];
             if (safe_break < NSMaxRange(rng))
               rng.length = safe_break - rng.location;
@@ -1625,7 +1625,7 @@ places where we switch.
 
 #define GET_GLYPH \
 	glyph_run_t *r; \
-	unsigned int pos, cpos; \
+	NSUInteger pos, cpos; \
 \
 	if (glyphs->glyph_length <= idx) \
 	{ \
@@ -1646,31 +1646,31 @@ places where we switch.
 	idx -= pos;
 
 - (void) setDrawsOutsideLineFragment: (BOOL)flag 
-                     forGlyphAtIndex: (unsigned int)idx
+                     forGlyphAtIndex: (NSUInteger)idx
 {
   GET_GLYPH
   r->glyphs[idx].drawsOutsideLineFragment = !!flag;
 }
-- (BOOL) drawsOutsideLineFragmentForGlyphAtIndex: (unsigned int)idx
+- (BOOL) drawsOutsideLineFragmentForGlyphAtIndex: (NSUInteger)idx
 {
   GET_GLYPH
   return r->glyphs[idx].drawsOutsideLineFragment;
 }
 
 - (void) setNotShownAttribute: (BOOL)flag 
-              forGlyphAtIndex: (unsigned int)idx
+              forGlyphAtIndex: (NSUInteger)idx
 {
   GET_GLYPH
   r->glyphs[idx].isNotShown = !!flag;
 }
-- (BOOL) notShownAttributeForGlyphAtIndex: (unsigned int)idx
+- (BOOL) notShownAttributeForGlyphAtIndex: (NSUInteger)idx
 {
   GET_GLYPH
   return r->glyphs[idx].isNotShown;
 }
 
 // GNUstep extension
-- (NSFont *) effectiveFontForGlyphAtIndex: (unsigned int)idx
+- (NSFont *) effectiveFontForGlyphAtIndex: (NSUInteger)idx
                                     range: (NSRange *)range
 {
   GET_GLYPH
@@ -1680,8 +1680,8 @@ places where we switch.
 }
 
 - (void) insertGlyph: (NSGlyph)aGlyph
-        atGlyphIndex: (unsigned int)glyphIndex
-      characterIndex: (unsigned int)charIndex
+        atGlyphIndex: (NSUInteger)glyphIndex
+      characterIndex: (NSUInteger)charIndex
 {
   [self insertGlyphs: &aGlyph
         length: 1
@@ -1689,11 +1689,11 @@ places where we switch.
         characterIndex: charIndex];
 }
 
-- (void) replaceGlyphAtIndex: (unsigned int)glyphIndex
+- (void) replaceGlyphAtIndex: (NSUInteger)glyphIndex
                    withGlyph: (NSGlyph)newGlyph
 {
   glyph_run_t *r;
-  unsigned int pos, cpos;
+  NSUInteger pos, cpos;
 
   if (glyphs->glyph_length <= glyphIndex)
     {
@@ -1762,11 +1762,11 @@ places where we switch.
   NSLog(@"Internal method %s called", __PRETTY_FUNCTION__);
 }
 
-- (void) setCharacterIndex: (unsigned int)charIndex
-           forGlyphAtIndex: (unsigned int)glyphIndex
+- (void) setCharacterIndex: (NSUInteger)charIndex
+           forGlyphAtIndex: (NSUInteger)glyphIndex
 {
   glyph_run_t *r;
-  unsigned int pos, cpos;
+  NSUInteger pos, cpos;
 
   if (glyphs->glyph_length <= glyphIndex)
     {
@@ -1794,12 +1794,12 @@ places where we switch.
   // What should happen to the following glyphs?
 }
 
-- (int) intAttribute: (int)attributeTag
-     forGlyphAtIndex: (unsigned int)glyphIndex
+- (NSInteger) intAttribute: (NSInteger)attributeTag
+     forGlyphAtIndex: (NSUInteger)glyphIndex
 {
   glyph_run_t *run;
   glyph_t *g;
-  unsigned int pos;
+  NSUInteger pos;
 
   run = run_for_glyph_index(glyphIndex, glyphs, &pos, NULL);
   if (run && run->glyphs && (run->head.glyph_length < glyphIndex - pos))
@@ -1827,9 +1827,9 @@ places where we switch.
 
 @implementation GSLayoutManager (LayoutHelpers)
 
--(void) _invalidateLayoutFromContainer: (int)idx
+-(void) _invalidateLayoutFromContainer: (NSInteger)idx
 {
-  int i, j;
+  NSInteger i, j;
   textcontainer_t *tc;
   linefrag_t *lf;
 
@@ -1888,11 +1888,11 @@ places where we switch.
   [self _doLayoutToContainer: num_textcontainers - 1];
 }
 
--(void) _doLayoutToGlyph: (unsigned int)glyphIndex
+-(void) _doLayoutToGlyph: (NSUInteger)glyphIndex
 {
-  int i, j;
+  NSInteger i, j;
   textcontainer_t *tc;
-  unsigned int next;
+  NSUInteger next;
   NSRect prev;
   BOOL delegate_responds;
 
@@ -1934,7 +1934,7 @@ places where we switch.
             If there is any soft invalidated layout information left, remove
             it.
           */
-          int k;
+          NSInteger k;
           linefrag_t *lf;
           for (k = tc->num_linefrags, lf = tc->linefrags + k; 
                k < tc->num_linefrags + tc->num_soft; k++, lf++)
@@ -1974,11 +1974,11 @@ places where we switch.
     }
 }
 
--(void) _doLayoutToContainer: (int)cindex
+-(void) _doLayoutToContainer: (NSInteger)cindex
 {
-  int i, j;
+  NSInteger i, j;
   textcontainer_t *tc;
-  unsigned int next;
+  NSUInteger next;
   NSRect prev;
   BOOL delegate_responds;
 
@@ -2014,7 +2014,7 @@ places where we switch.
             If there is any soft invalidated layout information left, remove
             it.
           */
-          int k;
+          NSInteger k;
           linefrag_t *lf;
           for (k = tc->num_linefrags, lf = tc->linefrags + k; 
                k < tc->num_linefrags + tc->num_soft; k++, lf++)
@@ -2093,7 +2093,7 @@ by calling this incorrectly.
 
 
 #define SETUP_STUFF \
-  unsigned int max = glyphRange.location + glyphRange.length; \
+  NSUInteger max = glyphRange.location + glyphRange.length; \
   \
   [self _generateGlyphsUpToGlyph: max - 1]; \
   if (glyphs->glyph_length < max) \
@@ -2157,8 +2157,8 @@ by calling this incorrectly.
     }
 
   {
-    unsigned int gpos;
-    unsigned int g;
+    NSUInteger gpos;
+    NSUInteger g;
     glyph_t *glyph;
     glyph_run_t *run = run_for_glyph_index(glyphRange.location, glyphs, &gpos, NULL);
 
@@ -2256,7 +2256,7 @@ by calling this incorrectly.
     }
   else
     {
-      int i;
+      NSInteger i;
       for (i = tc->num_linefrags, lf = tc->linefrags + i; i < tc->num_linefrags + tc->num_soft; i++, lf++)
 	{
 	  if (lf->pos >= NSMaxRange(glyphRange))
@@ -2315,7 +2315,7 @@ by calling this incorrectly.
 forStartOfGlyphRange: (NSRange)glyphRange
 {
   textcontainer_t *tc;
-  int i;
+  NSInteger i;
   linefrag_t *lf;
   linefrag_point_t *lp;
 
@@ -2557,7 +2557,7 @@ forStartOfGlyphRange: (NSRange)glyphRange
   return lf->used_rect;
 }
 
-- (NSRange) rangeOfNominallySpacedGlyphsContainingIndex: (unsigned int)glyphIndex
+- (NSRange) rangeOfNominallySpacedGlyphsContainingIndex: (NSUInteger)glyphIndex
 					  startLocation: (NSPoint *)p
 {
   int i;
@@ -2599,7 +2599,7 @@ forStartOfGlyphRange: (NSRange)glyphRange
 }
 
 
-- (NSRange) rangeOfNominallySpacedGlyphsContainingIndex:(unsigned int)glyphIndex
+- (NSRange) rangeOfNominallySpacedGlyphsContainingIndex:(NSUInteger)glyphIndex
 {
   return [self rangeOfNominallySpacedGlyphsContainingIndex: glyphIndex
 	       startLocation: NULL];
@@ -2699,7 +2699,7 @@ forStartOfGlyphRange: (NSRange)glyphRange
 }
 
 - (void) insertTextContainer: (NSTextContainer *)aTextContainer
-		     atIndex: (unsigned int)index
+		     atIndex: (NSUInteger)index
 {
   unsigned int i;
 
@@ -2721,9 +2721,9 @@ forStartOfGlyphRange: (NSRange)glyphRange
   [self _didInvalidateLayout];
 }
 
-- (void) removeTextContainerAtIndex: (unsigned int)index
+- (void) removeTextContainerAtIndex: (NSUInteger)index
 {
-  int i;
+  NSInteger i;
   textcontainer_t *tc = &textcontainers[index];
 
   [self _invalidateLayoutFromContainer: index];
@@ -2761,18 +2761,18 @@ forStartOfGlyphRange: (NSRange)glyphRange
   [self _didInvalidateLayout];
 }
 
-- (unsigned int) firstUnlaidCharacterIndex
+- (NSUInteger) firstUnlaidCharacterIndex
 {
   return layout_char;
 }
 
-- (unsigned int) firstUnlaidGlyphIndex
+- (NSUInteger) firstUnlaidGlyphIndex
 {
   return layout_glyph;
 }
 
--(void) getFirstUnlaidCharacterIndex: (unsigned int *)cindex
-			  glyphIndex: (unsigned int *)gindex
+-(void) getFirstUnlaidCharacterIndex: (NSUInteger *)cindex
+			  glyphIndex: (NSUInteger *)gindex
 {
   if (cindex)
     *cindex = [self firstUnlaidCharacterIndex];
@@ -2805,11 +2805,11 @@ forStartOfGlyphRange: (NSRange)glyphRange
 }
 
 
--(void) _softInvalidateUseLineFrags: (int)num
+-(void) _softInvalidateUseLineFrags: (NSInteger)num
 			  withShift: (NSSize)shift
 		    inTextContainer: (NSTextContainer *)textContainer
 {
-  int i;
+  NSInteger i;
   textcontainer_t *tc;
   linefrag_t *lf;
   for (i = 0, tc = textcontainers; i < num_textcontainers; i++, tc++)
@@ -2847,12 +2847,12 @@ forStartOfGlyphRange: (NSRange)glyphRange
     layout_char = [self characterIndexForGlyphAtIndex: layout_glyph]; /* TODO? */
 }
 
--(NSRect) _softInvalidateLineFragRect: (int)index
-			   firstGlyph: (unsigned int *)first_glyph
-			    nextGlyph: (unsigned int *)next_glyph
+-(NSRect) _softInvalidateLineFragRect: (NSInteger)index
+			   firstGlyph: (NSUInteger *)first_glyph
+			    nextGlyph: (NSUInteger *)next_glyph
 		      inTextContainer: (NSTextContainer *)textContainer
 {
-  int i;
+  NSInteger i;
   textcontainer_t *tc;
   linefrag_t *lf;
   for (i = 0, tc = textcontainers; i < num_textcontainers; i++, tc++)
@@ -2873,9 +2873,9 @@ forStartOfGlyphRange: (NSRange)glyphRange
   return lf->rect;
 }
 
--(unsigned int) _softInvalidateFirstGlyphInTextContainer: (NSTextContainer *)textContainer
+-(NSUInteger) _softInvalidateFirstGlyphInTextContainer: (NSTextContainer *)textContainer
 {
-  int i;
+  NSInteger i;
   textcontainer_t *tc;
   for (i = 0, tc = textcontainers; i < num_textcontainers; i++, tc++)
     if (tc->textContainer == textContainer)
@@ -2891,9 +2891,9 @@ forStartOfGlyphRange: (NSRange)glyphRange
     return (unsigned int)-1;
 }
 
--(unsigned int) _softInvalidateNumberOfLineFragsInTextContainer: (NSTextContainer *)textContainer
+-(NSUInteger) _softInvalidateNumberOfLineFragsInTextContainer: (NSTextContainer *)textContainer
 {
-  int i;
+  NSInteger i;
   textcontainer_t *tc;
   for (i = 0, tc = textcontainers; i < num_textcontainers; i++, tc++)
     if (tc->textContainer == textContainer)
@@ -2929,7 +2929,7 @@ forStartOfGlyphRange: (NSRange)glyphRange
 
 -(void) dealloc
 {
-  int i;
+  NSInteger i;
   textcontainer_t *tc;
 
   free(rect_array);
@@ -3124,9 +3124,9 @@ intelligent invalidation of layout using the constraints on layout it
 has).
 */
 - (void) textStorage: (NSTextStorage *)aTextStorage
-              edited: (unsigned int)mask
+              edited: (NSUInteger)mask
                range: (NSRange)range
-      changeInLength: (int)lengthChange
+      changeInLength: (NSInteger)lengthChange
     invalidatedRange: (NSRange)invalidatedRange
 {
   NSRange r;
@@ -3147,7 +3147,7 @@ has).
   [self _didInvalidateLayout];
 }
 
--(unsigned int) _findSafeBreakMovingBackwardFrom: (unsigned int)ch
+-(NSUInteger) _findSafeBreakMovingBackwardFrom: (NSUInteger)ch
 {
   NSString *str = [_textStorage string];
 
@@ -3157,9 +3157,9 @@ has).
   return ch;
 }
 
--(unsigned int) _findSafeBreakMovingForwardFrom: (unsigned int)ch
+-(NSUInteger) _findSafeBreakMovingForwardFrom: (NSUInteger)ch
 {
-  unsigned int len = [_textStorage length];
+  NSUInteger len = [_textStorage length];
   NSString *str = [_textStorage string];
 
   // FIXME: Better check for ligature
@@ -3189,11 +3189,11 @@ forStartingGlyphAtIndex: (NSUInteger)glyph
        characterIndex: (NSUInteger)index
 {
   glyph_run_t *run;
-  int i;
+  NSInteger i;
   glyph_t *g;
-  int len;
-  unsigned int gpos = 0;
-  unsigned int cpos = 0;
+  NSInteger len;
+  NSUInteger gpos = 0;
+  NSUInteger cpos = 0;
 
   //NSLog(@"Insert %d glyphs at %d for index %d", length, glyph, index);
 
@@ -3208,8 +3208,8 @@ forStartingGlyphAtIndex: (NSUInteger)glyph
   len = glyph - gpos + length;
   if (len < 0)
     {
-      NSLog(@"Insert %d glyphs at %d for index %d", (int)length, (int)glyph, (int)index);
-      NSLog(@"Found gpos %d cpos %d len %d", gpos, cpos, len);
+      NSLog(@"Insert %ld glyphs at %ld for index %ld", (long)length, (long)glyph, (long)index);
+      NSLog(@"Found gpos %ld cpos %ld len %ld", (long)gpos, (long)cpos, (long)len);
       [NSException raise: NSRangeException
                    format: @"%s glyph index out of range", __PRETTY_FUNCTION__];
       return;
@@ -3245,8 +3245,8 @@ forStartingGlyphAtIndex: (NSUInteger)glyph
        characterIndex: (NSUInteger)index
 {
   glyph_run_t *run;
-  int i;
-  unsigned int gpos, cpos;
+  NSInteger i;
+  NSUInteger gpos, cpos;
   NSSize advances[length];
 
   run = [self run_for_character_index: index : &gpos : &cpos];
@@ -3287,7 +3287,7 @@ forStartingGlyphAtIndex: (NSUInteger)glyph
 {
   glyph_run_t *run;
   glyph_t *g;
-  unsigned int pos;
+  NSUInteger pos;
 
   run = run_for_glyph_index(glyphIndex, glyphs, &pos, NULL);
   if (run && run->glyphs && (run->head.glyph_length < glyphIndex - pos))

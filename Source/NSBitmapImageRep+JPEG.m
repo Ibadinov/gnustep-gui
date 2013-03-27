@@ -182,6 +182,7 @@ static void gs_term_source(j_decompress_ptr cinfo)
  * has to be called.  */
 static void gs_jpeg_memory_src_create(j_decompress_ptr cinfo, NSData *data)
 {
+  NSCParameterAssert([data length] < UINT_MAX);
   gs_jpeg_source_ptr src;
   
   cinfo->src = (struct jpeg_source_mgr *)malloc(sizeof(gs_jpeg_source_mgr));
@@ -196,7 +197,7 @@ static void gs_jpeg_memory_src_create(j_decompress_ptr cinfo, NSData *data)
   src->parent.next_input_byte = NULL; /* until buffer loaded */
 
   src->data = (const unsigned char *)[data bytes];
-  src->length = [data length];
+  src->length = (unsigned)[data length];
 }
 
 
@@ -555,7 +556,7 @@ static void gs_jpeg_memory_dest_destroy (j_compress_ptr cinfo)
   memset((void*)&cinfo, 0, sizeof(struct jpeg_compress_struct));
 
   imageSource = [self bitmapData];
-  sPP = [self samplesPerPixel];
+  sPP = (int)[self samplesPerPixel];
   width = [self size].width;
   height = [self size].height;
   row_stride = width * sPP;

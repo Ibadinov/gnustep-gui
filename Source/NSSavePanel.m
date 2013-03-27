@@ -69,7 +69,7 @@ static NSFileManager *_fm = nil;
 static BOOL _gs_display_reading_progress = NO;
 
 static NSString	*
-pathToColumn(NSBrowser *browser, int column)
+pathToColumn(NSBrowser *browser, NSInteger column)
 {
 #if	defined(__MINGW32__)
   if (column == 0)
@@ -117,7 +117,7 @@ setPath(NSBrowser *browser, NSString *path)
 - (void) _setHomeDirectory;
 - (void) _mountMedia;
 - (void) _unmountMedia;
-- (void) _selectTextInColumn: (int)column;
+- (void) _selectTextInColumn: (NSInteger)column;
 - (void) _selectCellName: (NSString *)title;
 - (void) _setFileName: (NSString *)name;
 - (void) _setupForDirectory: (NSString *)path file: (NSString *)name;
@@ -464,7 +464,7 @@ setPath(NSBrowser *browser, NSString *path)
   [[NSWorkspace sharedWorkspace] unmountAndEjectDeviceAtPath: [self directory]];
 }
 
-- (void) _selectTextInColumn: (int)column
+- (void) _selectTextInColumn: (NSInteger)column
 {
   NSMatrix      *matrix;
   NSBrowserCell *selectedCell;
@@ -514,11 +514,11 @@ setPath(NSBrowser *browser, NSString *path)
 
 - (void) _selectCellName: (NSString *)title
 {
-  NSString           *cellString;
-  NSArray            *cells;
-  NSMatrix           *matrix;
-  NSComparisonResult  result;
-  int                 i, titleLength, cellLength, numberOfCells;
+  NSString              *cellString;
+  NSArray               *cells;
+  NSMatrix              *matrix;
+  NSComparisonResult    result;
+  NSInteger             i, titleLength, cellLength, numberOfCells;
 
   matrix = [_browser matrixInColumn:[_browser lastColumn]];
   if ([matrix selectedCell])
@@ -1278,7 +1278,7 @@ selectCellWithString: (NSString*)title
       if ([fileType length] != 0 &&
 	  [_allowedFileTypes indexOfObject: fileType] == NSNotFound)
 	{
-	  int result;
+	  NSInteger result;
 	  NSString *msgFormat, *butFormat;
 	  NSString *altType, *requiredType;
 
@@ -1337,7 +1337,7 @@ selectCellWithString: (NSString*)title
   filename = [_fullFileName stringByDeletingLastPathComponent];
   if ([_fm fileExistsAtPath: filename isDirectory: &isDir] == NO)
     {
-      int	result;
+      NSInteger result;
 
       result = NSRunAlertPanel(_(@"Save"),
 	_(@"The directory '%@' does not exist, do you want to create it?"),
@@ -1372,7 +1372,7 @@ selectCellWithString: (NSString*)title
     }
   if ([_fm fileExistsAtPath: [self filename] isDirectory: NULL])
     {
-      int result;
+      NSInteger result;
 
       result = NSRunAlertPanel(_(@"Save"),
 			       _(@"The file '%@' in '%@' exists. Replace it?"),
@@ -1527,10 +1527,10 @@ selectCellWithString: (NSString*)title
 @implementation NSString (GSSavePanel)
 - (NSComparisonResult)_gsSavePanelCompare:(NSString *)other
 {
-  int                sLength, oLength;
-  unichar            sChar, oChar;
-  NSComparisonResult result;
-  NSRange            range;
+  NSInteger             sLength, oLength;
+  unichar               sChar, oChar;
+  NSComparisonResult    result;
+  NSRange               range;
 
   sLength = [self length];
   oLength = [other length];
@@ -1620,16 +1620,16 @@ createRowsForColumn: (NSInteger)column
           column: (NSInteger)column;
 @end 
 
-static int compareFilenames (id elem1, id elem2, void *context)
+static NSComparisonResult compareFilenames (id elem1, id elem2, void *context)
 {
   /* TODO - use IMP optimization here.  */
   NSSavePanel *s = context;
   NSSavePanel *self = (NSSavePanel *)context;
 
-  return (int)[s->_delegate panel: self
-		compareFilename: elem1
-		with: elem2
-		caseSensitive: YES];
+  return (NSComparisonResult)[s->_delegate panel: self
+                                 compareFilename: elem1
+                                            with: elem2
+                                   caseSensitive: YES];
 }
 
 
@@ -1645,15 +1645,15 @@ createRowsForColumn: (NSInteger)column
 {
   NSString              *path, *file, *pathAndFile, *extension; 
   NSArray               *files;
-  unsigned	         i, count, addedRows; 
-  BOOL		         exists, isDir;
+  NSUInteger            i, count, addedRows; 
+  BOOL                  exists, isDir;
   NSBrowserCell         *cell;
   // _gs_display_reading_progress variables
-  unsigned               reached_frac = 0;
-  unsigned               base_frac = 1;
-  BOOL                   display_progress = NO;
+  NSUInteger            reached_frac = 0;
+  NSUInteger            base_frac = 1;
+  BOOL                  display_progress = NO;
   NSString              *progressString = nil;
-  NSWorkspace		*ws;
+  NSWorkspace           *ws;
   /* We create lot of objects in this method, so we use a pool */
   NSAutoreleasePool     *pool;
 
@@ -1711,7 +1711,7 @@ createRowsForColumn: (NSInteger)column
        strictly needed.  */
     if (!_showsHiddenFiles)
       {
-	int j;
+	NSInteger j;
 	/* We must make a mutable copy of the array because the API
 	   says that NSFileManager -directoryContentsAtPath: return a
 	   NSArray, not a NSMutableArray, so we shouldn't expect it to
@@ -1872,7 +1872,7 @@ createRowsForColumn: (NSInteger)column
    *       to show additional files, which were not displayed before.
    */
   NSArray	*cells = [[sender matrixInColumn: column] cells];
-  unsigned	count = [cells count], i;
+  NSUInteger    count = [cells count], i;
   NSString	*path = pathToColumn(sender, column);
 
   // iterate through the cells asking the delegate if each filename is valid
@@ -1908,13 +1908,13 @@ createRowsForColumn: (NSInteger)column
 
 - (void) controlTextDidChange: (NSNotification *)aNotification
 {
-  NSString           *s, *selectedString;
-  NSArray            *cells;
-  NSMatrix           *matrix;
-  NSCell             *selectedCell;
-  int                 i, sLength, cellLength, selectedRow;
-  NSComparisonResult  result;
-  NSRange             range;
+  NSString              *s, *selectedString;
+  NSArray               *cells;
+  NSMatrix              *matrix;
+  NSCell                *selectedCell;
+  NSInteger             i, sLength, cellLength, selectedRow;
+  NSComparisonResult    result;
+  NSRange               range;
 
   s = [[[aNotification userInfo] objectForKey: @"NSFieldEditor"] string];
 
@@ -1955,7 +1955,7 @@ createRowsForColumn: (NSInteger)column
 
   if (result == NSOrderedDescending)
     {
-      int numberOfCells = [cells count];
+      NSInteger numberOfCells = [cells count];
 
       for (i = selectedRow+1; i < numberOfCells; i++)
 	{

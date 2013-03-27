@@ -379,8 +379,8 @@ static NSImage *_pbc_image[5];
  */
 - (void) addItemsWithTitles: (NSArray *)titles
 {
-  unsigned c = [titles count];
-  unsigned i;
+  NSUInteger c = [titles count];
+  NSUInteger i;
 
   for (i = 0; i < c; i++)
     {
@@ -574,7 +574,7 @@ static NSImage *_pbc_image[5];
  */
 - (id <NSCopying>) objectValue
 {
-  return [NSNumber numberWithInt: [self indexOfSelectedItem]];
+  return [NSNumber numberWithInteger: [self indexOfSelectedItem]];
 }
 
 - (void) setObjectValue: (id)object
@@ -865,9 +865,9 @@ static NSImage *_pbc_image[5];
  */ 
 - (NSArray *) itemTitles
 {
-  unsigned count = [_menu numberOfItems];
+  NSUInteger count = [_menu numberOfItems];
   id items[count];
-  unsigned i;
+  NSUInteger i;
 
   [[_menu itemArray] getObjects: items];
   for (i = 0; i < count; i++)
@@ -1181,9 +1181,9 @@ static NSImage *_pbc_image[5];
 	      forKey: @"NSUsesItemFromMenu"];
       [aCoder encodeInt:  [self arrowPosition] 
 	      forKey: @"NSArrowPosition"];
-      [aCoder encodeInt:  [self preferredEdge] 
+      [aCoder encodeInteger:  [self preferredEdge] 
 	      forKey: @"NSPreferredEdge"];
-      [aCoder encodeInt:  [self indexOfSelectedItem] 
+      [aCoder encodeInteger:  [self indexOfSelectedItem] 
 	      forKey: @"NSSelectedIndex"];
       [aCoder encodeBool: [self pullsDown]
 	      forKey: @"NSPullDown"];
@@ -1254,13 +1254,13 @@ static NSImage *_pbc_image[5];
         }
       if ([aDecoder containsValueForKey: @"NSPreferredEdge"])
         {
-          NSRectEdge edge = [aDecoder decodeIntForKey: @"NSPreferredEdge"];
+          NSRectEdge edge = [aDecoder decodeIntegerForKey: @"NSPreferredEdge"];
           
           [self setPreferredEdge: edge];
         }
       if ([aDecoder containsValueForKey: @"NSSelectedIndex"])
         {
-	  int selectedIdx = [aDecoder decodeIntForKey: 
+	  NSInteger selectedIdx = [aDecoder decodeIntegerForKey: 
 					@"NSSelectedIndex"];
 	  [self selectItemAtIndex: selectedIdx];
 	}
@@ -1278,8 +1278,7 @@ static NSImage *_pbc_image[5];
     {
       int flag;
       id<NSMenuItem> selectedItem;
-      int version = [aDecoder versionForClassName: 
-                                  @"NSPopUpButtonCell"];
+      NSInteger version = [aDecoder versionForClassName: @"NSPopUpButtonCell"];
 
       menu = [aDecoder decodeObject];
       /* 

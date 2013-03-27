@@ -49,7 +49,7 @@
 
 - (void)drawWithFrame: (NSRect)cellFrame 
 	       inView: (NSView *)controlView 
-       characterIndex: (unsigned)charIndex
+       characterIndex: (NSUInteger)charIndex
 {
   [self drawWithFrame: cellFrame 
 	inView: controlView];
@@ -57,7 +57,7 @@
 
 - (void)drawWithFrame: (NSRect)cellFrame 
 	       inView: (NSView *)controlView 
-       characterIndex: (unsigned)charIndex
+       characterIndex: (NSUInteger)charIndex
 	layoutManager: (NSLayoutManager *)layoutManager
 {
   [self drawWithFrame: cellFrame 
@@ -73,7 +73,7 @@
 - (NSRect)cellFrameForTextContainer: (NSTextContainer *)textContainer 
 	       proposedLineFragment: (NSRect)lineFrag
 		      glyphPosition: (NSPoint)position 
-		     characterIndex: (unsigned)charIndex
+		     characterIndex: (NSUInteger)charIndex
 {
   NSRect aRect;
   
@@ -90,7 +90,7 @@
 - (BOOL)wantsToTrackMouseForEvent: (NSEvent *)theEvent 
 			   inRect: (NSRect)cellFrame 
 			   ofView: (NSView *)controlView
-		 atCharacterIndex: (unsigned)charIndex
+		 atCharacterIndex: (NSUInteger)charIndex
 {
   return [self wantsToTrackMouse];
 }
@@ -154,7 +154,7 @@
 - (BOOL)trackMouse: (NSEvent *)theEvent 
 	    inRect: (NSRect)cellFrame 
 	    ofView: (NSView *)controlView
-  atCharacterIndex: (unsigned)charIndex 
+  atCharacterIndex: (NSUInteger)charIndex 
       untilMouseUp: (BOOL)flag
 {
   if ([controlView respondsToSelector: @selector(delegate)])

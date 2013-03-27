@@ -168,7 +168,7 @@ NSEventMaskFromType(NSEventType type);
 static inline NSUInteger
 NSEventMaskFromType(NSEventType type)
 {
-  return (1 << type);
+  return ((NSUInteger)1 << type);
 }
 
 enum {

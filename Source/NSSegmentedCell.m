@@ -201,7 +201,7 @@
       if (_width != 0.0)
         [aCoder encodeFloat: _width forKey: @"NSSegmentItemWidth"];
       if (_tag != 0)
-        [aCoder encodeInt: _tag forKey: @"NSSegmentItemTag"];
+        [aCoder encodeInteger: _tag forKey: @"NSSegmentItemTag"];
     }
   else
     {
@@ -236,7 +236,7 @@
       if ([aDecoder containsValueForKey: @"NSSegmentItemWidth"])
         _width = [aDecoder decodeFloatForKey: @"NSSegmentItemWidth"];
       if ([aDecoder containsValueForKey: @"NSSegmentItemTag"])
-	_tag = [aDecoder decodeIntForKey: @"NSSegmentItemTag"];
+	_tag = [aDecoder decodeIntegerForKey: @"NSSegmentItemTag"];
     }
   else
     {
@@ -619,7 +619,7 @@
     {
       [aCoder encodeObject: _items forKey: @"NSSegmentImages"];
       if (_selected_segment != -1)
-        [aCoder encodeInt: _selected_segment forKey: @"NSSelectedSegment"];
+        [aCoder encodeInteger: _selected_segment forKey: @"NSSelectedSegment"];
       [aCoder encodeInt: _segmentCellFlags._style forKey: @"NSSegmentStyle"];
     }
   else
@@ -657,7 +657,7 @@
 
       if ([aDecoder containsValueForKey: @"NSSelectedSegment"])
         {
-          _selected_segment = [aDecoder decodeIntForKey: @"NSSelectedSegment"];
+          _selected_segment = [aDecoder decodeIntegerForKey: @"NSSelectedSegment"];
           if (_selected_segment != -1)
             [self setSelectedSegment: _selected_segment];
         }

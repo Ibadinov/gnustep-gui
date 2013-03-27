@@ -123,10 +123,10 @@ APPKIT_EXPORT NSString *NSAnimationTriggerOrderOut;
   NSAnimationProgress _currentProgress;   // Progress of the animation
 
   /* GSIArray<NSAnimationProgress> */ void *_progressMarks; // Array
-  unsigned int _nextMark;                 // The next mark to be reached
+  NSUInteger _nextMark;                   // The next mark to be reached
                                           //   = count if no next mark
   __strong NSNumber **_cachedProgressMarkNumbers;  // Cached values used by
-  unsigned _cachedProgressMarkNumberCount;//   [-progressMarks]
+  NSUInteger _cachedProgressMarkNumberCount;//   [-progressMarks]
   BOOL _isCachedProgressMarkNumbersValid;
 
   NSAnimation *_startAnimation, *_stopAnimation; // Animations used as

@@ -145,6 +145,6 @@
 // Draw a Distinctive Outline around Linked Data
 //
 void NSFrameLinkRect(NSRect aRect, BOOL isDestination);
-float NSLinkFrameThickness(void);
+CGFloat NSLinkFrameThickness(void);
 
 #endif // _GNUstep_H_NSDataLinkManager

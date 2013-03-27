@@ -820,7 +820,7 @@ added to the selection (1,3).
 
 */
 
-- (unsigned int) _movementOrigin
+- (NSUInteger) _movementOrigin
 {
   NSRange range = [self selectedRange];
 

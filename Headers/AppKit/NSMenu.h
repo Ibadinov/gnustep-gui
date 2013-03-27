@@ -100,22 +100,22 @@
 /** Method used by NSMenuItemCell to draw itself correctly and nicely
  *  lined up with the other menu items.
  */
-- (float) stateImageWidth; 
+- (CGFloat) stateImageWidth; 
 /** Method used by NSMenuItemCell to draw itself correctly and nicely
  *  lined up with the other menu items
  */
-- (float) imageAndTitleOffset;
+- (CGFloat) imageAndTitleOffset;
 /** Methos used by NSMenuItemCell to draw itself correctly and nicely
  *  lined up with the other menu items.
  */
-- (float) imageAndTitleWidth;
+- (CGFloat) imageAndTitleWidth;
 /** Methos used by NSMenuItemCell to draw itself correctly and nicely
  *  lined up with the other menu items.
  */
-- (float) keyEquivalentOffset;
+- (CGFloat) keyEquivalentOffset;
 /** Used by NSItemCell to ...
  */
-- (float) keyEquivalentWidth;
+- (CGFloat) keyEquivalentWidth;
 
 /** Used by the NSMenu to determine where to position a
  *  submenu.
@@ -352,11 +352,11 @@
   } _menu;
 
 @private
-  NSWindow *_aWindow;
-  NSWindow *_bWindow;
-  NSMenu *_oldAttachedMenu;
-  int     _oldHiglightedIndex;
-  NSString *_name;
+  NSWindow  *_aWindow;
+  NSWindow  *_bWindow;
+  NSMenu    *_oldAttachedMenu;
+  NSInteger _oldHiglightedIndex;
+  NSString  *_name;
 }
 
 /** Returns the memory allocation zone used to create instances of this class.
@@ -444,7 +444,7 @@
  * and the actionSelector.
  */
 - (NSInteger) indexOfItemWithTarget: (id)anObject
-                   andAction: (SEL)actionSelector;
+                          andAction: (SEL)actionSelector;
 
 /** Returns the index of an item with the represented object anObject.
  */
@@ -528,7 +528,7 @@
 - (NSPoint) locationForSubmenu: (NSMenu*)aSubmenu;
 
 #if OS_API_VERSION(MAC_OS_X_VERSION_10_4, GS_API_LATEST)
-- (float)menuBarHeight;
+- (CGFloat)menuBarHeight;
 #endif
 
 - (BOOL) menuChangedMessagesEnabled;

@@ -263,7 +263,7 @@ gnustep_backend_bundle(NSString *bundleName)
   return path;
 }
 
-BOOL
+static BOOL
 initialize_gnustep_backend(void)
 {
   static int first = 1;
@@ -334,7 +334,7 @@ initialize_gnustep_backend(void)
   return YES;
 }
 
-void
+static void
 gsapp_user_bundles(void)
 {
   NSUserDefaults *defs=[NSUserDefaults standardUserDefaults];
@@ -343,7 +343,7 @@ gsapp_user_bundles(void)
   c = [a count];
   if (a == nil || c == 0)
     return;
-  NSLog(@"Loading %d user defined AppKit bundles", (int)c);
+  NSLog(@"Loading %ld user defined AppKit bundles", (long)c);
   for (i = 0; i < c; i++)
     {
       NSBundle *b = [NSBundle bundleWithPath: [a objectAtIndex: i]];
@@ -1976,8 +1976,8 @@ See -runModalForWindow:
                relativeToWindow: (NSWindow *)docWindow
 {
   // FIXME
-  [theWindow orderWindow: NSWindowAbove
-	     relativeTo: [docWindow windowNumber]];
+    [theWindow orderWindow: NSWindowAbove
+                relativeTo: [docWindow windowNumber]];
   return [self runModalForWindow: theWindow];
 }
 
@@ -2130,7 +2130,7 @@ See -runModalForWindow:
  * up to lastEvent.
  */
 - (void) discardEventsMatchingMask: (NSUInteger)mask
-		       beforeEvent: (NSEvent *)lastEvent
+                       beforeEvent: (NSEvent *)lastEvent
 {
   DPSDiscardEvents(GSCurrentServer(), mask, lastEvent);
 }
@@ -2142,9 +2142,9 @@ See -runModalForWindow:
  * See (EventType) for the list of masks.
  */
 - (NSEvent*) nextEventMatchingMask: (NSUInteger)mask
-			 untilDate: (NSDate*)expiration
-			    inMode: (NSString*)mode
-			   dequeue: (BOOL)flag
+                         untilDate: (NSDate *)expiration
+                            inMode: (NSString *)mode
+                           dequeue: (BOOL)flag
 {
   NSEvent	*event;
 

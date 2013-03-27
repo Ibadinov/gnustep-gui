@@ -287,7 +287,7 @@ static NSString *GSInternalNibItemAddedNotification = @"_GSInternalNibItemAddedN
        */
       if (visibleWindows != nil)
 	{
-	  unsigned	pos = [visibleWindows count];
+	  NSUInteger	pos = [visibleWindows count];
 	  while (pos-- > 0)
 	    {
 	      NSWindow *win = [visibleWindows objectAtIndex: pos];
@@ -332,7 +332,7 @@ static NSString *GSInternalNibItemAddedNotification = @"_GSInternalNibItemAddedN
 
 - (void) encodeWithCoder: (NSCoder*)aCoder
 {
-  int version = [GSNibContainer version];
+  NSInteger version = [GSNibContainer version];
   if (version == GNUSTEP_NIB_VERSION)
     {
       [aCoder encodeObject: topLevelObjects];
@@ -376,7 +376,7 @@ static NSString *GSInternalNibItemAddedNotification = @"_GSInternalNibItemAddedN
 
 - (id) initWithCoder: (NSCoder*)aCoder
 {
-  int version = [aCoder versionForClassName: @"GSNibContainer"]; 
+  NSInteger version = [aCoder versionForClassName: @"GSNibContainer"]; 
 
   // save the version to the ivar, we need it later.
   if (version == GNUSTEP_NIB_VERSION)
@@ -515,7 +515,7 @@ static NSString *GSInternalNibItemAddedNotification = @"_GSInternalNibItemAddedN
 
 - (id) initWithCoder: (NSCoder*)aCoder
 {
-  int version = [aCoder versionForClassName: 
+  NSInteger version = [aCoder versionForClassName: 
 			  NSStringFromClass([self class])];
   id obj = nil;
 
@@ -705,7 +705,7 @@ static NSString *GSInternalNibItemAddedNotification = @"_GSInternalNibItemAddedN
 - (id) initWithCoder: (NSCoder *)coder
 {
   id obj = nil;
-  int version = [coder versionForClassName: @"GSClassSwapper"];
+  NSInteger version = [coder versionForClassName: @"GSClassSwapper"];
   if (version == 0)
     {
       if ((self = [super init]) != nil)
@@ -878,7 +878,7 @@ static NSString *GSInternalNibItemAddedNotification = @"_GSInternalNibItemAddedN
   id obj = [super initWithCoder: coder];
   if (obj != nil)
     {
-      int version = [coder versionForClassName: @"GSWindowTemplate"];
+      NSInteger version = [coder versionForClassName: @"GSWindowTemplate"];
 
       if (version == GSWINDOWT_VERSION)
 	{
@@ -916,7 +916,7 @@ static NSString *GSInternalNibItemAddedNotification = @"_GSInternalNibItemAddedN
 
 - (void) encodeWithCoder: (NSCoder *)coder
 {
-  int version = [[self class] version];
+  NSInteger version = [[self class] version];
 
   [super encodeWithCoder: coder];
 

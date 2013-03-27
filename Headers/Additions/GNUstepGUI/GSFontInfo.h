@@ -102,7 +102,7 @@ values. Backends may override these. */
 - (NSDictionary*) afmDictionary;
 - (NSString*) afmFileContents;
 - (void) appendBezierPathWithGlyphs: (NSGlyph*)glyphs
-			      count: (int)count
+			      count: (NSInteger)count
 		       toBezierPath: (NSBezierPath*)path;
 - (CGFloat) ascender;
 - (NSRect) boundingRectForGlyph: (NSGlyph)aGlyph;

@@ -84,7 +84,7 @@ static NSArray	*classNames = nil;
 
 static NSDictionary *TypeInfoForName (NSArray *types, NSString *typeName)
 {
-  int i, count = [types count];
+  NSUInteger i, count = [types count];
 
   for (i = 0; i < count; i++)
     {
@@ -195,10 +195,10 @@ TypeInfoForHumanReadableName (NSArray *types, NSString *typeName)
 	}
       if (YES == [types isKindOfClass: [NSArray class]])
 	{
-	  unsigned	count = [types count];
-	  unsigned	i;
-	  unsigned	nNames = 0;
-	  unsigned	nValid = 0;
+	  NSUInteger	count = [types count];
+	  NSUInteger	i;
+	  NSUInteger	nNames = 0;
+	  NSUInteger	nValid = 0;
 	  NSString	*names[count];
 	  NSDictionary	*valid[count];
 
@@ -234,8 +234,8 @@ TypeInfoForHumanReadableName (NSArray *types, NSString *typeName)
 		}
 	      else
 		{
-		  NSLog(@"Bad item at index %u in %@",
-		    i, CFBundleDocumentTypes);
+		  NSLog(@"Bad item at index %lu in %@",
+		    (unsigned long)i, CFBundleDocumentTypes);
 		}
 	    }
 	  if (nNames > 0)
@@ -281,7 +281,7 @@ TypeInfoForHumanReadableName (NSArray *types, NSString *typeName)
                        objectForKey: NSRecentDocuments];
   if (_recent_documents)
     {
-      int i, count, max;
+      NSInteger i, count, max;
 
       _recent_documents = [_recent_documents mutableCopy];
       count = [_recent_documents count];
@@ -492,7 +492,7 @@ TypeInfoForHumanReadableName (NSArray *types, NSString *typeName)
 - (NSString*) defaultType
 {
   NSString *defaultName = nil;
-  int i, count = [_types count];
+  NSUInteger i, count = [_types count];
 
   for (i = 0; i < count; i++)
     {
@@ -768,7 +768,7 @@ TypeInfoForHumanReadableName (NSArray *types, NSString *typeName)
 
 - (NSArray *) _openableFileExtensions
 {
-  int i, count = [_types count];
+  NSUInteger i, count = [_types count];
   NSMutableArray *array = [NSMutableArray arrayWithCapacity: count];
   
   for (i = 0; i < count; i++)
@@ -864,7 +864,7 @@ TypeInfoForHumanReadableName (NSArray *types, NSString *typeName)
 */
 - (BOOL) closeAllDocuments
 {
-  int count;
+  NSUInteger count;
   count = [_documents count];
   if (count > 0)
     {
@@ -899,7 +899,7 @@ static BOOL _shouldClose = YES;
                   didCloseAllSelector:(SEL)didAllCloseSelector 
                           contextInfo:(void *)contextInfo
 {
-  int count;
+  NSUInteger count;
   BOOL closeAll = YES;
 
   count = [_documents count];
@@ -953,7 +953,7 @@ static BOOL _shouldClose = YES;
                                   cancellable: (BOOL)cancellable
 {
   NSString *cancelString = (cancellable)? ((NSString *)_(@"Cancel")) : ((NSString *)nil);
-  int      result;
+  NSInteger      result;
   
   if (![self hasEditedDocuments]) 
     {
@@ -1067,7 +1067,7 @@ static BOOL _shouldClose = YES;
 */
 - (BOOL) hasEditedDocuments
 {
-  int i, count = [_documents count];
+  NSUInteger i, count = [_documents count];
   
   for (i = 0; i < count; i++)
     {
@@ -1151,7 +1151,7 @@ static BOOL _shouldClose = YES;
 */
 - (id) documentForFileName: (NSString *)fileName
 {
-  int i, count = [_documents count];
+  NSUInteger i, count = [_documents count];
         
   for (i = 0; i < count; i++)
     {
@@ -1174,7 +1174,7 @@ static BOOL _shouldClose = YES;
     }
   else
     {
-      int i, count = [_documents count];
+      NSUInteger i, count = [_documents count];
         
       for (i = 0; i < count; i++)
         {
@@ -1225,7 +1225,7 @@ static BOOL _shouldClose = YES;
 
 - (NSString *) typeFromFileExtension: (NSString *)fileExtension
 {
-  int i, count = [_types count];
+  NSUInteger i, count = [_types count];
 
   // Check for a document type with the supplied extension
   for (i = 0; i < count; i++)
@@ -1400,7 +1400,7 @@ static BOOL _shouldClose = YES;
 
 - (NSArray *) _readableTypesForClass: (Class)documentClass
 {
-  int i, count = [_types count];
+  NSUInteger i, count = [_types count];
   NSMutableArray *types = [NSMutableArray arrayWithCapacity: count];
   NSString *docClassName = NSStringFromClass (documentClass);
         
@@ -1436,7 +1436,7 @@ static BOOL _shouldClose = YES;
 
 - (NSArray *) _writableTypesForClass: (Class)documentClass
 {
-  int i, count = [_types count];
+  NSUInteger i, count = [_types count];
   NSMutableArray *types = [NSMutableArray arrayWithCapacity: count];
   NSString *docClassName = NSStringFromClass (documentClass);
   
@@ -1467,12 +1467,12 @@ static BOOL _shouldClose = YES;
 
       if ([exportableAs isKindOfClass: [NSArray class]])
         {
-	  int i, count = [exportableAs count];
+	  NSUInteger classIndex, classCount = [exportableAs count];
 	  NSString *name;
 
-	  for (i = 0; i < count; i++)
+	  for (classIndex = 0; classIndex < classCount; ++classIndex)
 	    {
-	      name = [exportableAs objectAtIndex: i];
+	      name = [exportableAs objectAtIndex: classIndex];
 	      if ([name isKindOfClass: [NSString class]])
 		[types addObject: name];
 	    }
@@ -1528,7 +1528,7 @@ static NSString *processName = nil;
 - (void) _autosaveDocuments: (NSTimer *)timer
 {
   id document;
-  int i, n = [_documents count];
+  NSUInteger i, n = [_documents count];
 
   for (i = 0; i < n; i++)
     {
@@ -1564,7 +1564,7 @@ static NSString *processName = nil;
       autosaved = [NSArray arrayWithContentsOfFile: path];
       if (autosaved)
         {
-          int i, n = [autosaved count];
+          NSUInteger i, n = [autosaved count];
           NSFileManager *fm = [NSFileManager defaultManager];
 
           for (i = 0; i < n; i++)
@@ -1658,7 +1658,7 @@ static NSString *processName = nil;
 - (void) _updateRecentDocumentsMenu
 {
   NSMenu *recentMenu;
-  int i;
+  NSInteger i;
 
   recentMenu = [self _recentDocumentsMenu];
   if (!recentMenu)
@@ -1722,7 +1722,7 @@ static NSString *processName = nil;
 {
   // action to open recent document by tag index
   NSURL *url;
-  int idx = [sender tag];
+  NSInteger idx = [sender tag];
   NSError *err = nil;
 
   if (idx < 0 || idx >= [_recent_documents count])

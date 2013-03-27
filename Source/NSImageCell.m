@@ -299,16 +299,16 @@ yBottomInRect(NSSize innerSize, NSRect outerRect, BOOL flipped)
   [super encodeWithCoder: aCoder];
   if ([aCoder allowsKeyedCoding])
     {
-      [aCoder encodeInt: _imageAlignment forKey: @"NSAlign"];
-      [aCoder encodeInt: _imageScaling forKey: @"NSScale"];
-      [aCoder encodeInt: _frameStyle forKey: @"NSStyle"];
+      [aCoder encodeInteger: _imageAlignment forKey: @"NSAlign"];
+      [aCoder encodeInteger: _imageScaling forKey: @"NSScale"];
+      [aCoder encodeInteger: _frameStyle forKey: @"NSStyle"];
       [aCoder encodeBool: NO forKey: @"NSAnimates"];
     }
   else
     {
-      [aCoder encodeValueOfObjCType: @encode(int) at: &_imageAlignment];
-      [aCoder encodeValueOfObjCType: @encode(int) at: &_frameStyle];
-      [aCoder encodeValueOfObjCType: @encode(int) at: &_imageScaling];
+      [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &_imageAlignment];
+      [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &_frameStyle];
+      [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &_imageScaling];
       [aCoder encodeSize: _original_image_size];
     }
 }
@@ -321,15 +321,15 @@ yBottomInRect(NSSize innerSize, NSRect outerRect, BOOL flipped)
 	{
 	  if ([aDecoder containsValueForKey: @"NSAlign"])
 	    {
-	      [self setImageAlignment: [aDecoder decodeIntForKey: @"NSAlign"]];
+	      [self setImageAlignment: [aDecoder decodeIntegerForKey: @"NSAlign"]];
 	    }
 	  if ([aDecoder containsValueForKey: @"NSScale"])
 	    {
-	      [self setImageScaling: [aDecoder decodeIntForKey: @"NSScale"]];
+	      [self setImageScaling: [aDecoder decodeIntegerForKey: @"NSScale"]];
 	    }
 	  if ([aDecoder containsValueForKey: @"NSStyle"])
 	    {
-	      [self setImageFrameStyle: [aDecoder decodeIntForKey: @"NSStyle"]];
+	      [self setImageFrameStyle: [aDecoder decodeIntegerForKey: @"NSStyle"]];
 	    }
 	  if ([aDecoder containsValueForKey: @"NSAnimates"])
 	    {
@@ -338,9 +338,9 @@ yBottomInRect(NSSize innerSize, NSRect outerRect, BOOL flipped)
 	}
       else
 	{
-	  [aDecoder decodeValueOfObjCType: @encode(int) at: &_imageAlignment];
-	  [aDecoder decodeValueOfObjCType: @encode(int) at: &_frameStyle];
-	  [aDecoder decodeValueOfObjCType: @encode(int) at: &_imageScaling];
+	  [aDecoder decodeValueOfObjCType: @encode(NSInteger) at: &_imageAlignment];
+	  [aDecoder decodeValueOfObjCType: @encode(NSInteger) at: &_frameStyle];
+	  [aDecoder decodeValueOfObjCType: @encode(NSInteger) at: &_imageScaling];
 	  _original_image_size = [aDecoder decodeSize];
 	}
     }

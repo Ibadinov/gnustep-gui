@@ -64,7 +64,7 @@ typedef struct GSLayoutManager_glyph_run_head_s
   /* char_length must always be accurate. glyph_length is the number of
   valid glyphs counting from the start. For a level 0 head, it's the number
   of glyphs in that run. */
-  unsigned int glyph_length, char_length;
+  NSUInteger glyph_length, char_length;
 
   /* Glyph generation is complete for all created runs. */
   unsigned int complete:1;
@@ -83,14 +83,14 @@ typedef struct
   is necessary, the mapping will have to be range to range. (Eg. if you
   have characters 'ab' mapped to glyphs 'AB', reordered to 'BA', then the
   range 'ab' will be mapped to the range 'BA'. */
-  unsigned int char_offset:18; /* This could be made smaller, if necessary */
-  unsigned int drawsOutsideLineFragment:1;
-  unsigned int isNotShown:1;
+  NSUInteger char_offset:18; /* This could be made smaller, if necessary */
+  NSUInteger drawsOutsideLineFragment:1;
+  NSUInteger isNotShown:1;
 
-  unsigned int inscription:3;
-  unsigned int soft:1;
-  unsigned int elasitc:1;
-  unsigned int bidilevel:7; // Need to support 0..61
+  NSUInteger inscription:3;
+  NSUInteger soft:1;
+  NSUInteger elasitc:1;
+  NSUInteger bidilevel:7; // Need to support 0..61
 
   NSSize advancement;
 } glyph_t;
@@ -142,20 +142,20 @@ typedef struct GSLayoutManager_glyph_run_s
 /* All positions and lengths in glyphs */
 typedef struct
 {
-  unsigned int pos, length;
+  NSUInteger pos, length;
   NSPoint p;
 } linefrag_point_t;
 
 typedef struct
 {
-  unsigned int pos, length;
+  NSUInteger pos, length;
   NSSize size;
 } linefrag_attachment_t;
 
 typedef struct
 {
   NSRect rect, used_rect;
-  unsigned int pos, length;
+  NSUInteger pos, length;
 
   linefrag_point_t *points;
   int num_points;
@@ -169,7 +169,7 @@ typedef struct GSLayoutManager_textcontainer_s
   NSTextContainer *textContainer;
 
   BOOL complete;
-  unsigned int pos, length;
+  NSUInteger pos, length;
 
   /*
   This should be set to YES whenever any layout information for this text
@@ -190,9 +190,9 @@ typedef struct GSLayoutManager_textcontainer_s
   layout information.
   */
   linefrag_t *linefrags;
-  int num_linefrags;
-  int num_soft;
-  int size_linefrags;
+  NSInteger  num_linefrags;
+  NSInteger  num_soft;
+  NSInteger  size_linefrags;
 
   /*
   Keep some per-textcontainer info that's expensive to calculate and often
@@ -219,29 +219,29 @@ typedef struct GSLayoutManager_textcontainer_s
 -(void) _glyphDumpRuns;
 -(void) _sanityChecks;
 
--(void) _generateGlyphsUpToCharacter: (unsigned int)last;
--(void) _generateGlyphsUpToGlyph: (unsigned int)last;
+-(void) _generateGlyphsUpToCharacter: (NSUInteger)last;
+-(void) _generateGlyphsUpToGlyph: (NSUInteger)last;
 
--(glyph_run_t *) _glyphForCharacter: (unsigned int)target
-	index: (unsigned int *)rindex
-	positions: (unsigned int *)rpos : (unsigned int *)rcpos;
+-(glyph_run_t *) _glyphForCharacter: (NSUInteger)target
+	index: (NSUInteger *)rindex
+	positions: (NSUInteger *)rpos : (NSUInteger *)rcpos;
 
 
--(glyph_run_t *)run_for_glyph_index: (unsigned int)glyphIndex
-	: (unsigned int *)glyph_pos
-	: (unsigned int *)char_pos;
+-(glyph_run_t *)run_for_glyph_index: (NSUInteger)glyphIndex
+	: (NSUInteger *)glyph_pos
+	: (NSUInteger *)char_pos;
 @end
 
 
 
 @interface GSLayoutManager (LayoutHelpers)
 -(void) _freeLayout;
--(void) _invalidateLayoutFromContainer: (int)idx;
+-(void) _invalidateLayoutFromContainer: (NSInteger)idx;
 -(void) _invalidateEverything;
 
 -(void) _doLayout; /* TODO: this is just a hack until proper incremental layout is done */
--(void) _doLayoutToGlyph: (unsigned int)glyphIndex;
--(void) _doLayoutToContainer: (int)cindex;
+-(void) _doLayoutToGlyph: (NSUInteger)glyphIndex;
+-(void) _doLayoutToContainer: (NSInteger)cindex;
 
 -(void) _didInvalidateLayout;
 @end

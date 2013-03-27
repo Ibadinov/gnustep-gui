@@ -121,7 +121,7 @@ keyForFont(NSString *name, const CGFloat *matrix,
   d->matrix[3] = matrix[3] * 1000;
   d->matrix[4] = matrix[4] * 1000;
   d->matrix[5] = matrix[5] * 1000;
-  d->hash = [d->name hash] + screenFont + role * 4
+  d->hash = (unsigned)[d->name hash] + screenFont + role * 4
             + d->matrix[0] + d->matrix[1] + d->matrix[2] + d->matrix[3];
   return d;
 }
@@ -1378,7 +1378,7 @@ static BOOL flip_hack;
     }
   else
     {
-      int version = [aDecoder versionForClassName: @"NSFont"];
+      NSInteger version = [aDecoder versionForClassName: @"NSFont"];
       id name;
       float fontMatrix[6];
       CGFloat cgMatrix[6];

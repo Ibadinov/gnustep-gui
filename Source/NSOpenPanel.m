@@ -56,7 +56,7 @@
 #import "GNUstepGUI/GSTheme.h"
 
 static NSString	*
-pathToColumn(NSBrowser *browser, int column)
+pathToColumn(NSBrowser *browser, NSInteger column)
 {
 #if	defined(__MINGW32__)
   if (column == 0)
@@ -105,7 +105,7 @@ static NSOpenPanel *_gs_gui_open_panel = nil;
   return YES;
 }
 
-- (void) _selectTextInColumn: (int)column
+- (void) _selectTextInColumn: (NSInteger)column
 {
   NSMatrix *matrix;
 
@@ -467,7 +467,7 @@ static NSOpenPanel *_gs_gui_open_panel = nil;
   NSMatrix      *matrix = nil;
   NSBrowserCell *selectedCell = nil;
   NSArray       *selectedCells = nil;
-  int            selectedColumn, lastColumn;
+  NSInteger     selectedColumn, lastColumn;
   NSString	*tmp;
 
   selectedColumn = [_browser selectedColumn];
@@ -591,13 +591,13 @@ static NSOpenPanel *_gs_gui_open_panel = nil;
 
 - (void) controlTextDidChange: (NSNotification *)aNotification;
 {
-  NSString           *s, *selectedString;
-  NSArray            *cells;
-  NSMatrix           *matrix;
-  NSCell             *selectedCell;
-  int                 i, sLength, cellLength, selectedRow;
-  NSComparisonResult  result;
-  NSRange             range;
+  NSString              *s, *selectedString;
+  NSArray               *cells;
+  NSMatrix              *matrix;
+  NSCell                *selectedCell;
+  NSInteger             i, sLength, cellLength, selectedRow;
+  NSComparisonResult    result;
+  NSRange               range;
 
   s = [[[aNotification userInfo] objectForKey: @"NSFieldEditor"] string];
 
@@ -650,7 +650,7 @@ static NSOpenPanel *_gs_gui_open_panel = nil;
 
   if (result == NSOrderedDescending)
     {
-      int numberOfCells = [cells count];
+      NSInteger numberOfCells = [cells count];
 
       for (i = selectedRow+1; i < numberOfCells; i++)
 	{

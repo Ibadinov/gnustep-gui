@@ -856,7 +856,7 @@ static float sizes[] = {4.0, 6.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0,
   float		size;
   NSString	*fontName;
   NSTextField	*sizeField = [[self contentView] viewWithTag: NSFPSizeField];
-  unsigned	i = [_faceList count];
+  NSUInteger    i = [_faceList count];
 
   size = [sizeField floatValue];
   if (size == 0.0)
@@ -970,10 +970,10 @@ the delegate is an argument; a repeat-caller can then cache it.
 @implementation NSFontPanel (NSBrowserDelegate)
 
 
-static int score_difference(int weight1, int traits1,
-			    int weight2, int traits2)
+static NSInteger score_difference(NSInteger weight1, NSInteger traits1,
+                                  NSInteger weight2, NSInteger traits2)
 {
-  int score, t;
+  NSInteger score, t;
 
   score = (weight1 - weight2);
   score = 10 * score * score;
@@ -1001,9 +1001,9 @@ static int score_difference(int weight1, int traits1,
 
   NSBrowser *faceBrowser = [[self contentView] viewWithTag: NSFPFaceBrowser];
   NSBrowser *familyBrowser = [[self contentView] viewWithTag: NSFPFamilyBrowser];
-  int row = [familyBrowser selectedRowInColumn: 0];
+  NSInteger row = [familyBrowser selectedRowInColumn: 0];
 
-  unsigned int i;
+  NSUInteger i;
   NSArray *entireFaceList;
   NSMutableArray *faceList;
 
@@ -1038,7 +1038,7 @@ static int score_difference(int weight1, int traits1,
   // Find the face that differs the least from what we want
   if (i == [_faceList count])
     {
-      int best, best_score, score;
+      NSInteger best, best_score, score;
 
       best_score = 1e6;
       best = -1;
@@ -1083,7 +1083,7 @@ static int score_difference(int weight1, int traits1,
 - (void) _faceSelectionChanged: (id)sender
 {
   NSBrowser *faceBrowser = [[self contentView] viewWithTag: NSFPFaceBrowser];
-  int row = [faceBrowser selectedRowInColumn: 0];
+  NSInteger row = [faceBrowser selectedRowInColumn: 0];
   NSArray *font_info = [_faceList objectAtIndex: row];
 
   _face = row;
@@ -1096,7 +1096,7 @@ static int score_difference(int weight1, int traits1,
 - (void) _sizeSelectionChanged: (id)sender
 {
   NSBrowser *sizeBrowser = [[self contentView] viewWithTag: NSFPSizeBrowser];
-  int row = [sizeBrowser selectedRowInColumn: 0];
+  NSInteger row = [sizeBrowser selectedRowInColumn: 0];
   NSTextField *sizeField;
 
   sizeField = [[self contentView] viewWithTag: NSFPSizeField];
@@ -1106,7 +1106,7 @@ static int score_difference(int weight1, int traits1,
 }
 
 
-- (int) browser: (NSBrowser*)sender  numberOfRowsInColumn: (int)column
+- (NSInteger) browser: (NSBrowser*)sender  numberOfRowsInColumn: (NSInteger)column
 {
   switch ([sender tag])
     {

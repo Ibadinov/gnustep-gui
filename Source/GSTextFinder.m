@@ -264,7 +264,7 @@ static GSTextFinder *sharedTextFinder;
       NSRange range = [aTextView selectedRange];
       if (range.length)
 	{
-	  NSString *string = [[aTextView string] substringFromRange: range];
+	  NSString *string = [[aTextView string] substringWithRange: range];
 	  ASSIGNCOPY(findString, string);
 	  [findText setStringValue: string];
 	  [findText selectText: self];

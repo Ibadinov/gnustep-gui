@@ -226,12 +226,12 @@ static int icns_get_element_from_family(icns_family_t *iconFamily,
   return 1;
 }
 
-static int icns_import_family_data(int size, icns_byte_t *bytes, 
+static int icns_import_family_data(NSUInteger size, icns_byte_t *bytes, 
                                    icns_family_t **iconFamily)
 {
   icns_element_t *element = NULL;
   icns_family_t *family;
-  unsigned long el_size;
+  icns_size_t el_size;
   icns_byte_t *data;
   icns_byte_t *end;
 
@@ -544,14 +544,14 @@ typedef struct pixel_t
 
 - (id) _initBitmapFromICNS: (NSData *)imageData
 {
-  int                     error = 0;
-  int                     size = [imageData length];
-  icns_byte_t            *bytes = (icns_byte_t *)[imageData bytes];
-  icns_family_t          *iconFamily = NULL;
-  unsigned long           dataOffset = 0;
-  icns_byte_t            *data = NULL;
-  icns_type_t             typeStr = ICNS_NULL_TYPE;
-  icns_image_t            iconImage;
+  NSInteger         error = 0;
+  NSUInteger        size = [imageData length];
+  icns_byte_t       *bytes = (icns_byte_t *)[imageData bytes];
+  icns_family_t     *iconFamily = NULL;
+  unsigned long     dataOffset = 0;
+  icns_byte_t       *data = NULL;
+  icns_type_t       typeStr = ICNS_NULL_TYPE;
+  icns_image_t      iconImage;
 
   error = icns_import_family_data(size, bytes, &iconFamily);
   if (error != ICNS_STATUS_OK)
@@ -609,11 +609,11 @@ typedef struct pixel_t
 + (NSArray*) _imageRepsWithICNSData: (NSData *)imageData
 {
   NSMutableArray *array = [NSMutableArray array];
-  int             error = 0;
-  int             size = [imageData length];
+  NSInteger      error = 0;
+  NSUInteger     size = [imageData length];
   icns_byte_t    *bytes = (icns_byte_t *)[imageData bytes];
   icns_family_t  *iconFamily = NULL;
-  unsigned long   dataOffset = 0;
+  unsigned long  dataOffset = 0;
   icns_byte_t    *data = NULL;
 
   error = icns_import_family_data(size, bytes, &iconFamily);

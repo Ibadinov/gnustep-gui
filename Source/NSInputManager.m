@@ -148,7 +148,7 @@ static NSInputManager *currentInputManager = nil;
 
 + (BOOL) parseKey: (NSString *)key 
     intoCharacter: (unichar *)character
-     andModifiers: (unsigned int *)modifiers
+     andModifiers: (NSUInteger *)modifiers
 {
   int flags = 0;
   unichar c = 0;
@@ -159,7 +159,7 @@ static NSInputManager *currentInputManager = nil;
 
   /* Then, parse the modifiers.  The modifiers are the components 
      - all of them except the last one!  */
-  int i, count = [components count];
+  NSUInteger i, count = [components count];
 
   for (i = 0; i < count - 1; i++)
     {
@@ -246,7 +246,7 @@ static NSInputManager *currentInputManager = nil;
 }
 
 + (NSString *) describeKeyStroke: (unichar)character
-                   withModifiers: (unsigned int)modifiers
+                   withModifiers: (NSUInteger)modifiers
 {
   NSMutableString *description = [NSMutableString new];
   int i;
@@ -513,7 +513,7 @@ static NSInputManager *currentInputManager = nil;
           GSKeyBindingAction *action;
           GSKeyBindingTable *table;
           BOOL found;
-          unsigned adaptedFlags;
+          NSUInteger adaptedFlags;
 
           /* If the keystroke is a function key, then we need to use
            * the full modifier flags to compare it against stored
@@ -547,9 +547,9 @@ static NSInputManager *currentInputManager = nil;
 
           /* Look up the character in the current keybindings table.  */
           found = [_currentBindingTable lookupKeyStroke: character
-                                        modifiers: adaptedFlags
-                                        returningActionIn: &action
-                                        tableIn: &table];
+                                              modifiers: adaptedFlags
+                                      returningActionIn: &action
+                                                tableIn: &table];
           
           if (found)
             {

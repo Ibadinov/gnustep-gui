@@ -75,7 +75,7 @@ static Class NSImageRep_class = NULL;
 // Managing NSImageRep Subclasses
 + (Class) imageRepClassForData: (NSData *)data
 {
-  int i, count;
+  NSUInteger i, count;
 
   count = [imageReps count];
   for (i = 0; i < count; i++)
@@ -89,7 +89,7 @@ static Class NSImageRep_class = NULL;
 
 + (Class) imageRepClassForFileType: (NSString *)type
 {
-  int i, count;
+  NSUInteger i, count;
 
   count = [imageReps count];
   for (i = 0; i < count; i++)
@@ -105,7 +105,7 @@ static Class NSImageRep_class = NULL;
 
 + (Class) imageRepClassForPasteboardType: (NSString *)type
 {
-  int i, count;
+  NSUInteger i, count;
 
   count = [imageReps count];
   for (i = 0; i < count; i++)
@@ -302,7 +302,7 @@ implement, so we can't do that. */
 
 + (NSArray *) imageRepsWithPasteboard: (NSPasteboard *)pasteboard
 {
-  int i, count;
+  NSUInteger i, count;
   NSMutableArray* array;
   NSArray *reps;
 
@@ -559,7 +559,7 @@ behavior precisely matches Cocoa. */
   NSCachedImageRep *cache;
   /* The scaled image graphics state we used as the source from which we 
      draw into the destination (the current graphics context)*/
-  int gState;
+  NSInteger gState;
   /* The context of the cache window */
   NSGraphicsContext *cacheCtxt;
   const NSSize repSize = [self size];

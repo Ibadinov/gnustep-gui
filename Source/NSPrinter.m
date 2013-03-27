@@ -795,7 +795,7 @@ static NSMutableDictionary* printerCache;
     {
       NSString *oldValue;
       NSString *newValue;
-      int i, max;
+      NSUInteger i, max;
 
       max = [valArray count];
       for (i=0 ; i < max ; i++)
@@ -1433,8 +1433,8 @@ static NSMutableDictionary* printerCache;
   NSCharacterSet *emptySet;
   NSString *value = nil;
   NSString *part;
-  int stringLength;
-  int location;
+  NSUInteger stringLength;
+  NSUInteger location;
   NSRange range;
 
   // Don't bother unless there's something to convert

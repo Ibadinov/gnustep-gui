@@ -601,13 +601,13 @@ static Class imageClass;
 	  [aCoder encodeObject: _submenu forKey: @"NSSubmenu"];
 	}
 
-      [aCoder encodeInt: _keyEquivalentModifierMask forKey: @"NSKeyEquivModMask"];
-      [aCoder encodeInt: _mnemonicLocation forKey: @"NSMnemonicLoc"];
-      [aCoder encodeInt: _state forKey: @"NSState"];
+      [aCoder encodeInteger: _keyEquivalentModifierMask forKey: @"NSKeyEquivModMask"];
+      [aCoder encodeInteger: _mnemonicLocation forKey: @"NSMnemonicLoc"];
+      [aCoder encodeInteger: _state forKey: @"NSState"];
       [aCoder encodeBool: ![self isEnabled] forKey: @"NSIsDisabled"];
       if (_tag)
         {
-          [aCoder encodeInt: _tag forKey: @"NSTag"];
+          [aCoder encodeInteger: _tag forKey: @"NSTag"];
         }
     }
   else
@@ -644,7 +644,7 @@ static Class imageClass;
       NSString *action;
       NSString *key;
       BOOL isSeparator = NO;
-      int keyMask;
+      NSUInteger keyMask;
 
       if ([aDecoder containsValueForKey: @"NSIsSeparator"])
         {
@@ -699,17 +699,17 @@ static Class imageClass;
 
       // Set the key mask regardless of whether it is present;
       // i.e. set it to 0 if it is not present in the nib.
-      keyMask = [aDecoder decodeIntForKey: @"NSKeyEquivModMask"];
+      keyMask = [aDecoder decodeIntegerForKey: @"NSKeyEquivModMask"];
       [self setKeyEquivalentModifierMask: keyMask];
 
       if ([aDecoder containsValueForKey: @"NSMnemonicLoc"])
         {
-          int loc = [aDecoder decodeIntForKey: @"NSMnemonicLoc"];
+          NSUInteger loc = [aDecoder decodeIntegerForKey: @"NSMnemonicLoc"];
           [self setMnemonicLocation: loc];
         }
       if ([aDecoder containsValueForKey: @"NSState"])
         {
-          _state = [aDecoder decodeIntForKey: @"NSState"];
+          _state = [aDecoder decodeIntegerForKey: @"NSState"];
         }
       if ([aDecoder containsValueForKey: @"NSIsDisabled"])
         {
@@ -724,8 +724,7 @@ static Class imageClass;
     }
   else
     {
-      int version = [aDecoder versionForClassName: 
-				  @"NSMenuItem"];
+      NSInteger version = [aDecoder versionForClassName: @"NSMenuItem"];
     
       [aDecoder decodeValueOfObjCType: @encode(id) at: &_title];
       [aDecoder decodeValueOfObjCType: @encode(id) at: &_keyEquivalent];

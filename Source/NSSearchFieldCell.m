@@ -191,7 +191,7 @@
 
 - (void) setRecentSearches: (NSArray *)searches
 {
-  int max;
+  NSInteger max;
   NSMutableArray *mutableSearches;
 
   max = [self maximumRecents];
@@ -482,17 +482,15 @@
       [aCoder encodeObject: _cancel_button_cell forKey: @"NSCancelButtonCell"];
       [aCoder encodeObject: _recents_autosave_name forKey: @"NSRecentsAutosaveName"];
       [aCoder encodeBool: _sends_whole_search_string forKey: @"NSSendsWholeSearchString"];
-      [aCoder encodeInt: max forKey: @"NSMaximumRecents"];
+      [aCoder encodeInteger: max forKey: @"NSMaximumRecents"];
     }
   else
     {
       [aCoder encodeObject: _search_button_cell];
       [aCoder encodeObject: _cancel_button_cell];
       [aCoder encodeObject: _recents_autosave_name];
-      [aCoder encodeValueOfObjCType: @encode(BOOL)
-              at: &_sends_whole_search_string];
-      [aCoder encodeValueOfObjCType: @encode(unsigned int)
-              at: &max];
+      [aCoder encodeValueOfObjCType: @encode(BOOL) at: &_sends_whole_search_string];
+      [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &max];
     }
 }
 
@@ -508,7 +506,7 @@
 	  [self setCancelButtonCell: [aDecoder decodeObjectForKey: @"NSCancelButtonCell"]];
 	  [self setRecentsAutosaveName: [aDecoder decodeObjectForKey: @"NSRecentsAutosaveName"]];
 	  [self setSendsWholeSearchString: [aDecoder decodeBoolForKey: @"NSSendsWholeSearchString"]];
-	  [self setMaximumRecents: [aDecoder decodeIntForKey: @"NSMaximumRecents"]];
+	  [self setMaximumRecents: [aDecoder decodeIntegerForKey: @"NSMaximumRecents"]];
 	}
       else
 	{
@@ -518,7 +516,7 @@
 	  [self setCancelButtonCell: [aDecoder decodeObject]];
 	  [self setRecentsAutosaveName: [aDecoder decodeObject]];
 	  [aDecoder decodeValueOfObjCType: @encode(BOOL) at: &_sends_whole_search_string];
-	  [aDecoder decodeValueOfObjCType: @encode(unsigned int) at: &max];
+	  [aDecoder decodeValueOfObjCType: @encode(NSInteger) at: &max];
           [self setMaximumRecents: max];
 	}
       
@@ -582,10 +580,10 @@
   NSMenuView *mr;
   NSWindow *cvWin;
   NSRect cellFrame;
-  int i;
-  int recentCount = [_recent_searches count];
+  NSInteger i;
+  NSInteger recentCount = [_recent_searches count];
   NSPopUpButtonCell *pbcell = [[NSPopUpButtonCell alloc] initTextCell:nil pullsDown:NO];
-  int selectedItemIndex = -1, newSelectedItemIndex;
+  NSInteger selectedItemIndex = -1, newSelectedItemIndex;
   
   template = [self searchMenuTemplate];
   popupmenu = [[NSMenu alloc] init];
@@ -593,7 +591,7 @@
   // Fill the popup menu 
   for (i = 0; i < [template numberOfItems]; i++)
     {
-      int tag;
+      NSInteger tag;
       NSMenuItem *item, *newItem = nil;
 
       item = (NSMenuItem*)[template itemAtIndex: i];
@@ -675,7 +673,7 @@
   if (newSelectedItemIndex != selectedItemIndex && newSelectedItemIndex != -1
       && newSelectedItemIndex < [template numberOfItems])
     {
-      int tag = [[template itemAtIndex:newSelectedItemIndex] tag];
+      NSInteger tag = [[template itemAtIndex:newSelectedItemIndex] tag];
       if (tag != NSSearchFieldRecentsTitleMenuItemTag && tag != NSSearchFieldClearRecentsMenuItemTag
           && tag != NSSearchFieldNoRecentsMenuItemTag && tag != NSSearchFieldRecentsMenuItemTag
           && ![[template itemAtIndex:newSelectedItemIndex] isSeparatorItem])

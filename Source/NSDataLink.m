@@ -104,8 +104,8 @@
 //
 - (BOOL)saveLinkIn:(NSString *)directoryName
 {
-  NSSavePanel		*sp;
-  int			result;
+  NSSavePanel   *sp;
+  NSInteger     result;
 
   sp = [NSSavePanel savePanel];
   [sp setRequiredFileType: NSDataLinkFilenameExtension];
@@ -276,9 +276,9 @@
       
   if ([aCoder allowsKeyedCoding])
     {
-      [aCoder encodeInt: linkNumber forKey: @"GSLinkNumber"];
-      [aCoder encodeInt: disposition forKey: @"GSUpdateMode"];
-      [aCoder encodeInt: updateMode forKey: @"GSLastUpdateMode"];
+      [aCoder encodeInteger: linkNumber forKey: @"GSLinkNumber"];
+      [aCoder encodeInteger: disposition forKey: @"GSUpdateMode"];
+      [aCoder encodeInteger: updateMode forKey: @"GSLastUpdateMode"];
 
       [aCoder encodeObject: lastUpdateTime forKey: @"GSLastUpdateTime"];      
 
@@ -308,9 +308,9 @@
     }
   else
     {
-      [aCoder encodeValueOfObjCType: @encode(int) at: &linkNumber];
-      [aCoder encodeValueOfObjCType: @encode(int) at: &disposition];
-      [aCoder encodeValueOfObjCType: @encode(int) at: &updateMode];
+      [aCoder encodeValueOfObjCType: @encode(NSDataLinkNumber) at: &linkNumber];
+      [aCoder encodeValueOfObjCType: @encode(NSDataLinkDisposition) at: &disposition];
+      [aCoder encodeValueOfObjCType: @encode(NSDataLinkUpdateMode) at: &updateMode];
       [aCoder encodeValueOfObjCType: @encode(id)  at: &lastUpdateTime];
       
       [aCoder encodeValueOfObjCType: @encode(id)  at: &sourceApplicationName];
@@ -383,14 +383,14 @@
     }
   else
     {
-      int version = [aCoder versionForClassName: @"NSDataLink"];
+      NSInteger version = [aCoder versionForClassName: @"NSDataLink"];
       if (version == 0)
 	{
 	  BOOL flag = NO;
 	  
-	  [aCoder decodeValueOfObjCType: @encode(int) at: &linkNumber];
-	  [aCoder decodeValueOfObjCType: @encode(int) at: &disposition];
-	  [aCoder decodeValueOfObjCType: @encode(int) at: &updateMode];
+	  [aCoder decodeValueOfObjCType: @encode(NSDataLinkNumber) at: &linkNumber];
+	  [aCoder decodeValueOfObjCType: @encode(NSDataLinkDisposition) at: &disposition];
+	  [aCoder decodeValueOfObjCType: @encode(NSDataLinkUpdateMode) at: &updateMode];
 	  [aCoder decodeValueOfObjCType: @encode(id)  at: &sourceManager];
 	  [aCoder decodeValueOfObjCType: @encode(id)  at: &destinationManager];
 	  [aCoder decodeValueOfObjCType: @encode(id)  at: &lastUpdateTime];

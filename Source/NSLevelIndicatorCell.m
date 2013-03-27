@@ -495,8 +495,8 @@
       [aCoder encodeDouble: _criticalValue forKey: @"NSCriticalValue"];
       [aCoder encodeDouble: [self doubleValue] forKey: @"NSValue"];
       [aCoder encodeInt: _style forKey: @"NSIndicatorStyle"];
-      [aCoder encodeInt: _numberOfMajorTickMarks forKey: @"NSNumberOfMajorTickMarks"];
-      [aCoder encodeInt: _numberOfTickMarks forKey: @"NSNumberOfTickMarks"];
+      [aCoder encodeInteger: _numberOfMajorTickMarks forKey: @"NSNumberOfMajorTickMarks"];
+      [aCoder encodeInteger: _numberOfTickMarks forKey: @"NSNumberOfTickMarks"];
       [aCoder encodeInt: _tickMarkPosition forKey: @"NSTickMarkPosition"];
     }
   else
@@ -505,10 +505,10 @@
       [aCoder encodeValueOfObjCType: @encode(double) at: &_maxValue];
       [aCoder encodeValueOfObjCType: @encode(double) at: &_warningValue];
       [aCoder encodeValueOfObjCType: @encode(double) at: &_criticalValue];
-      [aCoder encodeValueOfObjCType: @encode(int) at: &_style];
-      [aCoder encodeValueOfObjCType: @encode(int) at: &_numberOfMajorTickMarks];
-      [aCoder encodeValueOfObjCType: @encode(int) at: &_numberOfTickMarks];
-      [aCoder encodeValueOfObjCType: @encode(int) at: &_tickMarkPosition];
+      [aCoder encodeValueOfObjCType: @encode(NSLevelIndicatorStyle) at: &_style];
+      [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &_numberOfMajorTickMarks];
+      [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &_numberOfTickMarks];
+      [aCoder encodeValueOfObjCType: @encode(NSTickMarkPosition) at: &_tickMarkPosition];
     }
 }
 
@@ -544,11 +544,11 @@
         }
       if ([aDecoder containsValueForKey: @"NSNumberOfMajorTickMarks"])
         {
-          _numberOfMajorTickMarks = [aDecoder decodeIntForKey: @"NSNumberOfMajorTickMarks"];
+          _numberOfMajorTickMarks = [aDecoder decodeIntegerForKey: @"NSNumberOfMajorTickMarks"];
         }
       if ([aDecoder containsValueForKey: @"NSNumberOfTickMarks"])
         {
-          _numberOfTickMarks = [aDecoder decodeIntForKey: @"NSNumberOfTickMarks"];
+          _numberOfTickMarks = [aDecoder decodeIntegerForKey: @"NSNumberOfTickMarks"];
         }
       if ([aDecoder containsValueForKey: @"NSTickMarkPosition"])
         {
@@ -561,10 +561,10 @@
       [aDecoder decodeValueOfObjCType: @encode(double) at: &_maxValue];
       [aDecoder decodeValueOfObjCType: @encode(double) at: &_warningValue];
       [aDecoder decodeValueOfObjCType: @encode(double) at: &_criticalValue];
-      [aDecoder decodeValueOfObjCType: @encode(int) at: &_style];
-      [aDecoder decodeValueOfObjCType: @encode(int) at: &_numberOfMajorTickMarks];
-      [aDecoder decodeValueOfObjCType: @encode(int) at: &_numberOfTickMarks];
-      [aDecoder decodeValueOfObjCType: @encode(int) at: &_tickMarkPosition];
+      [aDecoder decodeValueOfObjCType: @encode(NSLevelIndicatorStyle) at: &_style];
+      [aDecoder decodeValueOfObjCType: @encode(NSInteger) at: &_numberOfMajorTickMarks];
+      [aDecoder decodeValueOfObjCType: @encode(NSInteger) at: &_numberOfTickMarks];
+      [aDecoder decodeValueOfObjCType: @encode(NSTickMarkPosition) at: &_tickMarkPosition];
     }
   
   return self;

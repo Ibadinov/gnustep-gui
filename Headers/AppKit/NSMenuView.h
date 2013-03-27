@@ -80,32 +80,32 @@
 */
 @interface NSMenuView : NSView <NSCoding, NSMenuView>
 {
-  NSMutableArray *_itemCells;
-  BOOL           _horizontal;
-  char		 _pad1[3];
-  NSFont         *_font;
-  int            _highlightedItemIndex;
-  float          _horizontalEdgePad;
-  float          _stateImageOffset;
-  float          _stateImageWidth;
-  float          _imageAndTitleOffset;
-  float          _imageAndTitleWidth;
-  float          _keyEqOffset;
-  float          _keyEqWidth;
-  BOOL           _needsSizing;
-  char		 _pad2[3];
-  NSSize         _cellSize;
+  NSMutableArray    *_itemCells;
+  BOOL              _horizontal;
+  char              _pad1[3];
+  NSFont            *_font;
+  NSInteger         _highlightedItemIndex;
+  CGFloat           _horizontalEdgePad;
+  CGFloat           _stateImageOffset;
+  CGFloat           _stateImageWidth;
+  CGFloat           _imageAndTitleOffset;
+  CGFloat           _imageAndTitleWidth;
+  CGFloat           _keyEqOffset;
+  CGFloat           _keyEqWidth;
+  BOOL              _needsSizing;
+  char              _pad2[3];
+  NSSize            _cellSize;
 
 @private
-  id             _items_link;
-  int            _leftBorderOffset;
-  id             _titleView;
+  id                _items_link;
+  NSInteger         _leftBorderOffset;
+  id                _titleView;
 
   /*
   Private and not named '_menu' to avoid confusion and further problems
   with NSResponder's menu.
   */
-  NSMenu        *_attachedMenu;
+  NSMenu            *_attachedMenu;
 }
 
 /***********************************************************************
@@ -123,7 +123,7 @@
 /**
    Returns the height of the menu bar.
  */
-+ (float) menuBarHeight;
++ (CGFloat) menuBarHeight;
 
 /**
    Sets the menu to be displayed in to menu. Also this method adds this 
@@ -209,12 +209,12 @@
    Returns horizontal space used for padding between menu item elements 
    (state image, title image, title, key equivalent, submenu arrow image).
  */
-- (float) horizontalEdgePadding;
+- (CGFloat) horizontalEdgePadding;
 
 /**
    Sets amount of pixels added between menu item elements to pad.
  */
-- (void) setHorizontalEdgePadding: (float)pad;
+- (void) setHorizontalEdgePadding: (CGFloat)pad;
 
 /***********************************************************************
  * Notification methods
@@ -293,35 +293,35 @@
 /**
    Returns the starting horizontal position for drawing the state image.
  */
-- (float) stateImageOffset;
+- (CGFloat) stateImageOffset;
 
 /**
    Returns the width of the state image.
  */
-- (float) stateImageWidth;
+- (CGFloat) stateImageWidth;
 
 /**
    Returns the starting horizontal position for drawing the image and title.
  */
-- (float) imageAndTitleOffset;
+- (CGFloat) imageAndTitleOffset;
 
 /**
    Returns the width of the image and title section. Tis section contains 
    image and text of menu item.
  */
-- (float) imageAndTitleWidth;
+- (CGFloat) imageAndTitleWidth;
 
 /**
    Returns the starting position for drawing the key equivalent. Key 
    equivalent can be submenu arrow if menu item has submenu.
  */
-- (float) keyEquivalentOffset;
+- (CGFloat) keyEquivalentOffset;
 
 /**
    Returns the width of key equivalent text. Key equivalent can be submenu 
    arrow if menu item has submenu
  */
-- (float) keyEquivalentWidth;
+- (CGFloat) keyEquivalentWidth;
 
 /**
    Returns bounds rectangle of the menu view. It is smaller by 1 pixel 

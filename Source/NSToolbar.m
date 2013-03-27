@@ -77,7 +77,7 @@ static GSValidationCenter *vc = nil;
 {
   NSMutableArray *result = [NSMutableArray array];
   NSArray *keys = [self valueForKey: key];
-  int i, n = 0;
+  NSInteger i, n = 0;
   
   if (keys == nil)
     return nil;
@@ -1076,12 +1076,12 @@ static GSValidationCenter *vc = nil;
   [_toolbarView _setUsesStandardBackgroundColor: standard];
 }
 
-- (int) _indexOfItem: (NSToolbarItem *)item
+- (NSInteger) _indexOfItem: (NSToolbarItem *)item
 {
   return [_items indexOfObjectIdenticalTo: item];
 }
 
-- (void) _insertPassivelyItem: (NSToolbarItem *)item atIndex: (int)newIndex
+- (void) _insertPassivelyItem: (NSToolbarItem *)item atIndex: (NSInteger)newIndex
 {
   if (![_items containsObject: item])
     {
@@ -1264,7 +1264,7 @@ static GSValidationCenter *vc = nil;
 }
 
 - (void) _insertItemWithItemIdentifier: (NSString *)itemIdentifier 
-                               atIndex: (int)index 
+                               atIndex: (NSInteger)index 
                              broadcast: (BOOL)broadcast
 {
   NSToolbarItem *item = nil;
@@ -1304,7 +1304,7 @@ static GSValidationCenter *vc = nil;
     
 }
 
-- (void) _removeItemAtIndex: (int)index broadcast: (BOOL)broadcast
+- (void) _removeItemAtIndex: (NSInteger)index broadcast: (BOOL)broadcast
 {
   id item = [_items objectAtIndex: index];
   
@@ -1321,7 +1321,7 @@ static GSValidationCenter *vc = nil;
   [self _saveConfig];
 }
 
-- (void) _concludeRemoveItem: (NSToolbarItem *)item atIndex: (int)index broadcast: (BOOL)broadcast
+- (void) _concludeRemoveItem: (NSToolbarItem *)item atIndex: (NSInteger)index broadcast: (BOOL)broadcast
 {
   [nc postNotificationName: NSToolbarDidRemoveItemNotification
                     object: self
@@ -1367,7 +1367,7 @@ static GSValidationCenter *vc = nil;
     }
 }
 
-- (void) _moveItemFromIndex: (int)index toIndex: (int)newIndex broadcast: (BOOL)broadcast
+- (void) _moveItemFromIndex: (NSInteger)index toIndex: (NSInteger)newIndex broadcast: (BOOL)broadcast
 {
   id item;
 

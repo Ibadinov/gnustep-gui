@@ -2588,7 +2588,7 @@ static NSTextFieldCell *titleCell;
   [super encodeWithCoder: aCoder];
   if ([aCoder allowsKeyedCoding])
     {
-      long flags = 0;
+      int32_t flags = 0;
 
       //
       // NOTE: The browserview under GS uses an NSMatrix subview, the one under
@@ -2609,12 +2609,12 @@ static NSTextFieldCell *titleCell;
       flags |= [self reusesColumns] ? 0x20000000 : 0;
       flags |= [self allowsBranchSelection] ? 0x40000000 : 0;
       flags |= [self allowsMultipleSelection] ? 0x80000000 : 0;
-      [aCoder encodeInt: flags forKey: @"NSBrFlags"];
+      [aCoder encodeInt32: flags forKey: @"NSBrFlags"];
 
-      [aCoder encodeInt: _maxVisibleColumns forKey: @"NSNumberOfVisibleColumns"];
-      [aCoder encodeInt: _minColumnWidth forKey: @"NSMinColumnWidth"];
+      [aCoder encodeInteger: _maxVisibleColumns forKey: @"NSNumberOfVisibleColumns"];
+      [aCoder encodeFloat: _minColumnWidth forKey: @"NSMinColumnWidth"];
 
-      [aCoder encodeInt: _columnResizing forKey: @"NSColumnResizingType"];
+      [aCoder encodeInteger: _columnResizing forKey: @"NSColumnResizingType"];
       //[aCoder encodeInt: prefWidth forKey: @"NSPreferedColumnWidth"];
     }
   else
@@ -2629,7 +2629,7 @@ static NSTextFieldCell *titleCell;
       [aCoder encodeValueOfObjCType: @encode(BOOL) at: &_allowsBranchSelection];
       [aCoder encodeValueOfObjCType: @encode(BOOL) at: &_allowsEmptySelection];
       [aCoder encodeValueOfObjCType: @encode(BOOL) at: &_allowsMultipleSelection];
-      [aCoder encodeValueOfObjCType: @encode(int) at: &_maxVisibleColumns];
+      [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &_maxVisibleColumns];
       [aCoder encodeValueOfObjCType: @encode(CGFloat) at: &_minColumnWidth];
       [aCoder encodeValueOfObjCType: @encode(BOOL) at: &_reusesColumns];
       [aCoder encodeValueOfObjCType: @encode(BOOL) at: &_separatesColumns];
@@ -2658,9 +2658,9 @@ static NSTextFieldCell *titleCell;
       // Just encode the number of columns and the first visible
       // and rebuild the browser columns on the decoding side
       {
-        int colCount = [_browserColumns count];  
-        [aCoder encodeValueOfObjCType: @encode(int) at: &colCount];
-        [aCoder encodeValueOfObjCType: @encode(int) at: &_firstVisibleColumn];
+        NSInteger colCount = [_browserColumns count];  
+        [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &colCount];
+        [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &_firstVisibleColumn];
       }
     }
 }
@@ -2673,7 +2673,7 @@ static NSTextFieldCell *titleCell;
       NSCell *proto = [aDecoder decodeObjectForKey: @"NSCellPrototype"];
       NSString *title = [aDecoder decodeObjectForKey: @"NSFirstColumnTitle"];
       NSString *sep = [aDecoder decodeObjectForKey: @"NSPathSeparator"];
-      long flags;
+      int32_t flags;
       NSSize bs;
       
       // Class setting
@@ -2733,7 +2733,7 @@ static NSTextFieldCell *titleCell;
 
       if ([aDecoder containsValueForKey: @"NSBrFlags"])
         {
-          flags = [aDecoder decodeIntForKey: @"NSBrFlags"];
+          flags = [aDecoder decodeInt32ForKey: @"NSBrFlags"];
 
           [self setHasHorizontalScroller: ((flags & 0x10000) == 0x10000)];
           [self setAllowsEmptySelection: !((flags & 0x20000) == 0x20000)];
@@ -2749,28 +2749,28 @@ static NSTextFieldCell *titleCell;
 
       if ([aDecoder containsValueForKey: @"NSNumberOfVisibleColumns"])
         {
-          [self setMaxVisibleColumns: [aDecoder decodeIntForKey: 
+          [self setMaxVisibleColumns: [aDecoder decodeIntegerForKey: 
                                                   @"NSNumberOfVisibleColumns"]];
         }
 
       if ([aDecoder containsValueForKey: @"NSMinColumnWidth"])
         {
-          [self setMinColumnWidth: [aDecoder decodeIntForKey: @"NSMinColumnWidth"]];
+          [self setMinColumnWidth: [aDecoder decodeFloatForKey: @"NSMinColumnWidth"]];
         }
 
       if ([aDecoder containsValueForKey: @"NSColumnResizingType"])
         {
-          [self setColumnResizingType: [aDecoder decodeIntForKey: @"NSColumnResizingType"]];
+          [self setColumnResizingType: [aDecoder decodeIntegerForKey: @"NSColumnResizingType"]];
         }
 
       if ([aDecoder containsValueForKey: @"NSPreferedColumnWidth"])
         {
-          //int prefWidth = [aDecoder decodeIntForKey: @"NSPreferedColumnWidth"];
+          //int prefWidth = [aDecoder decodeFloatForKey: @"NSPreferedColumnWidth"];
         }
     }
   else
     {
-      int colCount;
+      NSInteger colCount;
       
       // Here to keep compatibility with old version
       [aDecoder decodeObject];
@@ -2783,7 +2783,7 @@ static NSTextFieldCell *titleCell;
       [aDecoder decodeValueOfObjCType: @encode(BOOL) at: &_allowsBranchSelection];
       [aDecoder decodeValueOfObjCType: @encode(BOOL) at: &_allowsEmptySelection];
       [aDecoder decodeValueOfObjCType: @encode(BOOL) at: &_allowsMultipleSelection];
-      [aDecoder decodeValueOfObjCType: @encode(int) at: &_maxVisibleColumns];
+      [aDecoder decodeValueOfObjCType: @encode(NSInteger) at: &_maxVisibleColumns];
       [aDecoder decodeValueOfObjCType: @encode(CGFloat) at: &_minColumnWidth];
       [aDecoder decodeValueOfObjCType: @encode(BOOL) at: &_reusesColumns];
       [aDecoder decodeValueOfObjCType: @encode(BOOL) at: &_separatesColumns];
@@ -2831,8 +2831,8 @@ static NSTextFieldCell *titleCell;
       */
       _browserColumns = RETAIN([aDecoder decodeObject]);
       // ..and rebuild any existing browser columns
-      [aDecoder decodeValueOfObjCType: @encode(int) at: &colCount];
-      [aDecoder decodeValueOfObjCType: @encode(int) at: &_firstVisibleColumn];
+      [aDecoder decodeValueOfObjCType: @encode(NSInteger) at: &colCount];
+      [aDecoder decodeValueOfObjCType: @encode(NSInteger) at: &_firstVisibleColumn];
     }
       
   // Display even if there isn't any column

@@ -173,7 +173,7 @@ Interface for a bunch of internal methods that need to be cleaned up.
 @private
   NSColor *backgroundColor;
   NSParagraphStyle *paragraphStyle;
-  unsigned int flags;
+  NSUInteger flags;
   NSColor *insertionColor;
   NSDictionary *linkAttr;
   NSDictionary *markAttr;
@@ -182,7 +182,7 @@ Interface for a bunch of internal methods that need to be cleaned up.
 }
 - (NSColor *) backgroundColor;
 - (NSParagraphStyle *) paragraphStyle;
-- (unsigned int) flags;
+- (NSUInteger) flags;
 - (NSColor *) insertionColor;
 - (NSDictionary *) linkAttributes;
 - (NSDictionary *) markAttributes;
@@ -232,7 +232,7 @@ Interface for a bunch of internal methods that need to be cleaned up.
 	[aDecoder decodeObjectForKey: @"NSBackgroundColor"]);
       ASSIGN(paragraphStyle,
 	[aDecoder decodeObjectForKey: @"NSDefaultParagraphStyle"]);
-      flags = [aDecoder decodeIntForKey: @"NSFlags"];
+      flags = [aDecoder decodeIntegerForKey: @"NSFlags"];
       ASSIGN(insertionColor,
 	[aDecoder decodeObjectForKey: @"NSInsertionColor"]);
       ASSIGN(linkAttr, [aDecoder decodeObjectForKey: @"NSLinkAttributes"]);
@@ -250,7 +250,7 @@ Interface for a bunch of internal methods that need to be cleaned up.
     {	
       [coder encodeObject: backgroundColor forKey: @"NSBackgroundColor"];
       [coder encodeObject: paragraphStyle forKey: @"NSDefaultParagraphStyle"];
-      [coder encodeInt: flags forKey: @"NSFlags"];
+      [coder encodeInteger: flags forKey: @"NSFlags"];
       [coder encodeObject: insertionColor forKey: @"NSInsertionColor"];
       [coder encodeObject: linkAttr forKey: @"NSLinkAttributes"];
       [coder encodeObject: markAttr forKey: @"NSMarkedAttributes"];
@@ -279,7 +279,7 @@ Interface for a bunch of internal methods that need to be cleaned up.
   return paragraphStyle;
 }
 
-- (unsigned int) flags
+- (NSUInteger) flags
 {
   return flags;
 }
@@ -435,7 +435,7 @@ override eg. -setEditable: to take some particular action when
 editing is turned on or off.
 */
 - (void) _syncTextViewsByCalling: (SEL)action
-		       withFlag: (BOOL)flag
+                        withFlag: (BOOL)flag
 {
   NSArray *array;
   NSUInteger i, count;
@@ -932,7 +932,7 @@ that makes decoding and encoding compatible with the old code.
       if ([aDecoder containsValueForKey: @"NSSharedData"])
         {
           NSTextViewSharedData *shared;
-          unsigned int flags;
+          NSUInteger flags;
           
           shared = [aDecoder decodeObjectForKey: @"NSSharedData"];
           flags = [shared flags];
@@ -991,8 +991,7 @@ that makes decoding and encoding compatible with the old code.
     {
       BOOL flag;
       NSTextContainer *aTextContainer; 
-      int version = [aDecoder versionForClassName: 
-				  @"NSTextView"];
+      NSInteger version = [aDecoder versionForClassName: @"NSTextView"];
 
       /* Common stuff for all versions. */
       _delegate  = [aDecoder decodeObject];
@@ -3177,7 +3176,7 @@ Scroll so that the beginning of the range is visible.
 
 /* not the same as NSMakeRange! */
 static inline
-NSRange MakeRangeFromAbs (unsigned a1, unsigned a2)
+NSRange MakeRangeFromAbs (NSUInteger a1, NSUInteger a2)
 {
   if (a1 < a2)
     return NSMakeRange(a1, a2 - a1);
@@ -4629,7 +4628,7 @@ shouldRemoveMarker: (NSRulerMarker *)marker
   NSSpellChecker *sp = [NSSpellChecker sharedSpellChecker];
   NSString *misspelledWord = nil;
   NSRange errorRange;
-  int count = 0;
+  NSInteger count = 0;
 
   if (sp == nil)
     {
@@ -4647,7 +4646,7 @@ shouldRemoveMarker: (NSRulerMarker *)marker
       [self setSelectedRange: errorRange];
       [self scrollRangeToVisible: errorRange];
 
-      misspelledWord = [[self string] substringFromRange: errorRange];
+      misspelledWord = [[self string] substringWithRange: errorRange];
       [sp updateSpellingPanelWithMisspelledWord: misspelledWord];
     }
   else
@@ -5733,8 +5732,7 @@ other than copy/paste or dragging. */
 	      }
 	  }
 
-	proposedRange = MakeRangeFromAbs(endIndex,
-					 startIndex);
+	proposedRange = MakeRangeFromAbs(endIndex, startIndex);
 
 	chosenRange = [self selectionRangeForProposedRange: proposedRange
 			granularity: granularity];
@@ -6182,7 +6180,7 @@ or add guards
   {
     NSSpellChecker *sp = [NSSpellChecker sharedSpellChecker];
     NSInteger start = 0;
-    int count;
+    NSInteger count;
     // FIXME: doing the spellcheck on this substring could create false-positives
     // if a word is split in half.. so the range should be expanded to the 
     // nearest word boundary

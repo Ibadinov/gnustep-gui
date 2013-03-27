@@ -50,7 +50,7 @@ GSTypesetter's implementation returns NSMakeSize(0,0).
 + (NSSize) printingAdjustmentsInLayoutManager: (GSLayoutManager *)layoutManager
 		 forNominallySpacedGlyphRange: (NSRange)glyphRange
 				 packedGlyphs: (const unsigned char *)glyphs
-					count: (unsigned)packedGlyphCount;
+					count: (NSUInteger)packedGlyphCount;
 
 /*
 Returns a thread-safe shared GSTypesetter (a GSHorizontalTypesetter
@@ -120,10 +120,10 @@ Subclasses need to implement this method.
 */
 -(int) layoutGlyphsInLayoutManager: (GSLayoutManager *)layoutManager
 		   inTextContainer: (NSTextContainer *)textContainer
-	      startingAtGlyphIndex: (unsigned int)glyphIndex
+	      startingAtGlyphIndex: (NSUInteger)glyphIndex
 	  previousLineFragmentRect: (NSRect)previousLineFragRect
-		    nextGlyphIndex: (unsigned int *)nextGlyphIndex
-	     numberOfLineFragments: (unsigned int)howMany;
+		    nextGlyphIndex: (NSUInteger *)nextGlyphIndex
+	     numberOfLineFragments: (NSUInteger)howMany;
 
 @end
 

@@ -102,7 +102,7 @@
 	    withCellFrame: (NSRect)cellFrame
 	controlViewWindow: (NSWindow *)cvWin
 	    preferredEdge: (NSRectEdge)edge
-	     selectedItem: (int)selectedItem
+	     selectedItem: (NSInteger)selectedItem
 { 
   // Ask the MenuView to attach the menu to this rect
   [mr setWindowFrameForAttachingToRect: cellFrame

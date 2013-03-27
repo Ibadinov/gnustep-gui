@@ -91,21 +91,21 @@ APPKIT_EXPORT NSString *GSScreenNumber;
 - (NSCountedSet*) dragTypesForWindow: (NSWindow *)win;
 - (id <NSDraggingInfo>) dragInfo;
 - (BOOL) slideImage: (NSImage*)image from: (NSPoint)from to: (NSPoint)to;
-- (void) restrictWindow: (int)win toImage: (NSImage*)image;
-- (int) findWindowAt: (NSPoint)screenLocation 
-           windowRef: (int*)windowRef 
-           excluding: (int)win;
+- (void) restrictWindow: (NSInteger)win toImage: (NSImage*)image;
+- (NSInteger) findWindowAt: (NSPoint)screenLocation 
+                 windowRef: (NSInteger*)windowRef 
+                 excluding: (NSInteger)win;
 
 
 /* Screen information */
-- (NSSize) resolutionForScreen: (int)screen;
-- (NSRect) boundsForScreen: (int)screen;
-- (NSWindowDepth) windowDepthForScreen: (int)screen;
-- (const NSWindowDepth *) availableDepthsForScreen: (int)screen;
+- (NSSize) resolutionForScreen: (NSInteger)screen;
+- (NSRect) boundsForScreen: (NSInteger)screen;
+- (NSWindowDepth) windowDepthForScreen: (NSInteger)screen;
+- (const NSWindowDepth *) availableDepthsForScreen: (NSInteger)screen;
 - (NSArray *) screenList;
 
 - (void *) serverDevice;
-- (void *) windowDevice: (int)win;
+- (void *) windowDevice: (NSInteger)win;
 
 - (void) beep;
 
@@ -114,7 +114,7 @@ APPKIT_EXPORT NSString *GSScreenNumber;
 - (NSSize) iconSize;
 
 /* Screen capture */ 
-- (NSImage *) contentsOfScreen: (int)screen inRect: (NSRect)rect;
+- (NSImage *) contentsOfScreen: (NSInteger)screen inRect: (NSRect)rect;
 
 @end
 
@@ -122,59 +122,59 @@ APPKIT_EXPORT NSString *GSScreenNumber;
 /* GNUstep Window operations */
 /* ----------------------------------------------------------------------- */
 @interface GSDisplayServer (WindowOps)
-- (void) _setWindowOwnedByServer: (int)win;
-- (int) window: (NSRect)frame : (NSBackingStoreType)type : (unsigned int)style;
-- (int) window: (NSRect)frame : (NSBackingStoreType)type : (unsigned int)style
-	      : (int)screen;
-- (void) termwindow: (int)win;
-- (int) nativeWindow: (void *)winref : (NSRect*)frame : (NSBackingStoreType*)type 
-                    : (unsigned int*)style : (int*)screen;
+- (void) _setWindowOwnedByServer: (NSInteger)win;
+- (NSInteger) window: (NSRect)frame : (NSBackingStoreType)type : (NSUInteger)style;
+- (NSInteger) window: (NSRect)frame : (NSBackingStoreType)type : (NSUInteger)style
+                    : (NSInteger)screen;
+- (void) termwindow: (NSInteger)win;
+- (NSInteger) nativeWindow: (void *)winref : (NSRect*)frame : (NSBackingStoreType*)type 
+                          : (NSUInteger*)style : (NSInteger*)screen;
 
 /* Only if handlesWindowDecorations returns YES. */
-- (void) stylewindow: (unsigned int)style : (int)win;
+- (void) stylewindow: (NSUInteger)style : (NSInteger)win;
 
-- (void) windowbacking: (NSBackingStoreType)type : (int)win;
-- (void) titlewindow: (NSString *)window_title : (int)win;
-- (void) miniwindow: (int)win;
+- (void) windowbacking: (NSBackingStoreType)type : (NSInteger)win;
+- (void) titlewindow: (NSString *)window_title : (NSInteger)win;
+- (void) miniwindow: (NSInteger)win;
 - (BOOL) appOwnsMiniwindow;
-- (void) setWindowdevice: (int)win forContext: (NSGraphicsContext *)ctxt;
+- (void) setWindowdevice: (NSInteger)win forContext: (NSGraphicsContext *)ctxt;
 // Deprecated
-- (void) windowdevice: (int) winNum;
-- (void) orderwindow: (int)op : (int)otherWin : (int)win;
-- (void) movewindow: (NSPoint)loc : (int)win;
-- (void) placewindow: (NSRect)frame : (int)win;
-- (NSRect) windowbounds: (int)win;
-- (void) setwindowlevel: (int)level : (int)win;
-- (int) windowlevel: (int)win;
+- (void) windowdevice: (NSInteger) winNum;
+- (void) orderwindow: (NSInteger)op : (NSInteger)otherWin : (NSInteger)win;
+- (void) movewindow: (NSPoint)loc : (NSInteger)win;
+- (void) placewindow: (NSRect)frame : (NSInteger)win;
+- (NSRect) windowbounds: (NSInteger)win;
+- (void) setwindowlevel: (NSInteger)level : (NSInteger)win;
+- (NSInteger) windowlevel: (NSInteger)win;
 - (NSArray *) windowlist;
-- (int) windowdepth: (int)win;
-- (void) setmaxsize: (NSSize)size : (int)win;
-- (void) setminsize: (NSSize)size : (int)win;
-- (void) setresizeincrements: (NSSize)size : (int)win;
-- (void) flushwindowrect: (NSRect)rect : (int)win;
-- (void) styleoffsets: (float*)l : (float*)r : (float*)t : (float*)b 
-                     : (unsigned int)style;
-- (void) docedited: (int) edited : (int)win;
-- (void) setinputstate: (int)state : (int)win;
-- (void) setinputfocus: (int)win;
-- (void) setalpha: (float)alpha : (int)win;
-- (void) setShadow: (BOOL)hasShadow : (int)win;
+- (NSInteger) windowdepth: (NSInteger)win;
+- (void) setmaxsize: (NSSize)size : (NSInteger)win;
+- (void) setminsize: (NSSize)size : (NSInteger)win;
+- (void) setresizeincrements: (NSSize)size : (NSInteger)win;
+- (void) flushwindowrect: (NSRect)rect : (NSInteger)win;
+- (void) styleoffsets: (CGFloat*)l : (CGFloat*)r : (CGFloat*)t : (CGFloat*)b 
+                     : (NSUInteger)style;
+- (void) docedited: (NSInteger) edited : (NSInteger)win;
+- (void) setinputstate: (NSInteger)state : (NSInteger)win;
+- (void) setinputfocus: (NSInteger)win;
+- (void) setalpha: (CGFloat)alpha : (NSInteger)win;
+- (void) setShadow: (BOOL)hasShadow : (NSInteger)win;
 
 - (NSPoint) mouselocation;
-- (NSPoint) mouseLocationOnScreen: (int)aScreen window: (int *)win;
-- (BOOL) capturemouse: (int)win;
+- (NSPoint) mouseLocationOnScreen: (NSInteger)aScreen window: (NSInteger *)win;
+- (BOOL) capturemouse: (NSInteger)win;
 - (void) releasemouse;
-- (void) setMouseLocation: (NSPoint)mouseLocation onScreen: (int)aScreen;
+- (void) setMouseLocation: (NSPoint)mouseLocation onScreen: (NSInteger)aScreen;
 - (void) hidecursor;
 - (void) showcursor;
-- (void) standardcursor: (int) style : (void**)cid;
+- (void) standardcursor: (NSInteger) style : (void**)cid;
 - (void) imagecursor: (NSPoint)hotp : (NSImage *) image : (void**)cid;
 - (void) setcursorcolor: (NSColor *)fg : (NSColor *)bg : (void*)cid;
 - (void) recolorcursor: (NSColor *)fg : (NSColor *)bg : (void*) cid;
 - (void) setcursor: (void*) cid;
 - (void) freecursor: (void*) cid;
-- (void) setParentWindow: (int)parentWin 
-          forChildWindow: (int)childWin;
+- (void) setParentWindow: (NSInteger)parentWin 
+          forChildWindow: (NSInteger)childWin;
 
 @end
 
@@ -182,32 +182,32 @@ APPKIT_EXPORT NSString *GSScreenNumber;
 /* GNUstep Event Operations */
 /* ----------------------------------------------------------------------- */
 @interface GSDisplayServer (EventOps)
-- (NSEvent*) getEventMatchingMask: (unsigned)mask
+- (NSEvent*) getEventMatchingMask: (NSUInteger)mask
 		       beforeDate: (NSDate*)limit
 			   inMode: (NSString*)mode
 			  dequeue: (BOOL)flag;
-- (void) discardEventsMatchingMask: (unsigned)mask
+- (void) discardEventsMatchingMask: (NSUInteger)mask
 		       beforeEvent: (NSEvent*)limit;
 - (void) postEvent: (NSEvent*)anEvent atStart: (BOOL)flag;
 @end
 
 
 static inline NSEvent*
-DPSGetEvent(GSDisplayServer *ctxt, unsigned mask, NSDate* limit, NSString *mode)
+DPSGetEvent(GSDisplayServer *ctxt, NSUInteger mask, NSDate* limit, NSString *mode)
 {
   return [ctxt getEventMatchingMask: mask beforeDate: limit inMode: mode
 	       dequeue: YES];
 }
 
 static inline NSEvent*
-DPSPeekEvent(GSDisplayServer *ctxt, unsigned mask, NSDate* limit, NSString *mode)
+DPSPeekEvent(GSDisplayServer *ctxt, NSUInteger mask, NSDate* limit, NSString *mode)
 {
   return [ctxt getEventMatchingMask: mask beforeDate: limit inMode: mode
 	       dequeue: NO];
 }
 
 static inline void
-DPSDiscardEvents(GSDisplayServer *ctxt, unsigned mask, NSEvent* limit)
+DPSDiscardEvents(GSDisplayServer *ctxt, NSUInteger mask, NSEvent* limit)
 {
   [ctxt discardEventsMatchingMask: mask beforeEvent: limit];
 }

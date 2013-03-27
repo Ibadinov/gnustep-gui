@@ -4145,7 +4145,7 @@ static NSView* findByTag(NSView *view, NSInteger aTag, NSUInteger *level)
   return 0.0;
 }
 
-- (BOOL) knowsPagesFirst: (int*)firstPageNum last: (int*)lastPageNum
+- (BOOL) knowsPagesFirst: (NSInteger *)firstPageNum last: (NSInteger *)lastPageNum
 {
   return NO;
 }
@@ -4197,7 +4197,7 @@ static NSView* findByTag(NSView *view, NSInteger aTag, NSUInteger *level)
 /*
  * Writing Conforming PostScript
  */
-- (void) beginPage: (int)ordinalNum
+- (void) beginPage: (NSInteger)ordinalNum
              label: (NSString*)aString
               bBox: (NSRect)pageRect
              fonts: (NSString*)fontNames
@@ -4221,19 +4221,19 @@ static NSView* findByTag(NSView *view, NSInteger aTag, NSUInteger *level)
                  createdBy: (NSString*)anApplication
                      fonts: (NSString*)fontNames
                    forWhom: (NSString*)user
-                     pages: (int)numPages
+                     pages: (NSInteger)numPages
                      title: (NSString*)aTitle
 {
   NSPrintOperation *printOp = [NSPrintOperation currentOperation];
   NSGraphicsContext *ctxt = [printOp context];
 
   [ctxt beginPrologueBBox: boundingBox
-	      creationDate: dateCreated
-        createdBy: anApplication
-        fonts: fontNames
-        forWhom: user
-        pages: numPages
-        title: aTitle];
+             creationDate: dateCreated
+                createdBy: anApplication
+                    fonts: fontNames
+                  forWhom: user
+                    pages: numPages
+                    title: aTitle];
 }
 
 - (void) addToPageSetup
@@ -4412,7 +4412,7 @@ static NSView* findByTag(NSView *view, NSInteger aTag, NSUInteger *level)
 - (void) beginPageInRect: (NSRect)aRect 
              atPlacement: (NSPoint)location
 {
-  int nup;
+  NSInteger nup;
   NSRect bounds;
   NSPrintOperation *printOp = [NSPrintOperation currentOperation];
   NSGraphicsContext *ctxt = [printOp context];
@@ -4435,12 +4435,12 @@ static NSView* findByTag(NSView *view, NSInteger aTag, NSUInteger *level)
       bounds = aRect;
     }
 
-  nup = [[dict objectForKey: NSPrintPagesPerSheet] intValue];
+  nup = [[dict objectForKey: NSPrintPagesPerSheet] integerValue];
   if (nup > 1)
     {
-      int page;
-      float xoff, yoff;
-      float scale;
+      NSInteger page;
+      CGFloat xoff, yoff;
+      CGFloat scale;
 
       DPSPrintf(ctxt, "/__GSpagesaveobject save def\n");
 
@@ -4456,7 +4456,7 @@ static NSView* findByTag(NSView *view, NSInteger aTag, NSUInteger *level)
       if (nup == 2)
         yoff = 0;
       else
-        yoff = (int)((nup-page-1) / (nup/2));
+        yoff = (NSInteger)((nup-page-1) / (nup/2));
       yoff *= NSHeight(bounds) * scale;
       DPStranslate(ctxt, xoff, yoff);
       DPSgsave(ctxt);
@@ -4486,7 +4486,7 @@ static NSView* findByTag(NSView *view, NSInteger aTag, NSUInteger *level)
 
 - (void) endDocument
 {
-  int first, last, current, pages;
+  NSInteger first, last, current, pages;
   NSPrintOperation *printOp = [NSPrintOperation currentOperation];
   NSGraphicsContext *ctxt = [printOp context];
   NSDictionary *dict = [[printOp printInfo] dictionary];
@@ -4498,7 +4498,7 @@ static NSView* findByTag(NSView *view, NSInteger aTag, NSUInteger *level)
 
   if (pages == 0)
     {
-      int nup = [[dict objectForKey: NSPrintPagesPerSheet] intValue];
+      NSInteger nup = [[dict objectForKey: NSPrintPagesPerSheet] integerValue];
       current = [printOp currentPage];
       pages = current - first; // Current is 1 more than the last page
       if (nup > 1)
@@ -4557,8 +4557,7 @@ static NSView* findByTag(NSView *view, NSInteger aTag, NSUInteger *level)
           vFlags |= 0x80000000;
         }
       
-      [aCoder encodeInt: vFlags 
-	      forKey: @"NSvFlags"];
+      [aCoder encodeInteger: vFlags forKey: @"NSvFlags"];
 
       //
       // Don't attempt to archive the superview of a view which is the
@@ -4665,7 +4664,7 @@ static NSView* findByTag(NSView *view, NSInteger aTag, NSUInteger *level)
         }
       if ([aDecoder containsValueForKey: @"NSvFlags"])
         {
-          NSUInteger vFlags = [aDecoder decodeIntForKey: @"NSvFlags"];
+          NSUInteger vFlags = [aDecoder decodeIntegerForKey: @"NSvFlags"];
 	  
           // We are lucky here, Apple use the same constants
           // in the lower bits of the flags

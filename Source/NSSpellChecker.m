@@ -71,14 +71,12 @@ extern NSString *GSSpellServerName(NSString *checkerDictionary, NSString *langua
 - (NSRange) _findMisspelledWordInString: (NSString *)stringToCheck
 			       language: (NSString *)language
 			   ignoredWords: (NSArray *)ignoredWords
-			      wordCount: (int *)wordCount
+			      wordCount: (NSInteger *)wordCount
 			      countOnly: (BOOL)countOnly;
 
-- (BOOL) _learnWord: (NSString *)word
-       inDictionary: (NSString *)language;
+- (BOOL) _learnWord: (NSString *)word inDictionary: (NSString *)language;
 
-- (BOOL) _forgetWord: (NSString *)word
-        inDictionary: (NSString *)language;
+- (BOOL) _forgetWord: (NSString *)word inDictionary: (NSString *)language;
 
 - (NSArray *) _suggestGuessesForWord: (NSString *)word
 			  inLanguage: (NSString *)language;
@@ -146,7 +144,7 @@ extern NSString *GSSpellServerName(NSString *checkerDictionary, NSString *langua
 
 // Shared spell checker instance....
 static NSSpellChecker *__sharedSpellChecker = nil;
-static int __documentTag = 0;
+static NSInteger __documentTag = 0;
 
 // Implementation of spell checker class
 @implementation NSSpellChecker
@@ -185,7 +183,7 @@ static int __documentTag = 0;
 //
 // Managing the Spelling Process 
 //
-+ (int)uniqueSpellDocumentTag
++ (NSInteger)uniqueSpellDocumentTag
 {
   return ++__documentTag;
 }
@@ -260,7 +258,7 @@ static int __documentTag = 0;
 //
 // Instance methods
 //
-- init
+- (id)init
 {
   NSArray *languages;
 
@@ -322,10 +320,9 @@ static int __documentTag = 0;
 //
 // Checking Spelling 
 //
-- (int)countWordsInString:(NSString *)aString
-		 language:(NSString *)language
+- (NSInteger)countWordsInString:(NSString *)aString language:(NSString *)language
 {
-  int count = 0;
+  NSInteger count = 0;
   id<NSSpellServerPrivateProtocol> proxy = [self _serverProxy];
 
   if (proxy != nil)
@@ -339,9 +336,9 @@ static int __documentTag = 0;
 }
 
 - (NSRange)checkSpellingOfString:(NSString *)stringToCheck
-		      startingAt:(int)startingOffset
+		      startingAt:(NSInteger)startingOffset
 {
-  int wordCount = 0;
+  NSInteger wordCount = 0;
   NSRange r;
 
   r = [self checkSpellingOfString: stringToCheck
@@ -355,11 +352,11 @@ static int __documentTag = 0;
 }
 
 - (NSRange)checkSpellingOfString:(NSString *)stringToCheck
-		      startingAt:(int)startingOffset
+		      startingAt:(NSInteger)startingOffset
                         language:(NSString *)language
 		            wrap:(BOOL)wrapFlag
-          inSpellDocumentWithTag:(int)tag
-		       wordCount:(int *)wordCount
+          inSpellDocumentWithTag:(NSInteger)tag
+		       wordCount:(NSInteger *)wordCount
 {
   NSRange r;
   NSArray *dictForTag = [self ignoredWordsInSpellDocumentWithTag: tag];
@@ -389,10 +386,10 @@ static int __documentTag = 0;
 	NS_VALUERETURN(NSMakeRange(0,0), NSRange);
 
       r = [proxy _findMisspelledWordInString: substringToCheck
-		 language: _language
-		 ignoredWords: dictForTag
-		 wordCount: wordCount
-		 countOnly: NO];
+                                    language: _language
+                                ignoredWords: dictForTag
+                                   wordCount: wordCount
+                                   countOnly: NO];
       
       if (r.length != 0)
 	{
@@ -407,10 +404,10 @@ static int __documentTag = 0;
 	      NSString *firstHalfOfString = [stringToCheck 
 					      substringToIndex: startingOffset];
 	      r = [proxy _findMisspelledWordInString: firstHalfOfString
-			 language: _language
-			 ignoredWords: dictForTag
-			 wordCount: wordCount
-			 countOnly: NO];
+                                            language: _language
+                                        ignoredWords: dictForTag
+                                           wordCount: wordCount
+                                           countOnly: NO];
 	    }
 	}
       NS_VALUERETURN(r, NSRange);
@@ -454,7 +451,7 @@ static int __documentTag = 0;
 
 - (BOOL)setLanguage:(NSString *)aLanguage
 {
-  int index = 0;
+  NSInteger index = 0;
   BOOL result = NO;
 
   index = [_dictionaryPulldown indexOfItemWithTitle: aLanguage];
@@ -473,17 +470,16 @@ static int __documentTag = 0;
 
 // Remove the ignored word list for this 
 // document from the dictionary
-- (void)closeSpellDocumentWithTag:(int)tag
+- (void)closeSpellDocumentWithTag:(NSInteger)tag
 {
-  NSNumber *key = [NSNumber numberWithInt: tag];
+  NSNumber *key = [NSNumber numberWithInteger: tag];
   [_ignoredWords removeObjectForKey: key];
 }
 
 // Add a word to the ignored list.
-- (void)    ignoreWord:(NSString *)wordToIgnore 
-inSpellDocumentWithTag:(int)tag
+- (void)ignoreWord:(NSString *)wordToIgnore inSpellDocumentWithTag:(NSInteger)tag
 {
-  NSNumber *key = [NSNumber numberWithInt: tag];
+  NSNumber *key = [NSNumber numberWithInteger: tag];
   NSMutableSet *words = [_ignoredWords objectForKey: key];
 
   if (![wordToIgnore isEqualToString: @""])
@@ -502,18 +498,17 @@ inSpellDocumentWithTag:(int)tag
 }
 
 // get the list of ignored words.
-- (NSArray *)ignoredWordsInSpellDocumentWithTag:(int)tag
+- (NSArray *)ignoredWordsInSpellDocumentWithTag:(NSInteger)tag
 {
-  NSNumber *key = [NSNumber numberWithInt: tag];
+  NSNumber *key = [NSNumber numberWithInteger: tag];
   NSSet *words = [_ignoredWords objectForKey: key];
   return [words allObjects];
 }
 
 // set the list of ignored words for a given document
-- (void)setIgnoredWords:(NSArray *)someWords
- inSpellDocumentWithTag:(int)tag
+- (void)setIgnoredWords:(NSArray *)someWords inSpellDocumentWithTag:(NSInteger)tag
 {
-  NSNumber *key = [NSNumber numberWithInt: tag];
+  NSNumber *key = [NSNumber numberWithInteger: tag];
   NSSet *words = [NSSet setWithArray: someWords];
   [_ignoredWords setObject: words forKey: key];
 }
