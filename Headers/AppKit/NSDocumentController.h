@@ -54,7 +54,9 @@
   @private
     NSMutableArray 	*_documents;
     NSMutableArray 	*_recent_documents;
+  @protected /* used by Gorm */
     NSArray		*_types;	// from info.plist with key NSTypes
+  @private
     NSTimeInterval      _autosavingDelay;
     struct __controller_flags {
         unsigned int should_create_ui:1;

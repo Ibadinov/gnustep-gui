@@ -36,11 +36,11 @@
 @class NSColor;
 
 #if OS_API_VERSION(MAC_OS_X_VERSION_10_2, GS_API_LATEST)
-typedef enum _NSTextFieldBezelStyle
-{
-	NSTextFieldSquareBezel = 0,
-	NSTextFieldRoundedBezel
-} NSTextFieldBezelStyle;
+enum {
+    NSTextFieldSquareBezel = 0,
+    NSTextFieldRoundedBezel
+};
+typedef NSUInteger NSTextFieldBezelStyle;
 #endif 
 
 @interface NSTextFieldCell : NSActionCell <NSCoding>

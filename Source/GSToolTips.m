@@ -304,7 +304,7 @@ static BOOL		restoreMouseMoved;
   GSTrackingRect	*rect;
   unsigned		count = 0;
 
-  enumerator = [((NSViewPtr)view)->_tracking_rects objectEnumerator];
+  enumerator = [[view _trackingRects] objectEnumerator];
   while ((rect = [enumerator nextObject]) != nil)
     {
       if (rect->owner == self)
@@ -414,7 +414,7 @@ static BOOL		restoreMouseMoved;
 
   [self _endDisplay];
 
-  enumerator = [((NSViewPtr)view)->_tracking_rects objectEnumerator];
+  enumerator = [[view _trackingRects] objectEnumerator];
   while ((rect = [enumerator nextObject]) != nil)
     {
       if (rect->owner == self)
@@ -431,7 +431,7 @@ static BOOL		restoreMouseMoved;
 {
   NSUInteger idx = 0;
   NSMutableIndexSet *indexes = [NSMutableIndexSet new];
-  id tracking_rects = ((NSViewPtr)view)->_tracking_rects;
+  id tracking_rects = [view _trackingRects];
   FOR_IN(GSTrackingRect*, rect, tracking_rects)
     if ((rect->owner == self) && NSContainsRect(aRect, rect->rectangle))
       {
@@ -442,8 +442,8 @@ static BOOL		restoreMouseMoved;
       }
       idx++;
   END_FOR_IN(tracking_rects)
-  [((NSViewPtr)view)->_tracking_rects removeObjectsAtIndexes: indexes];
-  if ([((NSViewPtr)view)->_tracking_rects count] == 0)
+  [[view _trackingRects] removeObjectsAtIndexes: indexes];
+  if ([[view _trackingRects] count] == 0)
     {
       ((NSViewPtr)view)->_rFlags.has_trkrects = 0;
     }
@@ -455,7 +455,7 @@ static BOOL		restoreMouseMoved;
   NSEnumerator   	*enumerator;
   GSTrackingRect	*rect;
 
-  enumerator = [((NSViewPtr)view)->_tracking_rects objectEnumerator];
+  enumerator = [[view _trackingRects] objectEnumerator];
   while ((rect = [enumerator nextObject]) != nil)
     {
       if (rect->tag == tag && rect->owner == self)
@@ -500,7 +500,7 @@ static BOOL		restoreMouseMoved;
 	  NSEnumerator   	*enumerator;
 	  GSTrackingRect	*rect;
 
-	  enumerator = [((NSViewPtr)view)->_tracking_rects objectEnumerator];
+	  enumerator = [[view _trackingRects] objectEnumerator];
 	  while ((rect = [enumerator nextObject]) != nil)
 	    {
 	      if (rect->tag == toolTipTag && rect->owner == self)
@@ -517,7 +517,7 @@ static BOOL		restoreMouseMoved;
   NSEnumerator		*enumerator;
   GSTrackingRect	*rect;
 
-  enumerator = [((NSViewPtr)view)->_tracking_rects objectEnumerator];
+  enumerator = [[view _trackingRects] objectEnumerator];
   while ((rect = [enumerator nextObject]) != nil)
     {
       if (rect->tag == toolTipTag)

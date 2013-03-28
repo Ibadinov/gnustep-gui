@@ -1626,7 +1626,7 @@ static NSComparisonResult compareFilenames (id elem1, id elem2, void *context)
   NSSavePanel *s = context;
   NSSavePanel *self = (NSSavePanel *)context;
 
-  return (NSComparisonResult)[s->_delegate panel: self
+  return (NSComparisonResult)[[s delegate] panel: self
                                  compareFilename: elem1
                                             with: elem2
                                    caseSensitive: YES];

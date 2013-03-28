@@ -106,14 +106,10 @@ typedef enum _NSFocusRingType {
   id _matrixFromWindow;
 
   NSView* _super_view;
-@public /* used by libgmodel.bundle O_o */
   NSMutableArray *_sub_views;
-@protected
   NSWindow *_window;
-@public /* used by ProjectCenter FIXME!!!!! */
   NSMutableArray *_tracking_rects;
   NSMutableArray *_cursor_rects;
-@protected
   NSRect _invalidRect;
   NSRect _visibleRect;
   NSInteger _gstate;
@@ -604,6 +600,8 @@ typedef enum _NSFocusRingType {
 
 - (void) _setIgnoresBacking: (BOOL) flag;
 - (BOOL) _ignoresBacking;
+- (NSMutableArray *) _trackingRects;
+- (NSMutableArray *) _cursorRects;
 
 @end
 #endif

@@ -2653,7 +2653,7 @@ discardCursorRectsForView(NSView *theView)
 
       if (theView->_rFlags.has_subviews)
         {
-          NSArray *s = theView->_sub_views;
+          NSArray *s = [theView subviews];
           NSUInteger count = [s count];
 
           if (count)
@@ -2716,7 +2716,7 @@ resetCursorRectsForView(NSView *theView)
 
       if (theView->_rFlags.has_subviews)
         {
-          NSArray *s = theView->_sub_views;
+          NSArray *s = [theView subviews];
           NSUInteger count = [s count];
 
           if (count)
@@ -3454,7 +3454,7 @@ resetCursorRectsForView(NSView *theView)
   if (theView->_rFlags.has_trkrects)
     {
       BOOL isFlipped = [theView isFlipped];
-      NSArray *tr = theView->_tracking_rects;
+      NSArray *tr = [theView _trackingRects];
       NSUInteger count = [tr count];
 
       /*
@@ -3550,7 +3550,7 @@ resetCursorRectsForView(NSView *theView)
    */
   if (theView->_rFlags.has_subviews)
     {
-      NSArray *sb = theView->_sub_views;
+      NSArray *sb = [theView subviews];
       NSUInteger count = [sb count];
 
       if (count > 0)
@@ -3572,7 +3572,7 @@ resetCursorRectsForView(NSView *theView)
 {
   if (theView->_rFlags.valid_rects)
     {
-      NSArray *tr = theView->_cursor_rects;
+      NSArray *tr = [theView _cursorRects];
       NSUInteger count = [tr count];
 
       // Loop through cursor rectangles
@@ -3640,7 +3640,7 @@ resetCursorRectsForView(NSView *theView)
    */
   if (theView->_rFlags.has_subviews)
     {
-      NSArray *sb = theView->_sub_views;
+      NSArray *sb = [theView subviews];
       NSUInteger count = [sb count];
 
       if (count > 0)

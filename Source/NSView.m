@@ -249,6 +249,16 @@ GSSetDragTypes(NSView* obj, NSArray *types)
     }
 }
 
+- (NSMutableArray *) _trackingRects
+{
+    return _tracking_rects;
+}
+
+- (NSMutableArray *) _cursorRects
+{
+    return _cursor_rects;
+}
+
 /*
  *	The [-_matrixFromWindow] method returns a matrix that can be used to
  *	map coordinates in the windows coordinate system to coordinates in the
