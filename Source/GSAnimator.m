@@ -238,7 +238,7 @@ static int _GSTimerBasedAnimator_animator_count = 0;
               addTimer: newTimer
               forMode: [_runLoopModes objectAtIndex:i]];
         }
-      NSDebugMLLog(@"GSAnimator",@"addTimer in %d mode(s)", c);
+      NSDebugMLLog(@"GSAnimator",@"addTimer in %lu mode(s)", (unsigned long)c);
     }
 }
 

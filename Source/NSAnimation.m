@@ -232,8 +232,8 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
     { // First mark
       GSIArrayAddItem (_progressMarks,progress);
       NSDebugMLLog (@"NSAnimationMark",
-                    @"Insert 1st mark for %f (next:#%d)",
-                    progress, _nextMark);
+                    @"Insert 1st mark for %f (next:#%lu)",
+                    progress, (unsigned long)_nextMark);
       _nextMark = (progress >= [self currentProgress])? 0 : 1;
     }
   else 
@@ -248,8 +248,8 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
           _nextMark++;
       GSIArrayInsertItem (_progressMarks,progress,index);
       NSDebugMLLog (@"NSAnimationMark",
-                    @"Insert mark #%d/%d for %f (next:#%d)",
-                    index,GSIArrayCount(_progressMarks),progress,_nextMark);
+                    @"Insert mark #%lu/%lu for %f (next:#%lu)",
+                    (unsigned long)index, (unsigned long)GSIArrayCount(_progressMarks), progress, (unsigned long)_nextMark);
     }
   _isCachedProgressMarkNumbersValid = NO;
 
@@ -547,8 +547,8 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
       GSIArrayRemoveItemAtIndex(_progressMarks,index);
       _isCachedProgressMarkNumbersValid = NO;
       if (_nextMark > index) _nextMark--;
-      NSDebugMLLog(@"NSAnimationMark",@"Remove mark #%d for (next:#%d)",
-                   index, progress, _nextMark);
+      NSDebugMLLog(@"NSAnimationMark",@"Remove mark #%lu for %f (next:#%lu)",
+                   (unsigned long)index, progress, (unsigned long)_nextMark);
     }
   else
     NSWarnMLog(@"Unexistent progress mark");
@@ -671,8 +671,8 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
       _nextMark = GSIArrayInsertionPosition (_progressMarks,progress,&nsanimation_progressMarkSorter);
 
       if (_nextMark < GSIArrayCount(_progressMarks))
-        NSDebugMLLog(@"NSAnimationMark",@"Next mark #%d for %f",
-                     _nextMark, GSIArrayItemAtIndex(_progressMarks,_nextMark));
+        NSDebugMLLog(@"NSAnimationMark",@"Next mark #%lu for %f",
+                     (unsigned long)_nextMark, GSIArrayItemAtIndex(_progressMarks,_nextMark));
     }
 
   NSDebugMLLog(@"NSAnimation",@"Progress = %f", progress);
@@ -797,12 +797,12 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
         [delegate methodForSelector: @selector (animationShouldStart:)]
         : NULL;
       NSDebugMLLog(@"NSAnimationDelegate",
-                   @"Delegation methods : %x %x %x %x %x",
-                   _delegate_animationDidReachProgressMark,
-                   _delegate_animationValueForProgress,
-                   _delegate_animationDidEnd,
-                   _delegate_animationDidStop,
-                   _delegate_animationShouldStart);
+                   @"Delegation methods : %lx %lx %lx %lx %lx",
+                   (unsigned long)_delegate_animationDidReachProgressMark,
+                   (unsigned long)_delegate_animationValueForProgress,
+                   (unsigned long)_delegate_animationDidEnd,
+                   (unsigned long)_delegate_animationDidStop,
+                   (unsigned long)_delegate_animationShouldStart);
       _currentDelegate = _delegate;
     }
   else
@@ -1143,8 +1143,8 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
   _NSANIMATION_UNLOCK;
 
   NSDebugMLLog(@"NSAnimationMark",
-               @"Next mark #%d for %f",
-               _nextMark, GSIArrayItemAtIndex(_progressMarks, _nextMark - 1));
+               @"Next mark #%lu for %f",
+               (unsigned long)_nextMark, GSIArrayItemAtIndex(_progressMarks, _nextMark - 1));
 }
 
 - (void) _gs_startThreadedAnimation
