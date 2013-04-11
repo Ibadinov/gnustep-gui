@@ -3279,8 +3279,6 @@
 				OTHER_CFLAGS = (
 					"-DBACKEND_BUNDLE",
 					"-DGNUSTEP",
-					"-fno-constant-cfstrings",
-					"-fconstant-string-class=NSConstantString",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "Headers/Additions/GNUstepGUI Headers/Additions/ Headers/";
@@ -3310,8 +3308,6 @@
 				OTHER_CFLAGS = (
 					"-DBACKEND_BUNDLE",
 					"-DGNUSTEP",
-					"-fno-constant-cfstrings",
-					"-fconstant-string-class=NSConstantString",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "Headers/Additions/GNUstepGUI Headers/Additions/ Headers/";
