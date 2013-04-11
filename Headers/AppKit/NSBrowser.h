@@ -87,12 +87,12 @@ typedef NSUInteger NSBrowserColumnResizingType;
   NSMutableArray *_browserColumns;
   NSSize _columnSize;
   NSRect _scrollerRect;
-  int _alphaNumericalLastColumn;
-  int _maxVisibleColumns;
+  NSInteger _alphaNumericalLastColumn;
+  NSInteger _maxVisibleColumns;
   CGFloat _minColumnWidth;
-  int _lastColumnLoaded;
-  int _firstVisibleColumn;
-  int _lastVisibleColumn;
+  NSInteger _lastColumnLoaded;
+  NSInteger _firstVisibleColumn;
+  NSInteger _lastVisibleColumn;
   NSString *_columnsAutosaveName;
   NSBrowserColumnResizingType _columnResizing;
 }

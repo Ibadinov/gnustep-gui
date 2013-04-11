@@ -389,7 +389,7 @@
        flags |= (_controlSize == NSSmallControlSize) ? 0x100 : 0;
        flags |= (_style == NSProgressIndicatorSpinningStyle) ? 0x1000 : 0;
        flags |= _isDisplayedWhenStopped ? 0 : 0x2000;
-       [aCoder encodeInt: flags forKey: @"NSpiFlags"];
+       [aCoder encodeInteger: flags forKey: @"NSpiFlags"];
 
        // things which Gorm encodes, but IB doesn't care about.
        [aCoder encodeDouble: _doubleValue forKey: @"GSDoubleValue"];

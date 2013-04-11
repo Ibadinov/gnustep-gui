@@ -62,47 +62,47 @@
 typedef struct _GSButtonCellFlags 
 {
 #if GS_WORDS_BIGENDIAN == 1
-  unsigned int isPushin:1;
-  unsigned int changeContents:1;
-  unsigned int changeBackground:1;
-  unsigned int changeGray:1;
-  unsigned int highlightByContents:1;
-  unsigned int highlightByBackground:1;
-  unsigned int highlightByGray:1;
-  unsigned int drawing:1;
-  unsigned int isBordered:1;
-  unsigned int imageDoesOverlap:1;
-  unsigned int isHorizontal:1;
-  unsigned int isBottomOrLeft:1;
-  unsigned int isImageAndText:1;
-  unsigned int isImageSizeDiff:1;
-  unsigned int hasKeyEquiv:1;
-  unsigned int lastState:1;
-  unsigned int isTransparent:1;
-  unsigned int unused1:6; // inset:2 doesn't dim:1 gradient:3
-  unsigned int useButtonImageSource:1;
-  unsigned int unused2:8; // alt mnemonic loc.
+  uint32_t isPushin:1;
+  uint32_t changeContents:1;
+  uint32_t changeBackground:1;
+  uint32_t changeGray:1;
+  uint32_t highlightByContents:1;
+  uint32_t highlightByBackground:1;
+  uint32_t highlightByGray:1;
+  uint32_t drawing:1;
+  uint32_t isBordered:1;
+  uint32_t imageDoesOverlap:1;
+  uint32_t isHorizontal:1;
+  uint32_t isBottomOrLeft:1;
+  uint32_t isImageAndText:1;
+  uint32_t isImageSizeDiff:1;
+  uint32_t hasKeyEquiv:1;
+  uint32_t lastState:1;
+  uint32_t isTransparent:1;
+  uint32_t unused1:6; // inset:2 doesn't dim:1 gradient:3
+  uint32_t useButtonImageSource:1;
+  uint32_t unused2:8; // alt mnemonic loc.
 #else
-  unsigned int unused2:8; // alt mnemonic loc.
-  unsigned int useButtonImageSource:1;
-  unsigned int unused1:6; // inset:2 doesn't dim:1 gradient:3
-  unsigned int isTransparent:1;
-  unsigned int lastState:1;
-  unsigned int hasKeyEquiv:1;
-  unsigned int isImageSizeDiff:1;
-  unsigned int isImageAndText:1;
-  unsigned int isBottomOrLeft:1;
-  unsigned int isHorizontal:1;
-  unsigned int imageDoesOverlap:1;
-  unsigned int isBordered:1;
-  unsigned int drawing:1;
-  unsigned int highlightByGray:1;
-  unsigned int highlightByBackground:1;
-  unsigned int highlightByContents:1;
-  unsigned int changeGray:1;
-  unsigned int changeBackground:1;
-  unsigned int changeContents:1;
-  unsigned int isPushin:1;
+  uint32_t unused2:8; // alt mnemonic loc.
+  uint32_t useButtonImageSource:1;
+  uint32_t unused1:6; // inset:2 doesn't dim:1 gradient:3
+  uint32_t isTransparent:1;
+  uint32_t lastState:1;
+  uint32_t hasKeyEquiv:1;
+  uint32_t isImageSizeDiff:1;
+  uint32_t isImageAndText:1;
+  uint32_t isBottomOrLeft:1;
+  uint32_t isHorizontal:1;
+  uint32_t imageDoesOverlap:1;
+  uint32_t isBordered:1;
+  uint32_t drawing:1;
+  uint32_t highlightByGray:1;
+  uint32_t highlightByBackground:1;
+  uint32_t highlightByContents:1;
+  uint32_t changeGray:1;
+  uint32_t changeBackground:1;
+  uint32_t changeContents:1;
+  uint32_t isPushin:1;
 #endif
 } GSButtonCellFlags;
 
@@ -934,7 +934,7 @@ typedef struct _GSButtonCellFlags
 
 - (void) drawBezelWithFrame: (NSRect)cellFrame inView: (NSView *)controlView
 {
-  unsigned mask;
+  NSUInteger mask;
   GSThemeControlState buttonState = GSThemeNormalState;
 
   // set the mask
@@ -1094,7 +1094,7 @@ typedef struct _GSButtonCellFlags
 
 - (void) drawInteriorWithFrame: (NSRect)cellFrame inView: (NSView*)controlView
 {
-  unsigned mask;
+  NSInteger mask;
   NSImage *imageToDisplay;
   NSRect imageRect;
   NSAttributedString *titleToDisplay;
@@ -1346,7 +1346,7 @@ typedef struct _GSButtonCellFlags
 {
   NSSize s;
   GSThemeMargins border;
-  unsigned mask;
+  NSInteger mask;
   NSImage *imageToDisplay;
   NSAttributedString *titleToDisplay;
   NSSize imageSize = NSZeroSize;
@@ -1485,7 +1485,7 @@ typedef struct _GSButtonCellFlags
   if (_cell.is_bordered)
     {
       GSThemeMargins border;
-      unsigned mask;
+      NSInteger mask;
       GSThemeControlState buttonState = GSThemeNormalState;
       NSRect interiorFrame;
 
@@ -1651,13 +1651,13 @@ typedef struct _GSButtonCellFlags
       buttonCellFlags.hasKeyEquiv = ([self keyEquivalent] != nil);
 
       // cell attributes...
-      buttonCellFlags.isPushin = [self cellAttribute: NSPushInCell]; 
-      buttonCellFlags.highlightByBackground = [self cellAttribute: NSCellLightsByBackground];
-      buttonCellFlags.highlightByContents = [self cellAttribute: NSCellLightsByContents];
-      buttonCellFlags.highlightByGray = [self cellAttribute: NSCellLightsByGray];
-      buttonCellFlags.changeBackground = [self cellAttribute: NSChangeBackgroundCell];
-      buttonCellFlags.changeContents = [self cellAttribute: NSCellChangesContents];
-      buttonCellFlags.changeGray = [self cellAttribute: NSChangeGrayCell];
+      buttonCellFlags.isPushin = (uint32_t)[self cellAttribute: NSPushInCell]; 
+      buttonCellFlags.highlightByBackground = (uint32_t)[self cellAttribute: NSCellLightsByBackground];
+      buttonCellFlags.highlightByContents = (uint32_t)[self cellAttribute: NSCellLightsByContents];
+      buttonCellFlags.highlightByGray = (uint32_t)[self cellAttribute: NSCellLightsByGray];
+      buttonCellFlags.changeBackground = (uint32_t)[self cellAttribute: NSChangeBackgroundCell];
+      buttonCellFlags.changeContents = (uint32_t)[self cellAttribute: NSCellChangesContents];
+      buttonCellFlags.changeGray = (uint32_t)[self cellAttribute: NSChangeGrayCell];
 
       // set these to zero...
       buttonCellFlags.unused1 = 0; // 32;
@@ -1735,19 +1735,19 @@ typedef struct _GSButtonCellFlags
 
       if([NSButtonCell version] <= 2)
 	{
-	  unsigned int ke = _keyEquivalentModifierMask << 16;
-	  [aCoder encodeValueOfObjCType: @encode(unsigned int)
+	  NSUInteger ke = _keyEquivalentModifierMask << 16;
+	  [aCoder encodeValueOfObjCType: @encode(NSUInteger)
 		  at: &ke];
 	}
       else
 	{
-	  [aCoder encodeValueOfObjCType: @encode(unsigned int)
+	  [aCoder encodeValueOfObjCType: @encode(NSUInteger)
 		  at: &_keyEquivalentModifierMask];
 	}
 
-      [aCoder encodeValueOfObjCType: @encode(unsigned int)
+      [aCoder encodeValueOfObjCType: @encode(NSUInteger)
               at: &_highlightsByMask];
-      [aCoder encodeValueOfObjCType: @encode(unsigned int)
+      [aCoder encodeValueOfObjCType: @encode(NSUInteger)
               at: &_showAltStateMask];
 
       if([NSButtonCell version] >= 2)
@@ -1758,9 +1758,9 @@ typedef struct _GSButtonCellFlags
 		  at: &_delayInterval];
 	  [aCoder encodeValueOfObjCType: @encode(float)
 		  at: &_repeatInterval];
-	  [aCoder encodeValueOfObjCType: @encode(unsigned int)
+	  [aCoder encodeValueOfObjCType: @encode(NSBezelStyle)
 		  at: &_bezel_style];
-	  [aCoder encodeValueOfObjCType: @encode(unsigned int)
+	  [aCoder encodeValueOfObjCType: @encode(NSGradientType)
 		  at: &_gradient_type];
 	  tmp = _image_dims_when_disabled;
 	  [aCoder encodeValueOfObjCType: @encode(BOOL)
@@ -1915,7 +1915,7 @@ typedef struct _GSButtonCellFlags
   else
     {
       BOOL tmp;
-      int version = [aDecoder versionForClassName: @"NSButtonCell"];
+      NSInteger version = [aDecoder versionForClassName: @"NSButtonCell"];
       NSString *key = nil;
 
       [aDecoder decodeValueOfObjCType: @encode(id) at: &key];
@@ -1926,15 +1926,15 @@ typedef struct _GSButtonCellFlags
       [aDecoder decodeValueOfObjCType: @encode(id) at: &_altImage];
       [aDecoder decodeValueOfObjCType: @encode(BOOL) at: &tmp];
       _buttoncell_is_transparent = tmp;
-      [aDecoder decodeValueOfObjCType: @encode(unsigned int)
+      [aDecoder decodeValueOfObjCType: @encode(NSUInteger)
                                    at: &_keyEquivalentModifierMask];
       if (version <= 2)
         {
           _keyEquivalentModifierMask = _keyEquivalentModifierMask << 16;
         }
-      [aDecoder decodeValueOfObjCType: @encode(unsigned int)
+      [aDecoder decodeValueOfObjCType: @encode(NSUInteger)
                                    at: &_highlightsByMask];
-      [aDecoder decodeValueOfObjCType: @encode(unsigned int)
+      [aDecoder decodeValueOfObjCType: @encode(NSUInteger)
                                    at: &_showAltStateMask];
 
       if (version >= 2)
@@ -1943,9 +1943,9 @@ typedef struct _GSButtonCellFlags
           [aDecoder decodeValueOfObjCType: @encode(id) at: &_backgroundColor];
           [aDecoder decodeValueOfObjCType: @encode(float) at: &_delayInterval];
           [aDecoder decodeValueOfObjCType: @encode(float) at: &_repeatInterval];
-          [aDecoder decodeValueOfObjCType: @encode(unsigned int)
+          [aDecoder decodeValueOfObjCType: @encode(NSBezelStyle)
                                        at: &_bezel_style];
-          [aDecoder decodeValueOfObjCType: @encode(unsigned int)
+          [aDecoder decodeValueOfObjCType: @encode(NSGradientType)
                                        at: &_gradient_type];
           [aDecoder decodeValueOfObjCType: @encode(BOOL) at: &tmp];
           _image_dims_when_disabled = tmp;

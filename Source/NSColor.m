@@ -1266,10 +1266,10 @@ systemColorWithName(NSString *name)
 
 - (NSUInteger) hash
 {
-  int nums = [self numberOfComponents];
+  NSInteger nums = [self numberOfComponents];
   CGFloat floats[nums];
   NSUInteger	h = 0;
-  unsigned	i;
+  NSUInteger	i;
 
   [self getComponents: &floats[0]];
   for (i = 0; i < sizeof(floats); i++)
@@ -2818,7 +2818,7 @@ static	NSRecursiveLock		*namedColorLock = nil;
 
 - (void) setFill
 {
-  int num = [self numberOfComponents];
+  NSInteger num = [self numberOfComponents];
   CGFloat values[num];
   NSGraphicsContext *ctxt = GSCurrentContext();
   
@@ -2829,7 +2829,7 @@ static	NSRecursiveLock		*namedColorLock = nil;
 
 - (void) setStroke
 {
-  int num = [self numberOfComponents];
+  NSInteger num = [self numberOfComponents];
   CGFloat values[num];
   NSGraphicsContext *ctxt = GSCurrentContext();
   

@@ -155,43 +155,43 @@ typedef NSUInteger NSImageScaling;
   id _object_value;
   struct GSCellFlagsType { 
     // total 32 bits.  0 bits left.
-    unsigned contents_is_attributed_string: 1;
-    unsigned is_highlighted: 1;
-    unsigned is_disabled: 1;
-    unsigned is_editable: 1;
-    unsigned is_rich_text: 1;
-    unsigned imports_graphics: 1;
-    unsigned shows_first_responder: 1; 
-    unsigned refuses_first_responder: 1; 
-    unsigned sends_action_on_end_editing: 1; 
-    unsigned is_bordered: 1;   
-    unsigned is_bezeled: 1;   
-    unsigned is_scrollable: 1;
-    unsigned reserved: 1;
-    unsigned text_align: 3; // 5 values
-    unsigned is_selectable: 1;
-    unsigned allows_mixed_state: 1;
-    unsigned has_valid_object_value: 1;
-    unsigned type: 2;           // 3 values
-    unsigned image_position: 3; // 7 values
-    unsigned entry_type: 4;     // 8 values
-    unsigned allows_undo: 1;
-    unsigned line_break_mode: 3; // 6 values
+    NSUInteger contents_is_attributed_string: 1;
+    NSUInteger is_highlighted: 1;
+    NSUInteger is_disabled: 1;
+    NSUInteger is_editable: 1;
+    NSUInteger is_rich_text: 1;
+    NSUInteger imports_graphics: 1;
+    NSUInteger shows_first_responder: 1; 
+    NSUInteger refuses_first_responder: 1; 
+    NSUInteger sends_action_on_end_editing: 1; 
+    NSUInteger is_bordered: 1;   
+    NSUInteger is_bezeled: 1;   
+    NSUInteger is_scrollable: 1;
+    NSUInteger reserved: 1;
+    NSUInteger text_align: 3; // 5 values
+    NSUInteger is_selectable: 1;
+    NSUInteger allows_mixed_state: 1;
+    NSUInteger has_valid_object_value: 1;
+    NSUInteger type: 2;           // 3 values
+    NSUInteger image_position: 3; // 7 values
+    NSUInteger entry_type: 4;     // 8 values
+    NSUInteger allows_undo: 1;
+    NSUInteger line_break_mode: 3; // 6 values
 
     // total 20 bits.  4 bits extension, 8 bits left.
-    int state: 2; // 3 values but one negative
-    unsigned mnemonic_location: 8;
-    unsigned control_tint: 3;
-    unsigned control_size: 2;
-    unsigned focus_ring_type: 2; // 3 values
-    unsigned base_writing_direction: 2; // 3 values
+    NSInteger state: 2; // 3 values but one negative
+    NSUInteger mnemonic_location: 8;
+    NSUInteger control_tint: 3;
+    NSUInteger control_size: 2;
+    NSUInteger focus_ring_type: 2; // 3 values
+    NSUInteger base_writing_direction: 2; // 3 values
     // 4 bits reserved for subclass use
-    unsigned subclass_bool_one: 1;
-    unsigned subclass_bool_two: 1;
-    unsigned subclass_bool_three: 1;
-    unsigned subclass_bool_four: 1;
+    NSUInteger subclass_bool_one: 1;
+    NSUInteger subclass_bool_two: 1;
+    NSUInteger subclass_bool_three: 1;
+    NSUInteger subclass_bool_four: 1;
     // Set while the cell is edited/selected
-    unsigned in_editing: 1;
+    NSUInteger in_editing: 1;
   } _cell;
   NSUInteger _mouse_down_flags;
   NSUInteger _action_mask;
@@ -242,7 +242,7 @@ typedef NSUInteger NSImageScaling;
 //
 - (NSInteger)cellAttribute:(NSCellAttribute)aParameter;
 - (void)setCellAttribute:(NSCellAttribute)aParameter
-		      to:(NSInteger)value;
+                      to:(NSInteger)value;
 
 //
 // Setting the NSCell's Type 
@@ -414,27 +414,27 @@ typedef NSUInteger NSImageScaling;
 // Tracking the Mouse 
 //
 - (BOOL)continueTracking:(NSPoint)lastPoint
-		      at:(NSPoint)currentPoint
-		  inView:(NSView *)controlView;
+                      at:(NSPoint)currentPoint
+                  inView:(NSView *)controlView;
 - (NSInteger)mouseDownFlags;
 - (void)getPeriodicDelay:(float *)delay
-		interval:(float *)interval;
+                interval:(float *)interval;
 - (BOOL)startTrackingAt:(NSPoint)startPoint
-		 inView:(NSView *)controlView;
+                 inView:(NSView *)controlView;
 - (void)stopTracking:(NSPoint)lastPoint
-		  at:(NSPoint)stopPoint
-	      inView:(NSView *)controlView
-		  mouseIsUp:(BOOL)flag;
+                  at:(NSPoint)stopPoint
+              inView:(NSView *)controlView
+           mouseIsUp:(BOOL)flag;
 - (BOOL)trackMouse:(NSEvent *)theEvent
-	    inRect:(NSRect)cellFrame
-	    ofView:(NSView *)controlView
-	    untilMouseUp:(BOOL)flag;
+            inRect:(NSRect)cellFrame
+            ofView:(NSView *)controlView
+      untilMouseUp:(BOOL)flag;
 
 //
 // Managing the Cursor 
 //
 - (void)resetCursorRect:(NSRect)cellFrame
-		 inView:(NSView *)controlView;
+                 inView:(NSView *)controlView;
 
 //
 // Handling Keyboard Alternatives 
@@ -460,17 +460,17 @@ typedef NSUInteger NSImageScaling;
 //
 - (NSView *)controlView;
 - (void)drawInteriorWithFrame:(NSRect)cellFrame
-		       inView:(NSView *)controlView;
+                       inView:(NSView *)controlView;
 - (void)drawWithFrame:(NSRect)cellFrame
-	       inView:(NSView *)controlView;
+               inView:(NSView *)controlView;
 - (void)highlight:(BOOL)lit
-	withFrame:(NSRect)cellFrame
-	   inView:(NSView *)controlView;
+        withFrame:(NSRect)cellFrame
+           inView:(NSView *)controlView;
 - (BOOL)isHighlighted;
 #if OS_API_VERSION(GS_API_MACOSX, GS_API_LATEST)
 - (void)setHighlighted: (BOOL) flag;
 - (NSColor*)highlightColorWithFrame:(NSRect)cellFrame
-			     inView:(NSView *)controlView;
+                             inView:(NSView *)controlView;
 - (void)setControlTint:(NSControlTint)controlTint;
 - (NSControlTint)controlTint;
 #endif
@@ -483,16 +483,16 @@ typedef NSUInteger NSImageScaling;
 // Editing Text 
 //
 - (void)editWithFrame:(NSRect)aRect
-	       inView:(NSView *)controlView	
-	       editor:(NSText *)textObject	
-	       delegate:(id)anObject	
-		event:(NSEvent *)theEvent;
+               inView:(NSView *)controlView	
+               editor:(NSText *)textObject	
+             delegate:(id)anObject	
+                event:(NSEvent *)theEvent;
 - (void)selectWithFrame:(NSRect)aRect
-		 inView:(NSView *)controlView	 
-		 editor:(NSText *)textObject	 
-		 delegate:(id)anObject	 
-		  start:(NSInteger)selStart	 
-		 length:(NSInteger)selLength;
+                 inView:(NSView *)controlView	 
+                 editor:(NSText *)textObject	 
+               delegate:(id)anObject	 
+                  start:(NSInteger)selStart	 
+                 length:(NSInteger)selLength;
 - (void)endEditing:(NSText *)textObject;
 #if OS_API_VERSION(GS_API_MACOSX, GS_API_LATEST)
 - (BOOL)sendsActionOnEndEditing;
@@ -515,7 +515,7 @@ typedef NSUInteger NSImageScaling;
 - (NSSize) _sizeText: (NSString*) title;
 - (void) _drawText: (NSString*)aString  inFrame: (NSRect)cellFrame;
 - (void) _drawAttributedText: (NSAttributedString*)aString  
-		     inFrame: (NSRect)aRect;
+                     inFrame: (NSRect)aRect;
 - (BOOL) _sendsActionOn:(NSUInteger)eventTypeMask;
 - (NSAttributedString*) _drawAttributedString;
 - (void) _drawBorderAndBackgroundWithFrame: (NSRect)cellFrame 
@@ -523,9 +523,10 @@ typedef NSUInteger NSImageScaling;
 - (void) _drawFocusRingWithFrame: (NSRect)cellFrame 
                           inView: (NSView*)controlView;
 - (void) _drawEditorWithFrame: (NSRect)cellFrame
-		       inView: (NSView*)controlView;
+                       inView: (NSView*)controlView;
 - (void) _setInEditing: (BOOL)flag;
 - (void) _updateFieldEditor: (NSText*)textObject;
+
 @end
 
 #endif // _GNUstep_H_NSCell

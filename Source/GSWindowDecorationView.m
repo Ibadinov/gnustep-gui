@@ -79,7 +79,7 @@ static inline NSRect RectWithSizeScaledByFactor(NSRect aRect, CGFloat factor)
 }
 
 
-+ (void) offsets: (float *)l : (float *)r : (float *)t : (float *)b
++ (void) offsets: (CGFloat *)l : (CGFloat *)r : (CGFloat *)t : (CGFloat *)b
     forStyleMask: (NSUInteger)style
 {
   [self subclassResponsibility: _cmd];
@@ -88,7 +88,7 @@ static inline NSRect RectWithSizeScaledByFactor(NSRect aRect, CGFloat factor)
 + (NSRect) contentRectForFrameRect: (NSRect)aRect
 			 styleMask: (NSUInteger)aStyle
 {
-  float t = 0.0, b = 0.0, l = 0.0, r = 0.0;
+  CGFloat t = 0.0, b = 0.0, l = 0.0, r = 0.0;
 
   [self offsets: &l : &r : &t : &b forStyleMask: aStyle];
   aRect.size.width -= l + r;
@@ -110,7 +110,7 @@ static inline NSRect RectWithSizeScaledByFactor(NSRect aRect, CGFloat factor)
 + (NSRect) frameRectForContentRect: (NSRect)aRect
 			 styleMask: (NSUInteger)aStyle
 {
-  float t = 0.0, b = 0.0, l = 0.0, r = 0.0;
+  CGFloat t = 0.0, b = 0.0, l = 0.0, r = 0.0;
 
   [self offsets: &l : &r : &t : &b forStyleMask: aStyle];
   if (0 == (aStyle & NSUnscaledWindowMask))
@@ -399,7 +399,7 @@ static inline NSRect RectWithSizeScaledByFactor(NSRect aRect, CGFloat factor)
   [self layout];
 }
 
-- (void) setInputState: (int)state
+- (void) setInputState: (NSInteger)state
 {
   inputState = state;
   if (windowNumber)
@@ -412,7 +412,7 @@ static inline NSRect RectWithSizeScaledByFactor(NSRect aRect, CGFloat factor)
     [GSServerForWindow(window) titlewindow: title : windowNumber];
 }
 
-- (void) setWindowNumber: (int)theWindowNumber
+- (void) setWindowNumber: (NSInteger)theWindowNumber
 {
   windowNumber = theWindowNumber;
   if (!windowNumber)
@@ -568,7 +568,7 @@ static inline NSRect RectWithSizeScaledByFactor(NSRect aRect, CGFloat factor)
 
 @implementation GSBackendWindowDecorationView
 
-+ (void) offsets: (float *)l : (float *)r : (float *)t : (float *)b
++ (void) offsets: (CGFloat *)l : (CGFloat *)r : (CGFloat *)t : (CGFloat *)b
     forStyleMask: (NSUInteger)style
 {
   [GSCurrentServer() styleoffsets: l : r : t : b : style];

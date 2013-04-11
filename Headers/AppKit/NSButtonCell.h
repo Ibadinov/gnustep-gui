@@ -69,7 +69,7 @@
  *         Cocoa.</desc>
  * </deflist>
  */
-typedef enum _NSButtonType {
+enum {
   NSMomentaryLightButton,
   NSPushOnPushOffButton,
   NSToggleButton,
@@ -81,9 +81,10 @@ typedef enum _NSButtonType {
   // These are old names
   NSMomentaryLight = NSMomentaryPushInButton,
   NSMomentaryPushButton = NSMomentaryLightButton
-} NSButtonType;
+};
+typedef NSUInteger NSButtonType;
 
-typedef enum _NSBezelStyle {
+enum {
   NSRoundedBezelStyle = 1,
   NSRegularSquareBezelStyle,
   NSThickSquareBezelStyle,
@@ -104,15 +105,17 @@ typedef enum _NSBezelStyle {
   NSSmallIconButtonBezelStyle,
   NSMediumIconButtonBezelStyle,
   NSLargeIconButtonBezelStyle
-} NSBezelStyle;
+};
+typedef NSUInteger NSBezelStyle;
 
-typedef enum _NSGradientType {
+enum {
     NSGradientNone,
     NSGradientConcaveWeak,
     NSGradientConcaveStrong,
     NSGradientConvexWeak,
     NSGradientConvexStrong
-} NSGradientType;
+};
+typedef NSUInteger NSGradientType;
 
 
 @interface NSButtonCell : NSActionCell
@@ -124,8 +127,8 @@ typedef enum _NSGradientType {
   NSFont *_keyEquivalentFont;
   NSSound *_sound;
   NSUInteger _keyEquivalentModifierMask;
-  NSInteger _highlightsByMask;
-  NSInteger _showAltStateMask;
+  NSUInteger _highlightsByMask;
+  NSUInteger _showAltStateMask;
   float _delayInterval;
   float _repeatInterval;
   NSBezelStyle _bezel_style;

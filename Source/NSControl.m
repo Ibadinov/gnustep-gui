@@ -567,7 +567,7 @@ static NSNotificationCenter *nc;
     {
       NSAttributedString *attr;
       NSTextStorage *storage;
-      int len;
+      NSUInteger len;
       
       storage = [(NSTextView*)text textStorage];
       len = [storage length];
@@ -988,7 +988,7 @@ static NSNotificationCenter *nc;
       [aCoder encodeBool: [self isEnabled] forKey: @"NSEnabled"];
        if (_tag)
         {
-          [aCoder encodeInt: [self tag] forKey: @"NSTag"];
+          [aCoder encodeInteger: [self tag] forKey: @"NSTag"];
         }
     }
   else
@@ -1030,13 +1030,13 @@ static NSNotificationCenter *nc;
         }
       if ([aDecoder containsValueForKey: @"NSTag"])
         {
-          int tag = [aDecoder decodeIntForKey: @"NSTag"];
+          NSInteger tag = [aDecoder decodeIntegerForKey: @"NSTag"];
           [self setTag: tag];
         }
     }
   else 
     {
-      [aDecoder decodeValueOfObjCType: @encode(int) at: &_tag];
+      [aDecoder decodeValueOfObjCType: @encode(NSInteger) at: &_tag];
       [aDecoder decodeValueOfObjCType: @encode(id) at: &_cell];
       [aDecoder decodeValueOfObjCType: @encode(BOOL) at: &_ignoresMultiClick];
     }

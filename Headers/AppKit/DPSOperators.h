@@ -413,11 +413,11 @@ GSSendBezierPath(GSCTXT *ctxt, NSBezierPath * path)
 __attribute__((unused));
 
 static inline void
-GSRectClipList(GSCTXT *ctxt, const NSRect * rects, int count)
+GSRectClipList(GSCTXT *ctxt, const NSRect * rects, NSInteger count)
 __attribute__((unused));
 
 static inline void
-GSRectFillList(GSCTXT *ctxt, const NSRect * rects, int count)
+GSRectFillList(GSCTXT *ctxt, const NSRect * rects, NSInteger count)
 __attribute__((unused));
 
 
@@ -1116,14 +1116,14 @@ GSSendBezierPath(GSCTXT *ctxt, NSBezierPath * path)
 }
 
 static inline void
-GSRectClipList(GSCTXT *ctxt, const NSRect * rects, int count)
+GSRectClipList(GSCTXT *ctxt, const NSRect * rects, NSInteger count)
 {
   (ctxt->methods->GSRectClipList__)
     (ctxt, @selector(GSRectClipList: :), rects, count);
 }
 
 static inline void
-GSRectFillList(GSCTXT *ctxt, const NSRect * rects, int count)
+GSRectFillList(GSCTXT *ctxt, const NSRect * rects, NSInteger count)
 {
   (ctxt->methods->GSRectFillList__)
     (ctxt, @selector(GSRectFillList: :), rects, count);

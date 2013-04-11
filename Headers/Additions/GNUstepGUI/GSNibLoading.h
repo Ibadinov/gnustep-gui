@@ -67,29 +67,29 @@
 typedef struct _GSWindowTemplateFlags
 {
 #if GS_WORDS_BIGENDIAN == 1
-  unsigned int isHiddenOnDeactivate:1;
-  unsigned int isNotReleasedOnClose:1;
-  unsigned int isDeferred:1;
-  unsigned int isOneShot:1;
-  unsigned int isVisible:1;
-  unsigned int wantsToBeColor:1;
-  unsigned int dynamicDepthLimit:1;
-  unsigned int autoPositionMask:6;
-  unsigned int savePosition:1;
-  unsigned int style:2;
-  unsigned int _unused:16; // currently not used, contains Cocoa specific info
+  uint32_t isHiddenOnDeactivate:1;
+  uint32_t isNotReleasedOnClose:1;
+  uint32_t isDeferred:1;
+  uint32_t isOneShot:1;
+  uint32_t isVisible:1;
+  uint32_t wantsToBeColor:1;
+  uint32_t dynamicDepthLimit:1;
+  uint32_t autoPositionMask:6;
+  uint32_t savePosition:1;
+  uint32_t style:2;
+  uint32_t _unused:16; // currently not used, contains Cocoa specific info
 #else
-  unsigned int _unused:16; // currently not used, contains Cocoa specific info
-  unsigned int style:2;
-  unsigned int savePosition:1;
-  unsigned int autoPositionMask:6;
-  unsigned int dynamicDepthLimit:1;
-  unsigned int wantsToBeColor:1;
-  unsigned int isVisible:1;
-  unsigned int isOneShot:1;
-  unsigned int isDeferred:1;
-  unsigned int isNotReleasedOnClose:1;
-  unsigned int isHiddenOnDeactivate:1;
+  uint32_t _unused:16; // currently not used, contains Cocoa specific info
+  uint32_t style:2;
+  uint32_t savePosition:1;
+  uint32_t autoPositionMask:6;
+  uint32_t dynamicDepthLimit:1;
+  uint32_t wantsToBeColor:1;
+  uint32_t isVisible:1;
+  uint32_t isOneShot:1;
+  uint32_t isDeferred:1;
+  uint32_t isNotReleasedOnClose:1;
+  uint32_t isHiddenOnDeactivate:1;
 #endif
 } GSWindowTemplateFlags;
 
@@ -126,7 +126,7 @@ typedef struct _GSWindowTemplateFlags
   NSBackingStoreType   _backingStoreType;
   NSSize               _maxSize;
   NSSize               _minSize;
-  unsigned             _windowStyle;
+  NSUInteger             _windowStyle;
   NSString            *_title;
   NSString            *_viewClass;
   NSString            *_windowClass;
@@ -144,7 +144,7 @@ typedef struct _GSWindowTemplateFlags
 	    isOneShot: (BOOL) oneShot
 	    isVisible: (BOOL) visible
        wantsToBeColor: (BOOL) wantsToBeColor
-     autoPositionMask: (int) autoPositionMask;
+     autoPositionMask: (NSInteger) autoPositionMask;
 - (void) setBackingStoreType: (NSBackingStoreType)type;
 - (NSBackingStoreType) backingStoreType;
 - (void) setDeferred: (BOOL)flag;
@@ -153,8 +153,8 @@ typedef struct _GSWindowTemplateFlags
 - (NSSize) maxSize;
 - (void) setMinSize: (NSSize)minSize;
 - (NSSize) minSize;
-- (void) setWindowStyle: (unsigned)sty;
-- (unsigned) windowStyle;
+- (void) setWindowStyle: (NSUInteger)windowStyle;
+- (NSUInteger) windowStyle;
 - (void) setTitle: (NSString *) title;
 - (NSString *)title;
 - (void) setViewClass: (NSString *)viewClass;
@@ -272,7 +272,7 @@ typedef struct _GSWindowTemplateFlags
   id              _firstResponder;
   id              _fontManager;
   NSString       *_framework;
-  unsigned        _nextOid;
+  NSUInteger        _nextOid;
   NSMutableArray *_accessibilityConnectors;
   NSMapTable     *_accessibilityOids;
   NSMutableSet   *_topLevelObjects;
@@ -288,8 +288,8 @@ typedef struct _GSWindowTemplateFlags
 - (NSMutableArray *) visibleWindows;
 - (void) setRoot: (id)root;
 - (id) root;
-- (void) setNextOid: (int)noid;
-- (int) nextOid;
+- (void) setNextOid: (NSInteger)noid;
+- (NSInteger) nextOid;
 @end
 
 // class needed for nib encoding/decoding by the progress bar...

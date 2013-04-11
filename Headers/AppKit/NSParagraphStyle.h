@@ -69,7 +69,7 @@ APPKIT_EXPORT NSString *NSTabColumnTerminatorsAttributeName;
   NSTextTabType	_tabStopType;
   NSDictionary *_options;
   NSTextAlignment _alignment;
-  float	_location;
+  CGFloat _location;
 }
 
 - (id) initWithType: (NSTextTabType)type  location: (CGFloat)loc;
@@ -91,22 +91,22 @@ APPKIT_EXPORT NSString *NSTabColumnTerminatorsAttributeName;
   NSMutableArray *_tabStops;
   NSArray *_textBlocks;
   NSArray *_textLists;
-  float _lineSpacing;
-  float _paragraphSpacing;
-  float _headIndent;
-  float _tailIndent;
-  float _firstLineHeadIndent;
-  float _minimumLineHeight;
-  float _maximumLineHeight;
-  float _paragraphSpacingBefore;
-  float _defaultTabInterval;
+  CGFloat _lineSpacing;
+  CGFloat _paragraphSpacing;
+  CGFloat _headIndent;
+  CGFloat _tailIndent;
+  CGFloat _firstLineHeadIndent;
+  CGFloat _minimumLineHeight;
+  CGFloat _maximumLineHeight;
+  CGFloat _paragraphSpacingBefore;
+  CGFloat _defaultTabInterval;
+  CGFloat _lineHeightMultiple;
   float _hyphenationFactor;
-  float _lineHeightMultiple;
   float _tighteningFactorForTruncation;
   NSTextAlignment _alignment;
   NSLineBreakMode _lineBreakMode;
   NSWritingDirection _baseDirection;
-  int _headerLevel;
+  NSInteger _headerLevel;
 }
 
 + (NSParagraphStyle*) defaultParagraphStyle;

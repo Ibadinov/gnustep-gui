@@ -705,9 +705,9 @@ static NSString         *disabledName = @".GNUstepDisabled";
   NSDictionary  *info = [_title2info objectForKey: title];
   NSArray       *sendTypes = [info objectForKey: @"NSSendTypes"];
   NSArray       *returnTypes = [info objectForKey: @"NSReturnTypes"];
-  unsigned      i, j;
-  unsigned      es = [sendTypes count];
-  unsigned      er = [returnTypes count];
+  NSUInteger    i, j;
+  NSUInteger    es = [sendTypes count];
+  NSUInteger    er = [returnTypes count];
   NSResponder   *resp = [[_application keyWindow] firstResponder];
   id            obj = nil;
 
@@ -828,7 +828,7 @@ static NSString         *disabledName = @".GNUstepDisabled";
  */
 - (NSString*) item2title: (id<NSMenuItem>)item
 {
-  unsigned      pos;
+  NSUInteger      pos;
 
   if ([item target] != self)
     return nil;
@@ -1019,9 +1019,9 @@ static NSString         *disabledName = @".GNUstepDisabled";
   if (_servicesMenu != nil)
     {
       NSMutableSet      *keyEquivalents;
-      unsigned          pos;
-      unsigned          loc0;
-      unsigned          loc1 = 0;
+      NSUInteger        pos;
+      NSUInteger        loc0;
+      NSUInteger        loc1 = 0;
       SEL               sel = @selector(doService:);
       NSMenu            *submenu = nil;
 
@@ -1041,7 +1041,7 @@ static NSString         *disabledName = @".GNUstepDisabled";
           NSDictionary  *titles;
           NSDictionary  *equivs;
           NSRange       r;
-          unsigned      lang;
+          NSUInteger    lang;
           id<NSMenuItem>        item;
 
           if (NSShowsServicesMenuItem(title) == NO)
@@ -1209,7 +1209,7 @@ static NSString         *disabledName = @".GNUstepDisabled";
 	    }
 	  if (registered == NO)
 	    {
-	      int	result;
+	      NSInteger result;
 
 	      /*
 	       * Something is seriously wrong - we can't talk to the
@@ -1247,7 +1247,7 @@ static NSString         *disabledName = @".GNUstepDisabled";
                returnTypes: (NSArray *)returnTypes
 {
   BOOL          didChange = NO;
-  unsigned      i;
+  NSUInteger    i;
 
   for (i = 0; i < [sendTypes count]; i++)
     {
@@ -1263,7 +1263,7 @@ static NSString         *disabledName = @".GNUstepDisabled";
         }
       else
         {
-          unsigned      count = [returnSet count];
+          NSUInteger count = [returnSet count];
 
           [returnSet addObjectsFromArray: returnTypes];
           if ([returnSet count] != count)
@@ -1349,9 +1349,9 @@ static NSString         *disabledName = @".GNUstepDisabled";
   NSDictionary  *info = [_title2info objectForKey: title];
   NSArray       *sendTypes = [info objectForKey: @"NSSendTypes"];
   NSArray       *returnTypes = [info objectForKey: @"NSReturnTypes"];
-  unsigned      i, j;
-  unsigned      es = [sendTypes count];
-  unsigned      er = [returnTypes count];
+  NSUInteger    i, j;
+  NSUInteger    es = [sendTypes count];
+  NSUInteger    er = [returnTypes count];
   NSResponder	*resp = [[_application keyWindow] firstResponder];
 
   /*

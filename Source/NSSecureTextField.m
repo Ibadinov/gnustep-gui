@@ -161,8 +161,8 @@
 {
   NSDictionary *attributes;
   NSMutableString *string;
-  unsigned int length;
-  unsigned int i;
+  NSUInteger length;
+  NSUInteger i;
   unichar *buf;
 
   length = [[self stringValue] length];

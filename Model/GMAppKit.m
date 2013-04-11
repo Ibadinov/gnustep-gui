@@ -1222,7 +1222,7 @@ extern id _nibOwner;
 
 #ifdef GNU_GUI_LIBRARY
   _rFlags.flipped_view = [self isFlipped];
-  if ([_sub_views count])
+  if ([[self subviews] count])
     _rFlags.has_subviews = 1;
 #endif
 

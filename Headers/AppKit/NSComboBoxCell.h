@@ -45,10 +45,10 @@
    BOOL			_usesDataSource;
    BOOL			_hasVerticalScroller;
    BOOL                 _completes;
-   int			_visibleItems;
+   NSInteger			_visibleItems;
    NSSize		_intercellSpacing;
-   float		_itemHeight;
-   int                  _selectedItem;
+   CGFloat		_itemHeight;
+   NSInteger                  _selectedItem;
    NSRect               _lastValidFrame;
    NSRange		_prevSelectedRange;
   
@@ -100,8 +100,8 @@
 - (NSArray *)objectValues;
 
 - (BOOL) trackMouse: (NSEvent *)theEvent 
-	     inRect: (NSRect)cellFrame
-	     ofView: (NSView *)controlView 
+             inRect: (NSRect)cellFrame
+             ofView: (NSView *)controlView 
        untilMouseUp: (BOOL)flag;
 
 #if OS_API_VERSION(GS_API_MACOSX, GS_API_LATEST)
@@ -118,16 +118,17 @@
 @end
 
 @interface NSObject (NSComboBoxCellDataSource)
+
 - (NSInteger)numberOfItemsInComboBoxCell:(NSComboBoxCell *)comboBoxCell;
-- (id)comboBoxCell:(NSComboBoxCell *)aComboBoxCell 
-  objectValueForItemAtIndex:(NSInteger)index;
-- (NSUInteger)comboBoxCell:(NSComboBoxCell *)aComboBoxCell
-  indexOfItemWithStringValue:(NSString *)string;
+- (id)comboBoxCell:(NSComboBoxCell *)aComboBoxCell objectValueForItemAtIndex:(NSInteger)index;
+- (NSUInteger)comboBoxCell:(NSComboBoxCell *)aComboBoxCell indexOfItemWithStringValue:(NSString *)string;
+
 #if OS_API_VERSION(GS_API_MACOSX, GS_API_LATEST)
 /* text completion */
 - (NSString *)comboBoxCell:(NSComboBoxCell *)aComboBoxCell 
-	   completedString:(NSString *)uncompletedString;
+           completedString:(NSString *)uncompletedString;
 #endif
+
 @end
 
 #endif /* _GNUstep_H_NSComboBoxCell */

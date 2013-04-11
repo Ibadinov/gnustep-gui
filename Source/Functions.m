@@ -35,6 +35,7 @@
 #import "GSGuiPrivate.h"
 #import "AppKit/NSApplication.h"
 #import "AppKit/NSBitmapImageRep.h"
+#import "AppKit/NSDataLinkManager.h"
 #import "AppKit/NSNibLoading.h"
 #import "AppKit/NSEvent.h"
 #import "AppKit/NSGraphicsContext.h"
@@ -296,7 +297,7 @@ NSColor* NSReadPixel(NSPoint location)
   return nil;
 }
 
-void NSCopyBitmapFromGState(int srcGstate, NSRect srcRect, NSRect destRect)
+void NSCopyBitmapFromGState(NSInteger srcGstate, NSRect srcRect, NSRect destRect)
 {
   NSLog(@"NSCopyBitmapFromGState not implemented");
 }
@@ -1032,7 +1033,7 @@ void NSSetFocusRingStyle(NSFocusRingPlacement placement)
 }
 
 void 
-NSConvertGlobalToWindowNumber(int globalNum, unsigned int *winNum)
+NSConvertGlobalToWindowNumber(NSInteger globalNum, NSInteger *winNum)
 {
   NSArray *windows = GSAllWindows();
   NSUInteger count = [windows count];
@@ -1042,7 +1043,7 @@ NSConvertGlobalToWindowNumber(int globalNum, unsigned int *winNum)
     {
       NSWindow *win = [windows objectAtIndex: i];
 
-      if (((int)(intptr_t)[win windowRef]) == globalNum)
+      if (((NSInteger)(intptr_t)[win windowRef]) == globalNum)
         {
           *winNum = [win windowNumber];
           return;
@@ -1052,9 +1053,9 @@ NSConvertGlobalToWindowNumber(int globalNum, unsigned int *winNum)
 }
 
 void 
-NSConvertWindowNumberToGlobal(int winNum, unsigned int *globalNum)
+NSConvertWindowNumberToGlobal(NSInteger winNum, NSInteger *globalNum)
 {
-  *globalNum = (int)(intptr_t)[GSWindowWithNumber(winNum) windowRef];
+  *globalNum = (NSInteger)(intptr_t)[GSWindowWithNumber(winNum) windowRef];
 }
 
 void 
@@ -1071,14 +1072,14 @@ NSShowSystemInfoPanel(NSDictionary *options)
 }
 
 void 
-NSWindowListForContext(NSInteger context, NSInteger size, NSInteger **list)
+NSWindowListForContext(NSInteger context, NSInteger size, NSInteger list[])
 {
 // TODO
 }
 
 int 
-NSGetWindowServerMemory(int context, int *virtualMemory, 
-			int *windowBackingMemory, NSString **windowDumpStream)
+NSGetWindowServerMemory(NSInteger context, NSInteger *virtualMemory, 
+			NSInteger *windowBackingMemory, NSString **windowDumpStream)
 {
 // TODO
   return -1;

@@ -46,7 +46,7 @@
 #import "GNUstepGUI/GSDisplayServer.h"
 
 @interface NSScreen (Private)
-- (id) _initWithScreenNumber: (int)screen;
+- (id) _initWithScreenNumber: (NSInteger)screen;
 @end
 
 @implementation NSScreen
@@ -89,7 +89,7 @@ static NSMutableArray *screenArray = nil;
  */
 + (NSArray*) screens
 {
-  int count = 0, index = 0;
+  NSInteger count = 0, index = 0;
   NSArray *screens;
   GSDisplayServer *srv;
 
@@ -197,7 +197,7 @@ static NSMutableArray *screenArray = nil;
 /**
  * Get all of the infomation for a given screen.
  */
-- (id) _initWithScreenNumber: (int)screen
+- (id) _initWithScreenNumber: (NSInteger)screen
 {
   GSDisplayServer *srv;
 
@@ -209,7 +209,7 @@ static NSMutableArray *screenArray = nil;
   // Check for problems
   if (screen < 0)
     {
-      NSLog(@"Internal error: Invalid screen number %d\n", screen);
+      NSLog(@"Internal error: Invalid screen number %ld\n", (long)screen);
       RELEASE(self);
       return nil;
     }
@@ -279,7 +279,7 @@ static NSMutableArray *screenArray = nil;
   if (_reserved == 0)
     {
       NSMutableDictionary	*devDesc;
-      int			bps = 0;
+      NSInteger			bps = 0;
       NSSize			screenResolution;
       NSString			*colorSpaceName = nil;
       CGFloat                   scaleFactor;
@@ -291,7 +291,7 @@ static NSMutableArray *screenArray = nil;
 
       // Set the screen number in the current object.
       devDesc = [[NSMutableDictionary alloc] initWithCapacity: 8];
-      [devDesc setObject: [NSNumber numberWithInt: _screenNumber]
+      [devDesc setObject: [NSNumber numberWithInteger: _screenNumber]
 		  forKey: @"NSScreenNumber"];
 
       // This is assumed since we are in NSScreen.
@@ -309,7 +309,7 @@ static NSMutableArray *screenArray = nil;
 
       // Add the bits per sample entry
       bps = NSBitsPerSampleFromDepth(_depth);
-      [devDesc setObject: [NSNumber numberWithInt: bps]
+      [devDesc setObject: [NSNumber numberWithInteger: bps]
 		  forKey: NSDeviceBitsPerSample];
 
       // Add the color space entry.
@@ -396,7 +396,7 @@ static NSMutableArray *screenArray = nil;
 }
 
 /** Returns the screen number */
-- (int) screenNumber
+- (NSInteger) screenNumber
 {
   return _screenNumber;
 }
@@ -418,7 +418,7 @@ static NSMutableArray *screenArray = nil;
   [super dealloc];
 }
 
-- (float) userSpaceScaleFactor
+- (CGFloat) userSpaceScaleFactor
 {
   NSNumber *factor = [[NSUserDefaults standardUserDefaults]
 		       objectForKey: @"GSScaleFactor"];

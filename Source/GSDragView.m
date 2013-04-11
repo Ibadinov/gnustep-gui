@@ -347,7 +347,7 @@ static	GSDragView *sharedDragView = nil;
                     action: (NSDragOperation)action
                   position: (NSPoint)eventLocation
                  timestamp: (NSTimeInterval)time
-                  toWindow: (int)dWindowNumber
+                  toWindow: (NSInteger)dWindowNumber
 {
 }
 
@@ -357,7 +357,7 @@ static	GSDragView *sharedDragView = nil;
   set, if there is a native window, but no GNUstep window at this location.
  */
 - (NSWindow*) windowAcceptingDnDunder: (NSPoint)mouseLocation
-                            windowRef: (int*)mouseWindowRef
+                            windowRef: (NSInteger*)mouseWindowRef
 {
   NSInteger win;
 
@@ -688,7 +688,7 @@ static	GSDragView *sharedDragView = nil;
   [NSEvent stopPeriodicEvents];
   [self _updateAndMoveImageToCorrectPosition];
 
-  NSDebugLLog(@"NSDragging", @"dnd ending %d\n", targetWindowRef);
+  NSDebugLLog(@"NSDragging", @"dnd ending %ld\n", (long)targetWindowRef);
 
   // --- Deposit the drop ----------------------------------------------
   if ((targetWindowRef != 0)
@@ -890,7 +890,7 @@ static	GSDragView *sharedDragView = nil;
   //--- Store old values -----------------------------------------------------
   NSWindow *oldDestWindow = destWindow;
   BOOL oldDestExternal = destExternal;
-  int mouseWindowRef; 
+  NSInteger mouseWindowRef; 
   BOOL changeCursor = NO;
  
   //--- Move drag image to the new position -----------------------------------
@@ -915,8 +915,8 @@ static	GSDragView *sharedDragView = nil;
       dragPoint = [destWindow convertScreenToBase: dragPosition];
     }
             
-  NSDebugLLog(@"NSDragging", @"mouse window %d (%@) at %@\n",
-    mouseWindowRef, destWindow, NSStringFromPoint(dragPosition));
+  NSDebugLLog(@"NSDragging", @"mouse window %ld (%@) at %@\n",
+    (long)mouseWindowRef, destWindow, NSStringFromPoint(dragPosition));
             
   //--- send exit message if necessary -------------------------------------
   if ((mouseWindowRef != targetWindowRef) && targetWindowRef)

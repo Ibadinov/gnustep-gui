@@ -78,7 +78,7 @@
   SEL *_selectors;
 
   /* Lenght of the array of selectors.  */
-  int _selectorsCount;
+  NSInteger _selectorsCount;
 }
 - (id) initWithSelectorNames: (NSArray *)sels;
 @end

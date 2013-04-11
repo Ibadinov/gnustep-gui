@@ -49,26 +49,26 @@
  * </list>
  */
 typedef enum _NSTitlePosition {
-  NSNoTitle,
-  NSAboveTop,
-  NSAtTop,
-  NSBelowTop,
-  NSAboveBottom,
-  NSAtBottom,
-  NSBelowBottom
+    NSNoTitle     = 0,
+    NSAboveTop    = 1,
+    NSAtTop       = 2,
+    NSBelowTop    = 3,
+    NSAboveBottom = 4,
+    NSAtBottom    = 5,
+    NSBelowBottom = 6
 } NSTitlePosition;
 
 #if OS_API_VERSION(GS_API_MACOSX, GS_API_LATEST)
-typedef enum _NSBoxType
-{
-  NSBoxPrimary=0,
-  NSBoxSecondary,
-  NSBoxSeparator,
-  NSBoxOldStyle
+enum {
+    NSBoxPrimary   = 0,
+    NSBoxSecondary = 1,
+    NSBoxSeparator = 2,
+    NSBoxOldStyle  = 3,
 #if OS_API_VERSION(MAC_OS_X_VERSION_10_5, GS_API_LATEST)
-  , NSBoxCustom
+    NSBoxCustom    = 4
 #endif
-} NSBoxType;
+};
+typedef NSUInteger NSBoxType;
 #endif
 
 @interface NSBox : NSView <NSCoding>

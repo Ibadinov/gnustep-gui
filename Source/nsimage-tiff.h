@@ -38,6 +38,7 @@
 
 #include <tiffio.h>
 #include <sys/types.h>
+#import <Foundation/NSObjCRuntime.h>
 
 /* Structure to store common information about a tiff. */
 typedef struct {
@@ -66,16 +67,16 @@ typedef struct {
     uint16 *blue;
 } NSTiffColormap;
 
-typedef char* realloc_data_callback(char* data, long size);
+typedef char* realloc_data_callback(char* data, NSUInteger size);
 
-extern TIFF* NSTiffOpenDataRead(const char* data, long size);
-extern TIFF* NSTiffOpenDataWrite(char **data, long *size);
+extern TIFF* NSTiffOpenDataRead(const char* data, NSUInteger size);
+extern TIFF* NSTiffOpenDataWrite(char **data, NSUInteger *size);
 extern int   NSTiffClose(TIFF* image);
 
 extern int   NSTiffGetImageCount(TIFF* image);
 extern int   NSTiffWrite(TIFF *image, NSTiffInfo *info, unsigned char *data);
 extern int   NSTiffRead(TIFF *image, NSTiffInfo *info, unsigned char *data);
-extern NSTiffInfo* NSTiffGetInfo(int imageNumber, TIFF* image);
+extern NSTiffInfo* NSTiffGetInfo(NSInteger imageNumber, TIFF* image);
 
 extern NSTiffColormap* NSTiffGetColormap(TIFF* image);
 

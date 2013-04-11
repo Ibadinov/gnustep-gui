@@ -111,10 +111,10 @@ new_label (NSString *value)
   self = [super init];
   if (self != nil)
     {
-      unsigned int	count;
+      NSUInteger	count;
       NSTextField	*field;
-      float		height = 2;
-      float		width = 0;
+      CGFloat		height = 2;
+      CGFloat		width = 0;
       NSRect		r;
 
       count = [array count];

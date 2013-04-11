@@ -586,8 +586,8 @@
     {
       [aCoder encodeObject: [self contentView] forKey: @"NSContentView"];
       [aCoder encodeObject: _cell forKey: @"NSTitleCell"];
-      [aCoder encodeInt: [self borderType] forKey: @"NSBorderType"];
-      [aCoder encodeInt: [self boxType] forKey: @"NSBoxType"];
+      [aCoder encodeInteger: [self borderType] forKey: @"NSBorderType"];
+      [aCoder encodeInteger: [self boxType] forKey: @"NSBoxType"];
       [aCoder encodeInt: [self titlePosition] forKey: @"NSTitlePosition"];
       [aCoder encodeBool: _transparent forKey: @"NSFullyTransparent"];
       [aCoder encodeSize: [self contentViewMargins] forKey: @"NSOffsets"];
@@ -596,7 +596,7 @@
     {
       [aCoder encodeObject: _cell];
       [aCoder encodeSize: _offsets];
-      [aCoder encodeValueOfObjCType: @encode(int) at: &_border_type];
+      [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &_border_type];
       [aCoder encodeValueOfObjCType: @encode(int) at: &_title_position];
       // NB: the content view is our (only) subview, so it is already 
       // encoded by NSView.
@@ -611,13 +611,13 @@
     {
       if ([aDecoder containsValueForKey: @"NSBoxType"])
         {
-          int boxType = [aDecoder decodeIntForKey: @"NSBoxType"];
+          NSUInteger boxType = [aDecoder decodeIntegerForKey: @"NSBoxType"];
           
           [self setBoxType: boxType];
         }
       if ([aDecoder containsValueForKey: @"NSBorderType"])
         {
-          NSBorderType borderType = [aDecoder decodeIntForKey: @"NSBorderType"];
+          NSBorderType borderType = [aDecoder decodeIntegerForKey: @"NSBorderType"];
 
           [self setBorderType: borderType];
         }

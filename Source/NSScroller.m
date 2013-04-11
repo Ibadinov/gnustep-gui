@@ -1329,7 +1329,7 @@ static float	buttonsOffset = 1.0; // buttonsWidth = sw - 2*buttonsOffset
   if (_scFlags.control_size == controlSize)
     return;
 
-  _scFlags.control_size = controlSize;
+  _scFlags.control_size = (uint32_t)controlSize;
   [self setNeedsDisplay: YES];
 }
 
@@ -1343,7 +1343,7 @@ static float	buttonsOffset = 1.0; // buttonsWidth = sw - 2*buttonsOffset
   if (_scFlags.control_tint == controlTint)
     return;
 
-  _scFlags.control_tint = controlTint;
+  _scFlags.control_tint = (uint32_t)controlTint;
   [self setNeedsDisplay: YES];
 }
 

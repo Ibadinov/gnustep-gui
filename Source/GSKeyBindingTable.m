@@ -46,11 +46,11 @@
 - (void) bindKey: (id)key  toAction: (id)action
 {
   unichar character;
-  unsigned int modifiers;
+  NSUInteger modifiers;
   GSKeyBindingAction *a = nil;
   GSKeyBindingTable *t = nil;
   BOOL isTable = NO;
-  int i;
+  NSInteger i;
 
   /* First, try to determine what exactly is key :-) ... it might
      either be a simple string, "Control-f", or an array,
@@ -78,7 +78,7 @@
 	  /* Now start from the end of the array, and start building
 	     the temporary dictionary structure going backwards.  */
 	  id value = action;
-	  int j;
+	  NSInteger j;
 
 	  for (j = [key count] - 1; j > 0; j--)
 	    {
@@ -99,8 +99,8 @@
     }
   
   if (![NSInputManager parseKey: (NSString *)key 
-		       intoCharacter: &character
-		       andModifiers: &modifiers])
+                  intoCharacter: &character
+                   andModifiers: &modifiers])
     {
       NSLog (@"GSKeyBindingTable - Could not bind key %@", key);
       return;
@@ -228,7 +228,7 @@
 }
 
 - (BOOL) lookupKeyStroke: (unichar)character
-	       modifiers: (int)flags
+	       modifiers: (NSUInteger)flags
        returningActionIn: (GSKeyBindingAction **)action
 		 tableIn: (GSKeyBindingTable **)table
 {

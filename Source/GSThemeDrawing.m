@@ -66,10 +66,10 @@
 #define COLOR_WELL_BORDER_WIDTH 7.0
 
 @interface NSTableView (Private)
-- (float *)_columnOrigins;
+- (CGFloat *)_columnOrigins;
 - (void) _willDisplayCell: (NSCell*)cell
-	   forTableColumn: (NSTableColumn *)tb
-		      row: (int)index;
+           forTableColumn: (NSTableColumn *)tb
+                      row: (NSInteger)index;
 @end
 
 @interface NSCell (Private)
@@ -102,7 +102,7 @@
 - (void) drawButton: (NSRect)frame 
                  in: (NSCell*)cell 
                view: (NSView*)view 
-              style: (int)style 
+              style: (NSInteger)style 
               state: (GSThemeControlState)state
 {
   GSDrawTiles	*tiles = nil;
@@ -227,7 +227,7 @@
 }
 
 - (GSThemeMargins) buttonMarginsForCell: (NSCell*)cell
-				  style: (int)style 
+				  style: (NSInteger)style 
 				  state: (GSThemeControlState)state
 {
   GSDrawTiles	*tiles = nil;
@@ -529,7 +529,7 @@
   return cell;
 }
 
-- (float) defaultScrollerWidth
+- (CGFloat) defaultScrollerWidth
 {
   return 18.0;
 }
@@ -562,7 +562,7 @@
 
 - (void) drawToolbarRect: (NSRect)aRect
                    frame: (NSRect)viewFrame
-              borderMask: (unsigned int)borderMask
+              borderMask: (NSUInteger)borderMask
 {
   // We draw the background
   [[self toolbarBackgroundColor] set];
@@ -1166,7 +1166,7 @@ static NSImage *spinningImages[MaxCount];
 - (void) drawProgressIndicator: (NSProgressIndicator*)progress
                     withBounds: (NSRect)bounds
                       withClip: (NSRect)rect
-                       atCount: (int)count
+                       atCount: (NSInteger)count
                       forValue: (double)val
 {
    NSRect r;
@@ -1340,12 +1340,12 @@ static NSImage *spinningImages[MaxCount];
 #define TITLE_HEIGHT 23.0
 #define RESIZE_HEIGHT 9.0
 
-- (float) titlebarHeight
+- (CGFloat) titlebarHeight
 {
   return TITLE_HEIGHT;
 }
 
-- (float) resizebarHeight
+- (CGFloat) resizebarHeight
 {
   return RESIZE_HEIGHT;
 }
@@ -1353,8 +1353,8 @@ static NSImage *spinningImages[MaxCount];
 static NSDictionary *titleTextAttributes[3] = {nil, nil, nil};
 
 - (void) drawTitleBarRect: (NSRect)titleBarRect 
-             forStyleMask: (unsigned int)styleMask
-                    state: (int)inputState 
+             forStyleMask: (NSUInteger)styleMask
+                    state: (NSInteger)inputState 
                  andTitle: (NSString*)title
 {
   static const NSRectEdge edges[4] = {NSMinXEdge, NSMaxYEdge,
@@ -1559,8 +1559,8 @@ static NSDictionary *titleTextAttributes[3] = {nil, nil, nil};
 
 - (void) drawWindowBorder: (NSRect)rect 
                 withFrame: (NSRect)frame 
-             forStyleMask: (unsigned int)styleMask
-                    state: (int)inputState 
+             forStyleMask: (NSUInteger)styleMask
+                    state: (NSInteger)inputState 
                  andTitle: (NSString*)title
 {
   if (styleMask & (NSTitledWindowMask | NSClosableWindowMask 
@@ -1572,9 +1572,9 @@ static NSDictionary *titleTextAttributes[3] = {nil, nil, nil};
                                 frame.size.width, TITLE_HEIGHT);
       if (NSIntersectsRect(rect, titleBarRect))
         [self drawTitleBarRect: titleBarRect 
-              forStyleMask: styleMask
-              state: inputState 
-              andTitle: title];
+                  forStyleMask: styleMask
+                         state: inputState 
+                      andTitle: title];
     }
 
   if (styleMask & NSResizableWindowMask)
@@ -1669,9 +1669,9 @@ static NSDictionary *titleTextAttributes[3] = {nil, nil, nil};
 	    selectedItem: (NSTabViewItem *)selected
 {
   NSGraphicsContext *ctxt = GSCurrentContext();
-  int howMany = [items count];
-  int i;
-  int previousState = 0;
+  NSInteger howMany = [items count];
+  NSInteger i;
+  NSInteger previousState = 0;
   NSRect bounds = [view bounds];
   NSRect aRect = bounds;
   NSColor *lineColour = [NSColor highlightColor];
@@ -2017,7 +2017,7 @@ static NSDictionary *titleTextAttributes[3] = {nil, nil, nil};
   // Draws titles
   if ([browser isTitled])
     {
-      int i;
+      NSInteger i;
 
       for (i = [browser firstVisibleColumn]; 
 	   i <= [browser lastVisibleColumn]; 
@@ -2053,8 +2053,8 @@ static NSDictionary *titleTextAttributes[3] = {nil, nil, nil};
   if (![browser separatesColumns])
     {
       NSPoint p1,p2;
-      int     i, visibleColumns;
-      float   hScrollerWidth = [browser hasHorizontalScroller] ? 
+      NSInteger i, visibleColumns;
+      CGFloat   hScrollerWidth = [browser hasHorizontalScroller] ? 
 	[NSScroller scrollerWidth] : 0;
       
       // Columns borders
@@ -2086,8 +2086,8 @@ static NSDictionary *titleTextAttributes[3] = {nil, nil, nil};
 	 isHorizontal: (BOOL)horizontal
 	    itemCells: (NSArray *)itemCells
 {
-  int         i = 0;
-  int         howMany = [itemCells count];
+  NSUInteger         i = 0;
+  NSUInteger         howMany = [itemCells count];
   NSMenuView *menuView = (NSMenuView *)view;
   NSRect      bounds = [view bounds];
 
@@ -2242,13 +2242,13 @@ static NSDictionary *titleTextAttributes[3] = {nil, nil, nil};
   NSTableHeaderView *tableHeaderView = (NSTableHeaderView *)view;
   NSTableView *tableView = [tableHeaderView tableView];
   NSArray *columns;
-  int firstColumnToDraw;
-  int lastColumnToDraw;
+  NSInteger firstColumnToDraw;
+  NSInteger lastColumnToDraw;
   NSRect drawingRect;
   NSTableColumn *column;
   NSTableColumn *highlightedTableColumn;
-  float width;
-  int i;
+  CGFloat width;
+  NSInteger i;
   NSCell *cell;
 
   if (tableView == nil)
@@ -2349,26 +2349,24 @@ static NSDictionary *titleTextAttributes[3] = {nil, nil, nil};
 {
   NSTableView *tableView = (NSTableView *)view;
   NSRect bounds = [view bounds];
-  float minX = NSMinX (aRect);
-  float maxX = NSMaxX (aRect);
-  float minY = NSMinY (aRect);
-  float maxY = NSMaxY (aRect);
-  int i;
-  float x_pos;
-  int startingColumn; 
-  int endingColumn;
-  int numberOfColumns = [tableView numberOfColumns];
+  CGFloat minX = NSMinX (aRect);
+  CGFloat maxX = NSMaxX (aRect);
+  CGFloat minY = NSMinY (aRect);
+  CGFloat maxY = NSMaxY (aRect);
+  NSInteger i;
+  CGFloat x_pos;
+  NSInteger startingColumn; 
+  NSInteger endingColumn;
+  NSInteger numberOfColumns = [tableView numberOfColumns];
   NSArray *tableColumns = [tableView tableColumns];
   NSGraphicsContext *ctxt = GSCurrentContext ();
-  float position = 0.0;
-  float *columnOrigins = [tableView _columnOrigins];
-  int startingRow    = [tableView rowAtPoint: 
-			       NSMakePoint (bounds.origin.x, minY)];
-  int endingRow      = [tableView rowAtPoint: 
-			       NSMakePoint (bounds.origin.x, maxY)];
+  CGFloat position = 0.0;
+  CGFloat *columnOrigins = [tableView _columnOrigins];
+  NSInteger startingRow    = [tableView rowAtPoint: NSMakePoint (bounds.origin.x, minY)];
+  NSInteger endingRow      = [tableView rowAtPoint: NSMakePoint (bounds.origin.x, maxY)];
   NSColor *gridColor = [tableView gridColor];
-  int rowHeight = [tableView rowHeight];
-  int numberOfRows = [tableView numberOfRows];
+  NSInteger rowHeight = [tableView rowHeight];
+  NSInteger numberOfRows = [tableView numberOfRows];
 
   /* Using columnAtPoint:, rowAtPoint: here calls them only twice 
      per drawn rect */
@@ -2451,12 +2449,12 @@ static NSDictionary *titleTextAttributes[3] = {nil, nil, nil};
 - (void) drawTableViewRect: (NSRect)aRect
 		    inView: (NSView *)view
 {
-  int startingRow;
-  int endingRow;
-  int i;
+  NSInteger startingRow;
+  NSInteger endingRow;
+  NSInteger i;
   NSTableView *tableView = (NSTableView *)view;
-  int numberOfRows = [tableView numberOfRows];
-  int numberOfColumns = [tableView numberOfColumns];
+  NSInteger numberOfRows = [tableView numberOfRows];
+  NSInteger numberOfColumns = [tableView numberOfColumns];
   BOOL drawsGrid = [tableView drawsGrid];
 
   /* Draw background */
@@ -2506,8 +2504,8 @@ static NSDictionary *titleTextAttributes[3] = {nil, nil, nil};
 			      selectingColumns: (BOOL)selectingColumns
 {
   NSTableView *tableView = (NSTableView *)view;
-  int numberOfRows = [tableView numberOfRows];
-  int numberOfColumns = [tableView numberOfColumns];
+  NSInteger numberOfRows = [tableView numberOfRows];
+  NSInteger numberOfColumns = [tableView numberOfColumns];
   NSIndexSet *selectedRows = [tableView selectedRowIndexes];
   NSIndexSet *selectedColumns = [tableView selectedColumnIndexes];
   NSColor *backgroundColor = [tableView backgroundColor];
@@ -2586,27 +2584,27 @@ static NSDictionary *titleTextAttributes[3] = {nil, nil, nil};
     }
 }
 
-- (void) drawTableViewRow: (int)rowIndex 
+- (void) drawTableViewRow: (NSInteger)rowIndex 
 		 clipRect: (NSRect)clipRect
 		   inView: (NSView *)view
 {
   NSTableView *tableView = (NSTableView *)view;
   // int numberOfRows = [tableView numberOfRows];
-  int numberOfColumns = [tableView numberOfColumns];
+  NSInteger numberOfColumns = [tableView numberOfColumns];
   // NSIndexSet *selectedRows = [tableView selectedRowIndexes];
   // NSColor *backgroundColor = [tableView backgroundColor];
   id dataSource = [tableView dataSource];
-  float *columnOrigins = [tableView _columnOrigins];
-  int editedRow = [tableView editedRow];
-  int editedColumn = [tableView editedColumn];
+  CGFloat *columnOrigins = [tableView _columnOrigins];
+  NSInteger editedRow = [tableView editedRow];
+  NSInteger editedColumn = [tableView editedColumn];
   NSArray *tableColumns = [tableView tableColumns];
-  int startingColumn; 
-  int endingColumn;
+  NSInteger startingColumn; 
+  NSInteger endingColumn;
   NSTableColumn *tb;
   NSRect drawingRect;
   NSCell *cell;
-  int i;
-  float x_pos;
+  NSInteger i;
+  CGFloat x_pos;
 
   if (dataSource == nil)
     {

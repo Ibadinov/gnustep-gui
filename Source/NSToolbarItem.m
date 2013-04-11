@@ -156,9 +156,9 @@ NSString *GSMovableToolbarItemPboardType = @"GSMovableToolbarItemPboardType";
  
 - (void) layout
 {
-  float textWidth, layoutedWidth = -1, layoutedHeight = -1;
+  CGFloat textWidth, layoutedWidth = -1, layoutedHeight = -1;
   NSFont *font;
-  unsigned int borderMask = [[[_toolbarItem toolbar] _toolbarView] borderMask];
+  NSUInteger borderMask = [[[_toolbarItem toolbar] _toolbarView] borderMask];
   NSSize labelSize = NSZeroSize;
 
   font = NormalFont;
@@ -287,7 +287,7 @@ NSString *GSMovableToolbarItemPboardType = @"GSMovableToolbarItemPboardType";
           index = [toolbar _indexOfItem: _toolbarItem];
         }
 	  [GSToolbarView setDraggedItemIndex:index];
-      [pboard setString: [NSString stringWithFormat:@"%d", index] 
+      [pboard setString: [NSString stringWithFormat:@"%ld", (long)index] 
               forType: GSMovableToolbarItemPboardType];
           
       [self dragImage: image 
@@ -603,9 +603,9 @@ NSString *GSMovableToolbarItemPboardType = @"GSMovableToolbarItemPboardType";
 - (void) layout
 {
   NSView *view = [_toolbarItem view];
-  float textWidth, layoutedWidth = -1, layoutedHeight = -1;
+  CGFloat textWidth, layoutedWidth = -1, layoutedHeight = -1;
   NSFont *font;
-  unsigned int borderMask = [[[_toolbarItem toolbar] _toolbarView] borderMask];
+  NSUInteger borderMask = [[[_toolbarItem toolbar] _toolbarView] borderMask];
   NSSize labelSize = NSZeroSize;
   
   font = NormalFont;
@@ -777,7 +777,7 @@ NSString *GSMovableToolbarItemPboardType = @"GSMovableToolbarItemPboardType";
           index = [toolbar _indexOfItem: _toolbarItem];
         }
 	  [GSToolbarView setDraggedItemIndex:index];
-      [pboard setString: [NSString stringWithFormat:@"%d", index] 
+      [pboard setString: [NSString stringWithFormat:@"%ld", (long)index] 
               forType: GSMovableToolbarItemPboardType];
       
       [self dragImage: image 

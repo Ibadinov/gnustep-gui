@@ -95,22 +95,26 @@
 @end
 
 @interface NSObject (NSComboBoxDataSource)
+
 - (NSInteger) numberOfItemsInComboBox: (NSComboBox *)aComboBox;
 - (id) comboBox: (NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index;
-- (NSUInteger) comboBox: (NSComboBox *)aComboBox 
-  indexOfItemWithStringValue: (NSString *)string;
+- (NSUInteger) comboBox: (NSComboBox *)aComboBox indexOfItemWithStringValue: (NSString *)string;
+
 #if OS_API_VERSION(GS_API_MACOSX, GS_API_LATEST)
 /* text completion */
 - (NSString *) comboBox: (NSComboBox *)aComboBox 
-	completedString: (NSString *)aString;
+        completedString: (NSString *)aString;
 #endif
+
 @end
 
 @interface NSObject (NSComboBoxNotifications)
+
 - (void) comboBoxWillPopUp: (NSNotification *)notification;
 - (void) comboBoxWillDismiss: (NSNotification *)notification;
 - (void) comboBoxSelectionDidChange: (NSNotification *)notification;
 - (void) comboBoxSelectionIsChanging: (NSNotification *)notification;
+
 @end
 
 APPKIT_EXPORT	NSString *NSComboBoxWillPopUpNotification;

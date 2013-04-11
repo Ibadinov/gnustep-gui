@@ -83,10 +83,10 @@ typedef NSUInteger NSScrollerArrow;
   NSUsableScrollerParts _usableParts;
   struct _scFlagsType { 
     // total 7 bits.  25 bits left.
-    unsigned isHorizontal: 1;
-    unsigned isEnabled: 1;
-    unsigned control_tint: 3;
-    unsigned control_size: 2;
+    uint32_t isHorizontal: 1;
+    uint32_t isEnabled: 1;
+    uint32_t control_tint: 3;
+    uint32_t control_size: 2;
   } _scFlags;
 }
 

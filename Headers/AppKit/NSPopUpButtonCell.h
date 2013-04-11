@@ -50,11 +50,11 @@ typedef enum {
 {
   id <NSMenuItem> _selectedItem;
   struct __pbcFlags {
-      unsigned int pullsDown: 1;
-      unsigned int preferredEdge: 3;
-      unsigned int usesItemFromMenu: 1;
-      unsigned int altersStateOfSelectedItem: 1;
-      unsigned int arrowPosition: 2;
+      NSUInteger pullsDown: 1;
+      NSUInteger preferredEdge: 3;
+      NSUInteger usesItemFromMenu: 1;
+      NSUInteger altersStateOfSelectedItem: 1;
+      NSUInteger arrowPosition: 2;
   } _pbcFlags;
 }
 

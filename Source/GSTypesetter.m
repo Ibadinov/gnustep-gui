@@ -36,7 +36,7 @@
 + (NSSize) printingAdjustmentsInLayoutManager: (GSLayoutManager *)layoutManager
 		 forNominallySpacedGlyphRange: (NSRange)glyphRange
 				 packedGlyphs: (const unsigned char *)glyphs
-					count: (unsigned)packedGlyphCount
+					count: (NSUInteger)packedGlyphCount
 {
   return NSMakeSize(0,0);
 }
@@ -58,10 +58,10 @@
 
 -(int) layoutGlyphsInLayoutManager: (GSLayoutManager *)layoutManager
 		   inTextContainer: (NSTextContainer *)textContainer
-	      startingAtGlyphIndex: (unsigned int)glyphIndex
+	      startingAtGlyphIndex: (NSUInteger)glyphIndex
 	  previousLineFragmentRect: (NSRect)previousLineFragRect
-		    nextGlyphIndex: (unsigned int *)nextGlyphIndex
-	     numberOfLineFragments: (unsigned int)howMany
+		    nextGlyphIndex: (NSUInteger *)nextGlyphIndex
+	     numberOfLineFragments: (NSUInteger)howMany
 {
   [self subclassResponsibility: _cmd];
   return 0;

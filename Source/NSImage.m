@@ -1111,8 +1111,8 @@ static BOOL GSSizeIsIntegerMultipleOfSize(NSSize size, NSSize baseSize)
  */
 static NSSize GSResolutionOfImageRep(NSImageRep *rep)
 {
-  const int pixelsWide = [rep pixelsWide];
-  const int pixelsHigh = [rep pixelsHigh];
+  const NSInteger pixelsWide = [rep pixelsWide];
+  const NSInteger pixelsHigh = [rep pixelsHigh];
   const NSSize repSize = [rep size];
 
   if (repSize.width == 0 || repSize.height == 0)
@@ -1778,7 +1778,7 @@ static NSSize GSResolutionOfImageRep(NSImageRep *rep)
 
 + (BOOL) canInitWithPasteboard: (NSPasteboard *)pasteboard
 {
-  int i, count;
+  NSUInteger i, count;
   NSArray* array = [NSImageRep registeredImageRepClasses];
 
   count = [array count];

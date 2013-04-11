@@ -243,7 +243,7 @@ APPKIT_EXPORT NSString	*NSEventTrackingRunLoopMode;
      modalForWindow: (NSWindow *)docWindow
       modalDelegate: (id)modalDelegate
      didEndSelector: (SEL)didEndSelector
-	contextInfo: (void *)contextInfo;
+        contextInfo: (void *)contextInfo;
 - (void) endSheet: (NSWindow *)sheet;
 - (void) endSheet: (NSWindow *)sheet
        returnCode: (NSInteger)returnCode;
@@ -265,8 +265,8 @@ APPKIT_EXPORT NSString	*NSEventTrackingRunLoopMode;
  * Sending action messages
  */
 - (BOOL) sendAction: (SEL)aSelector
-		 to: (id)aTarget
-	       from: (id)sender;
+                 to: (id)aTarget
+               from: (id)sender;
 - (id) targetForAction: (SEL)aSelector;
 #if OS_API_VERSION(GS_API_MACOSX, GS_API_LATEST)
 - (id)targetForAction: (SEL)theAction 
@@ -274,7 +274,7 @@ APPKIT_EXPORT NSString	*NSEventTrackingRunLoopMode;
                  from: (id)sender;
 #endif
 - (BOOL) tryToPerform: (SEL)aSelector
-		 with: (id)anObject;
+                 with: (id)anObject;
 
 /*
  * Setting the application's icon
@@ -296,7 +296,7 @@ APPKIT_EXPORT NSString	*NSEventTrackingRunLoopMode;
 - (NSWindow*) keyWindow;
 - (NSWindow*) mainWindow;
 - (NSWindow*) makeWindowsPerform: (SEL)aSelector
-			 inOrder: (BOOL)flag;
+                         inOrder: (BOOL)flag;
 - (void) miniaturizeAll: (id)sender;
 - (void) preventWindowOrdering;
 - (void) setWindowsNeedUpdate: (BOOL)flag;
@@ -335,12 +335,12 @@ APPKIT_EXPORT NSString	*NSEventTrackingRunLoopMode;
  * Managing the Windows menu
  */
 - (void) addWindowsItem: (NSWindow*)aWindow
-		  title: (NSString*)aString
-	       filename: (BOOL)isFilename;
+                  title: (NSString*)aString
+               filename: (BOOL)isFilename;
 - (void) arrangeInFront: (id)sender;
 - (void) changeWindowsItem: (NSWindow*)aWindow
-		     title: (NSString*)aString
-		  filename: (BOOL)isFilename;
+                     title: (NSString*)aString
+                  filename: (BOOL)isFilename;
 - (void) removeWindowsItem: (NSWindow*)aWindow;
 - (void) setWindowsMenu: (NSMenu*)aMenu;
 - (void) updateWindowsItem: (NSWindow*)aWindow;
@@ -350,13 +350,13 @@ APPKIT_EXPORT NSString	*NSEventTrackingRunLoopMode;
  * Managing the Service menu
  */
 - (void) registerServicesMenuSendTypes: (NSArray*)sendTypes
-			   returnTypes: (NSArray*)returnTypes;
+                           returnTypes: (NSArray*)returnTypes;
 - (NSMenu*) servicesMenu;
 - (id) servicesProvider;
 - (void) setServicesMenu: (NSMenu*)aMenu;
 - (void) setServicesProvider: (id)anObject;
 - (id) validRequestorForSendType: (NSString*)sendType
-		      returnType: (NSString*)returnType;
+                      returnType: (NSString*)returnType;
 
 /*
  * Getting the display context
@@ -708,6 +708,9 @@ NSApplicationMain(int argc, const char **argv);
 
 APPKIT_EXPORT void 
 NSShowSystemInfoPanel(NSDictionary *options);
+
+APPKIT_EXPORT void 
+NSUnregisterServicesProvider(NSString *name);
 
 /*
  * The NSApp global variable.

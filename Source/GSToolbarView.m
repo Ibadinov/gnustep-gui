@@ -251,19 +251,19 @@ static NSInteger draggedItemIndex = NSNotFound;
 
 // Dragging related methods
 
-+ (int) draggedItemIndex
++ (NSInteger) draggedItemIndex
 {
   return draggedItemIndex;
 }
 
-+ (void) setDraggedItemIndex:(int)sourceIndex
++ (void) setDraggedItemIndex:(NSInteger)sourceIndex
 {
   draggedItemIndex = sourceIndex;
 }
 
-- (int) _insertionIndexAtPoint: (NSPoint)location
+- (NSInteger) _insertionIndexAtPoint: (NSPoint)location
 {
-  int index;
+  NSInteger index;
   NSArray *visibleBackViews = [self _visibleBackViews];
 
   location = [_clipView convertPoint:location fromView:nil];
@@ -275,7 +275,7 @@ static NSInteger draggedItemIndex = NSNotFound;
           NSRect itemRect = [[visibleBackViews objectAtIndex:index] frame];
           if (location.x < (itemRect.origin.x + (itemRect.size.width/2)))
             {
-              NSLog(@"AT location %d", index);
+              NSLog(@"AT location %ld", (long)index);
               return index;
             }
         }
@@ -299,7 +299,7 @@ static NSInteger draggedItemIndex = NSNotFound;
               itemRect = [[visibleBackViews objectAtIndex:index] frame];
               if (location.x < (itemRect.origin.x + (itemRect.size.width/2)))
                 {
-                  NSLog(@"To the LEFT of %d", index);
+                  NSLog(@"To the LEFT of %ld", (long)index);
                   return index;
                 }
             }
@@ -312,7 +312,7 @@ static NSInteger draggedItemIndex = NSNotFound;
               itemRect = [[visibleBackViews objectAtIndex:index] frame];
               if (location.x > (itemRect.origin.x + (itemRect.size.width/2)))
                 {
-                  NSLog(@"To the RIGHT of %d", index);
+                  NSLog(@"To the RIGHT of %ld", (long)index);
                   return index;
                 }
             }
@@ -327,7 +327,7 @@ static NSInteger draggedItemIndex = NSNotFound;
   NSString *identifier = [item itemIdentifier];
   NSToolbar *toolbar = [self toolbar];
   NSArray *allowedItemIdentifiers = [toolbar _allowedItemIdentifiers];
-  int newIndex; 
+  NSInteger newIndex; 
     
   // don't accept any dragging if the customization palette isn't running for this toolbar
   if (![toolbar customizationPaletteIsRunning] || ![allowedItemIdentifiers containsObject: identifier])
@@ -486,7 +486,7 @@ static NSInteger draggedItemIndex = NSNotFound;
 
 // Accessors
 
-- (unsigned int) borderMask
+- (NSUInteger) borderMask
 {
   return _borderMask;
 }
@@ -496,7 +496,7 @@ static NSInteger draggedItemIndex = NSNotFound;
   return _toolbar;
 }
 
-- (void) setBorderMask: (unsigned int)borderMask
+- (void) setBorderMask: (NSUInteger)borderMask
 {
   NSRect toolbarViewFrame = [self frame];
   NSRect rect = NSMakeRect(0, 0, toolbarViewFrame.size.width, 
@@ -597,7 +597,7 @@ static NSInteger draggedItemIndex = NSNotFound;
   int flexibleItemsCount = 0, maxWidthItemsCount = 0;
   CGFloat spacePerFlexItem, extraSpace = 0;
   CGFloat toolbarWidth = [self frame].size.width;
-  int i, n = [items count];
+  NSInteger i, n = [items count];
   NSMutableArray *visibleItems = [NSMutableArray array];
   static const int FlexItemWeight = 4; // non-space flexible item counts as much as 4 flexible spaces
   
@@ -762,7 +762,7 @@ static NSInteger draggedItemIndex = NSNotFound;
 - (void) _manageClipView
 {
   NSRect clipViewFrame = [_clipView frame];
-  int count = [[_toolbar items] count];
+  NSInteger count = [[_toolbar items] count];
   // Retrieve the back views which should be visible now that the resize
   // process has been taken in account
   NSArray *visibleBackViews = [self _visibleBackViews];
@@ -846,8 +846,8 @@ static NSInteger draggedItemIndex = NSNotFound;
 {
   NSArray *items = [_toolbar items];
   NSView *backView, *view;
-  int i, n = [items count];
-  float backViewsWidth = 0, toolbarWidth = [self frame].size.width;
+  NSInteger i, n = [items count];
+  CGFloat backViewsWidth = 0, toolbarWidth = [self frame].size.width;
 
   NSMutableArray *visibleBackViews = [NSMutableArray array];
   

@@ -81,12 +81,12 @@ typedef enum {
 - (BOOL) layoutManagerOwnsFirstResponderInWindow: (NSWindow *)window;
 
 -(NSArray *) rulerMarkersForTextView: (NSTextView *)textView
-		      paragraphStyle: (NSParagraphStyle *)paragraphStyle
-			       ruler: (NSRulerView *)aRulerView;
+                      paragraphStyle: (NSParagraphStyle *)paragraphStyle
+                               ruler: (NSRulerView *)aRulerView;
 -(NSView *) rulerAccessoryViewForTextView: (NSTextView *)textView
-			   paragraphStyle: (NSParagraphStyle *)style
-				    ruler: (NSRulerView *)ruler
-				  enabled: (BOOL)isEnabled;
+                           paragraphStyle: (NSParagraphStyle *)style
+                                    ruler: (NSRulerView *)ruler
+                                  enabled: (BOOL)isEnabled;
 
 -(float) hyphenationFactor;
 -(void) setHyphenationFactor: (float)factor;
@@ -103,28 +103,28 @@ typedef enum {
 
 
 - (NSRect *) rectArrayForGlyphRange: (NSRange)glyphRange
-	withinSelectedGlyphRange: (NSRange)selGlyphRange
-	inTextContainer: (NSTextContainer *)container
-	rectCount: (NSUInteger *)rectCount;
+           withinSelectedGlyphRange: (NSRange)selGlyphRange
+                    inTextContainer: (NSTextContainer *)container
+                          rectCount: (NSUInteger *)rectCount;
 - (NSRect *) rectArrayForCharacterRange: (NSRange)charRange
-	withinSelectedCharacterRange: (NSRange)selCharRange
-	inTextContainer: (NSTextContainer *)container
-	rectCount: (NSUInteger *)rectCount;
+           withinSelectedCharacterRange: (NSRange)selCharRange
+                        inTextContainer: (NSTextContainer *)container
+                              rectCount: (NSUInteger *)rectCount;
 
 - (NSRect) boundingRectForGlyphRange: (NSRange)glyphRange 
-	inTextContainer: (NSTextContainer *)aTextContainer;
+                     inTextContainer: (NSTextContainer *)aTextContainer;
 
 
 - (NSRange) glyphRangeForBoundingRect: (NSRect)bounds 
-	inTextContainer: (NSTextContainer *)container;
+                      inTextContainer: (NSTextContainer *)container;
 - (NSRange) glyphRangeForBoundingRectWithoutAdditionalLayout: (NSRect)bounds
-	inTextContainer: (NSTextContainer *)container;
+                                             inTextContainer: (NSTextContainer *)container;
 
-- (unsigned int) glyphIndexForPoint: (NSPoint)aPoint
-	inTextContainer: (NSTextContainer *)aTextContainer;
+- (NSUInteger) glyphIndexForPoint: (NSPoint)aPoint
+                  inTextContainer: (NSTextContainer *)aTextContainer;
 - (NSUInteger) glyphIndexForPoint: (NSPoint)point
-	inTextContainer: (NSTextContainer *)container
-	fractionOfDistanceThroughGlyph: (CGFloat *)partialFraction;
+                  inTextContainer: (NSTextContainer *)container
+   fractionOfDistanceThroughGlyph: (CGFloat *)partialFraction;
 
 
 /*
@@ -138,8 +138,8 @@ If the character isn't in the text container, returns NSZeroRect.
 
 GNUstep extension.
 */
--(NSRect) insertionPointRectForCharacterIndex: (unsigned int)cindex
-			      inTextContainer: (NSTextContainer *)textContainer;
+-(NSRect) insertionPointRectForCharacterIndex: (NSUInteger)cindex
+                              inTextContainer: (NSTextContainer *)textContainer;
 
 
 /*
@@ -166,10 +166,10 @@ in that container.
 
 GNUstep extension.
 */
--(unsigned int) characterIndexMoving: (GSInsertionPointMovementDirection)direction
-		  fromCharacterIndex: (unsigned int)from
-	      originalCharacterIndex: (unsigned int)original
-			    distance: (float)distance;
+-(NSUInteger) characterIndexMoving: (GSInsertionPointMovementDirection)direction
+                fromCharacterIndex: (NSUInteger)from
+            originalCharacterIndex: (NSUInteger)original
+                          distance: (CGFloat)distance;
 
 
 #if OS_API_VERSION(MAC_OS_X_VERSION_10_5, GS_API_LATEST)
@@ -195,22 +195,22 @@ GNUstep extension.
 @interface NSLayoutManager (drawing)
 
 -(void) drawBackgroundForGlyphRange: (NSRange)range
-	atPoint: (NSPoint)containerOrigin;
+                            atPoint: (NSPoint)containerOrigin;
 
 -(void) drawGlyphsForGlyphRange: (NSRange)range
-	atPoint: (NSPoint)containerOrigin;
+                        atPoint: (NSPoint)containerOrigin;
 
 -(void) underlineGylphRange: (NSRange)range
               underlineType: (NSInteger)type
            lineFragmentRect: (NSRect)fragmentRect
      lineFragmentGlyphRange: (NSRange)fragmentGlyphRange
-	    containerOrigin: (NSPoint)containerOrigin;
+            containerOrigin: (NSPoint)containerOrigin;
 -(void) drawUnderlineForGlyphRange: (NSRange)underlineRange
                      underlineType: (NSInteger)type
                     baselineOffset: (CGFloat)offset
                   lineFragmentRect: (NSRect)fragmentRect
             lineFragmentGlyphRange: (NSRange)fragmentGlyphRange
-	           containerOrigin: (NSPoint)containerOrigin;
+                   containerOrigin: (NSPoint)containerOrigin;
 
 - (NSSize) attachmentSizeForGlyphAtIndex: (NSUInteger)glyphIndex;
 - (void) showAttachmentCell: (NSCell *)cell
@@ -220,6 +220,7 @@ GNUstep extension.
 @end
 
 @interface NSLayoutManager (temporaryattributes)
+
 - (void) addTemporaryAttributes: (NSDictionary *)attrs 
               forCharacterRange: (NSRange)range;
 - (void) removeTemporaryAttribute: (NSString *)attr 
@@ -244,6 +245,7 @@ GNUstep extension.
                                  longestEffectiveRange: (NSRange*)longestRange 
                                                inRange: (NSRange)range;
 #endif
+
 @end
 #endif
 

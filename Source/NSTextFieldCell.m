@@ -312,7 +312,7 @@
       [aCoder encodeBool: [self drawsBackground] forKey: @"NSDrawsBackground"];
       if ([self isBezeled])
         {
-          [aCoder encodeInt: [self bezelStyle] forKey: @"NSTextBezelStyle"];
+          [aCoder encodeInteger: [self bezelStyle] forKey: @"NSTextBezelStyle"];
         }
     }
   else
@@ -348,7 +348,7 @@
         }
       if ([aDecoder containsValueForKey: @"NSTextBezelStyle"])
         {
-          [self setBezelStyle: [aDecoder decodeIntForKey: 
+          [self setBezelStyle: [aDecoder decodeIntegerForKey: 
                                              @"NSTextBezelStyle"]];
         }
     }

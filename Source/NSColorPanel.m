@@ -172,7 +172,7 @@ static int _gs_gui_color_picker_mode = NSRGBModeColorPanel;
   id<NSColorPickingDefault, NSColorPickingCustom> picker;
   NSButtonCell *cell;
   NSMutableArray *cells = [NSMutableArray new];
-  int i, count;
+  NSInteger i, count;
   NSSize size = [_pickerMatrix frame].size;
 
   count = [_pickers count];
@@ -627,7 +627,7 @@ static int _gs_gui_color_picker_mode = NSRGBModeColorPanel;
  */
 - (void) setMode: (int)mode
 {
-  int i, count;
+  NSInteger i, count;
 
   if (mode == [self mode])
     return;

@@ -69,15 +69,15 @@
 
 - (void) _slideFrom: (NSPoint)fromPoint to: (NSPoint)toPoint
 {
-  float distx = toPoint.x - fromPoint.x;
-  float disty = toPoint.y - fromPoint.y;
-  float dist = sqrt((distx * distx) + (disty * disty));
+  CGFloat distx = toPoint.x - fromPoint.x;
+  CGFloat disty = toPoint.y - fromPoint.y;
+  CGFloat dist = sqrt((distx * distx) + (disty * disty));
 //  int steps = (int)(dist / MINDIST);
   NSSize imgSize = [[slideCell image] size];
-  float imgDist = sqrt((imgSize.width * imgSize.width) + 
-		       (imgSize.height * imgSize.height));
-  int steps = (int)(dist/imgDist);
-  int windowNumber = [_window windowNumber];
+  CGFloat imgDist = sqrt((imgSize.width * imgSize.width) + 
+                         (imgSize.height * imgSize.height));
+  NSInteger steps = (NSInteger)(dist/imgDist);
+  NSInteger windowNumber = [_window windowNumber];
   GSDisplayServer *server = GSServerForWindow(_window);
 
 

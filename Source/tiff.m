@@ -64,6 +64,7 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSEnumerator.h>
+#import <Foundation/NSException.h>
 #import "GSGuiPrivate.h"
 
 #include <math.h>
@@ -73,13 +74,23 @@
 #include <unistd.h>		/* for L_SET, etc definitions */
 #endif /* !__WIN32__ */
 
+#define IS_SIGNED(type) (((type)-1) < 0)
+
+#define MAX_TYPE(type)                      \
+({                                          \
+  static const int __size = sizeof(type);   \
+  IS_SIGNED(type)                           \
+  ? (__size == 8 ? INT64_MAX : (__size == 4 ? INT32_MAX : (__size == 2 ? INT16_MAX : INT8_MAX)))        \
+  : (__size == 8 ? UINT64_MAX : (__size == 4 ? UINT32_MAX : (__size == 2 ? UINT16_MAX : UINT8_MAX)));   \
+})
+
 typedef struct {
-  char* data;
-  long  size;
-  long  position;
-  char  mode;
-  char **outdata;
-  long *outposition;
+  char*      data;
+  NSUInteger size;
+  NSUInteger position;
+  char       mode;
+  char       **outdata;
+  NSUInteger *outposition;
 } chandle_t;
 
 static int tiff_error_handler_set = 0;
@@ -108,10 +119,16 @@ static tsize_t
 TiffHandleRead(thandle_t handle, tdata_t buf, tsize_t count)
 {
   chandle_t* chand = (chandle_t *)handle;
+  NSCParameterAssert((chand->size - chand->position) > 0);
+  NSCParameterAssert((chand->size - chand->position) < MAX_TYPE(tsize_t));  
   if (chand->position >= chand->size)
-    return 0;
+    {
+      return 0;
+    }
   if (chand->position + count > chand->size)
-    count = chand->size - chand->position;
+    {
+      count = (tsize_t)(chand->size - chand->position);
+    }
   memcpy(buf, chand->data + chand->position, count);
   return count;
 }
@@ -152,7 +169,8 @@ TiffHandleSeek(thandle_t handle, toff_t offset, int mode)
       chand->position += offset; break;
       break;
     }
-  return chand->position;
+  NSCAssert(chand->position < MAX_TYPE(toff_t), @"TIFF data too large");
+  return (toff_t)chand->position;
 }
 
 static int
@@ -169,16 +187,18 @@ static toff_t
 TiffHandleSize(thandle_t handle)
 {
   chandle_t* chand = (chandle_t *)handle;
-  return chand->size;
+  NSCParameterAssert(chand->size < MAX_TYPE(toff_t));
+  return (toff_t)chand->size;
 }
 
 static int
 TiffHandleMap(thandle_t handle, tdata_t* data, toff_t* size)
 {
   chandle_t* chand = (chandle_t *)handle;
+  NSCParameterAssert(chand->size < MAX_TYPE(toff_t));
   
   *data = chand->data;
-  *size = chand->size;
+  *size = (toff_t)chand->size;
     
   return 1;
 }
@@ -191,7 +211,7 @@ TiffHandleUnmap(thandle_t handle, tdata_t data, toff_t size)
 
 /* Open a tiff from a stream. Returns NULL if can't read tiff information.  */
 TIFF* 
-NSTiffOpenDataRead(const char* data, long size)
+NSTiffOpenDataRead(const char* data, NSUInteger size)
 {
   chandle_t* handle;
 
@@ -207,7 +227,7 @@ NSTiffOpenDataRead(const char* data, long size)
   handle->outdata = 0;
   handle->position = 0;
   handle->outposition = 0;
-  handle->size = size;
+  handle->size = (tsize_t)size;
   handle->mode = 'r';
   return TIFFClientOpen("GSTiffReadData", "r",
 			(thandle_t)handle,
@@ -218,7 +238,7 @@ NSTiffOpenDataRead(const char* data, long size)
 }
 
 TIFF* 
-NSTiffOpenDataWrite(char **data, long *size)
+NSTiffOpenDataWrite(char **data, NSUInteger *size)
 {
   chandle_t* handle;
   handle = malloc(sizeof(chandle_t));
@@ -261,8 +281,9 @@ NSTiffGetImageCount(TIFF* image)
 /* Read some information about the image. Note that currently we don't
    determine numImages. */
 NSTiffInfo *      
-NSTiffGetInfo(int imageNumber, TIFF* image)
+NSTiffGetInfo(NSInteger imageNumber, TIFF* image)
 {
+  NSCParameterAssert(imageNumber < UINT32_MAX);
   NSTiffInfo* info;
   uint16 *sample_info = NULL;
 
@@ -275,7 +296,7 @@ NSTiffGetInfo(int imageNumber, TIFF* image)
     {
       if (TIFFSetDirectory(image, imageNumber) == 0)
 	return NULL;
-      info->imageNumber = imageNumber;
+      info->imageNumber = (uint32_t)imageNumber;
     }
   
   TIFFGetField(image, TIFFTAG_IMAGEWIDTH, &info->width);

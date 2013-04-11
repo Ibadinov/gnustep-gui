@@ -164,7 +164,7 @@ _gs_animationValueForCurve(_NSAnimationCurveDesc *c, float t, float t0)
 - (NSAnimationProgress) _gs_curveShift;
 @end
 
-NSComparisonResult
+static NSComparisonResult
 nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress second)
 {
   float diff = first - second;
@@ -232,13 +232,13 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
     { // First mark
       GSIArrayAddItem (_progressMarks,progress);
       NSDebugMLLog (@"NSAnimationMark",
-                    @"Insert 1st mark for %f (next:#%d)",
-                    progress, _nextMark);
+                    @"Insert 1st mark for %f (next:#%lu)",
+                    progress, (unsigned long)_nextMark);
       _nextMark = (progress >= [self currentProgress])? 0 : 1;
     }
   else 
     {
-      unsigned index;
+      NSUInteger index;
       index = GSIArrayInsertionPosition (_progressMarks,
                                          progress,
                                          &nsanimation_progressMarkSorter);
@@ -248,8 +248,8 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
           _nextMark++;
       GSIArrayInsertItem (_progressMarks,progress,index);
       NSDebugMLLog (@"NSAnimationMark",
-                    @"Insert mark #%d/%d for %f (next:#%d)",
-                    index,GSIArrayCount(_progressMarks),progress,_nextMark);
+                    @"Insert mark #%lu/%lu for %f (next:#%lu)",
+                    (unsigned long)index, (unsigned long)GSIArrayCount(_progressMarks), progress, (unsigned long)_nextMark);
     }
   _isCachedProgressMarkNumbersValid = NO;
 
@@ -492,7 +492,7 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
 - (NSArray*) progressMarks
 {
   NSNumber **cpmn;
-  unsigned count;
+  NSUInteger count;
   _NSANIMATION_LOCKING_SETUP;
 
   _NSANIMATION_LOCK;
@@ -534,7 +534,7 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
 
 - (void) removeProgressMark: (NSAnimationProgress)progress
 {
-  unsigned index;
+  NSUInteger index;
   _NSANIMATION_LOCKING_SETUP;
 
   _NSANIMATION_LOCK;
@@ -547,8 +547,8 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
       GSIArrayRemoveItemAtIndex(_progressMarks,index);
       _isCachedProgressMarkNumbersValid = NO;
       if (_nextMark > index) _nextMark--;
-      NSDebugMLLog(@"NSAnimationMark",@"Remove mark #%d for (next:#%d)",
-                   index, progress, _nextMark);
+      NSDebugMLLog(@"NSAnimationMark",@"Remove mark #%lu for %f (next:#%lu)",
+                   (unsigned long)index, progress, (unsigned long)_nextMark);
     }
   else
     NSWarnMLog(@"Unexistent progress mark");
@@ -671,8 +671,8 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
       _nextMark = GSIArrayInsertionPosition (_progressMarks,progress,&nsanimation_progressMarkSorter);
 
       if (_nextMark < GSIArrayCount(_progressMarks))
-        NSDebugMLLog(@"NSAnimationMark",@"Next mark #%d for %f",
-                     _nextMark, GSIArrayItemAtIndex(_progressMarks,_nextMark));
+        NSDebugMLLog(@"NSAnimationMark",@"Next mark #%lu for %f",
+                     (unsigned long)_nextMark, GSIArrayItemAtIndex(_progressMarks,_nextMark));
     }
 
   NSDebugMLLog(@"NSAnimation",@"Progress = %f", progress);
@@ -733,7 +733,7 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
   _nextMark = 0;
   if (marks != nil)
     {
-      unsigned i, count = [marks count];
+      NSUInteger i, count = [marks count];
 
       for (i = 0; i < count; i++)
         [self addProgressMark: [(NSNumber*)[marks objectAtIndex:i] floatValue]];
@@ -797,12 +797,12 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
         [delegate methodForSelector: @selector (animationShouldStart:)]
         : NULL;
       NSDebugMLLog(@"NSAnimationDelegate",
-                   @"Delegation methods : %x %x %x %x %x",
-                   _delegate_animationDidReachProgressMark,
-                   _delegate_animationValueForProgress,
-                   _delegate_animationDidEnd,
-                   _delegate_animationDidStop,
-                   _delegate_animationShouldStart);
+                   @"Delegation methods : %lx %lx %lx %lx %lx",
+                   (unsigned long)_delegate_animationDidReachProgressMark,
+                   (unsigned long)_delegate_animationValueForProgress,
+                   (unsigned long)_delegate_animationDidEnd,
+                   (unsigned long)_delegate_animationDidStop,
+                   (unsigned long)_delegate_animationShouldStart);
       _currentDelegate = _delegate;
     }
   else
@@ -1026,7 +1026,7 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
   { // have some marks been passed ?
     // NOTE: the case where progress == markedProgress is
     //       treated in [-setCurrentProgress]
-    unsigned count = GSIArrayCount (_progressMarks);
+    NSUInteger count = GSIArrayCount (_progressMarks);
     NSAnimationProgress markedProgress;
     while ( _nextMark < count
             && progress > (markedProgress = GSIArrayItemAtIndex (_progressMarks,_nextMark)) ) // is a mark reached ?
@@ -1143,8 +1143,8 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
   _NSANIMATION_UNLOCK;
 
   NSDebugMLLog(@"NSAnimationMark",
-               @"Next mark #%d for %f",
-               _nextMark, GSIArrayItemAtIndex(_progressMarks, _nextMark - 1));
+               @"Next mark #%lu for %f",
+               (unsigned long)_nextMark, GSIArrayItemAtIndex(_progressMarks, _nextMark - 1));
 }
 
 - (void) _gs_startThreadedAnimation
@@ -1479,7 +1479,7 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
   _NSANIMATION_LOCK;
   if (_viewAnimationDesc == nil)
     {
-      unsigned int i, c;
+      NSUInteger i, c;
 
       c = [_viewAnimations count];
       _viewAnimationDesc = [[NSMutableArray alloc] initWithCapacity: c];
@@ -1510,7 +1510,7 @@ nsanimation_progressMarkSorter(NSAnimationProgress first, NSAnimationProgress se
 - (void) _gs_updateViewsWithValue: (NSNumber*) value
 {
   // Runs in main thread : must not call any NSAnimation method to avoid a deadlock
-  unsigned int i, c;
+  NSUInteger i, c;
   float v;
 
   v = [value floatValue];

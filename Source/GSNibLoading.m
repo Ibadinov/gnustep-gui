@@ -64,7 +64,6 @@
 static BOOL _isInInterfaceBuilder = NO;
 
 @interface NSKeyedUnarchiver (NSClassSwapperPrivate)
-- (BOOL) replaceObject: (id)oldObj withObject: (id)newObj;
 - (Class) replacementClassForClassName: (NSString *)className;
 @end
 
@@ -296,7 +295,7 @@ static BOOL _isInInterfaceBuilder = NO;
             isOneShot: (BOOL) oneShot
             isVisible: (BOOL) visible
        wantsToBeColor: (BOOL) wantsToBeColor
-     autoPositionMask: (int) autoPositionMask
+     autoPositionMask: (NSInteger) autoPositionMask
 {
   if ((self = [super init]) != nil)
     {
@@ -325,7 +324,7 @@ static BOOL _isInInterfaceBuilder = NO;
           _flags.isVisible = visible;
           _flags.wantsToBeColor = wantsToBeColor;
           _flags.dynamicDepthLimit = [window hasDynamicDepthLimit];
-          _flags.autoPositionMask = autoPositionMask;
+          _flags.autoPositionMask = (unsigned)autoPositionMask;
           _flags.savePosition = YES; // not yet implemented.
         }
     }
@@ -409,10 +408,10 @@ static BOOL _isInInterfaceBuilder = NO;
 
       [aCoder encodeObject: _viewClass forKey: @"NSViewClass"];
       [aCoder encodeObject: _windowClass forKey: @"NSWindowClass"];
-      [aCoder encodeInt: _windowStyle forKey: @"NSWindowStyleMask"];
-      [aCoder encodeInt: _backingStoreType forKey: @"NSWindowBacking"];
+      [aCoder encodeInteger: _windowStyle forKey: @"NSWindowStyleMask"];
+      [aCoder encodeInteger: _backingStoreType forKey: @"NSWindowBacking"];
       [aCoder encodeObject: _view forKey: @"NSWindowView"];
-      [aCoder encodeInt: flags forKey: @"NSWTFlags"];
+      [aCoder encodeInteger: flags forKey: @"NSWTFlags"];
       [aCoder encodeSize: _minSize forKey: @"NSMinSize"];
       [aCoder encodeSize: _maxSize forKey: @"NSMaxSize"];
       [aCoder encodeRect: rect forKey: @"NSWindowRect"];
@@ -557,7 +556,7 @@ static BOOL _isInInterfaceBuilder = NO;
 /**
  * Sets the window style.
  */
-- (void) setWindowStyle: (unsigned)style
+- (void) setWindowStyle: (NSUInteger)style
 {
   _windowStyle = style;
 }
@@ -565,7 +564,7 @@ static BOOL _isInInterfaceBuilder = NO;
 /** 
  * Returns the window style.
  */
-- (unsigned) windowStyle
+- (NSUInteger) windowStyle
 {
   return _windowStyle;
 }
@@ -1670,7 +1669,7 @@ static BOOL _isInInterfaceBuilder = NO;
       [coder encodeObject: (id) _fontManager forKey: @"NSFontManager"];
       [coder encodeObject: (id) _framework forKey: @"NSFramework"];
       [coder encodeObject: (id) _visibleWindows forKey: @"NSVisibleWindows"];
-      [coder encodeInt: _nextOid forKey: @"NSNextOid"];
+      [coder encodeInteger: _nextOid forKey: @"NSNextOid"];
       [coder encodeConditionalObject: (id) _root forKey: @"NSRoot"];
     }
   else
@@ -2008,7 +2007,7 @@ static BOOL _isInInterfaceBuilder = NO;
 {
   NSArray *nameKeys = (NSArray *)NSAllMapTableKeys(_names);
   NSArray *nameValues = (NSArray *)NSAllMapTableValues(_names);
-  int i = [nameKeys indexOfObject: obj];
+  NSUInteger i = [nameKeys indexOfObject: obj];
   NSString *result = [nameValues objectAtIndex: i];
   return result;
 }
@@ -2032,7 +2031,7 @@ static BOOL _isInInterfaceBuilder = NO;
 /**
  * Set the value of the next available oid.
  */
-- (void) setNextOid: (int)noid
+- (void) setNextOid: (NSInteger)noid
 {
   _nextOid = noid;
 }
@@ -2040,7 +2039,7 @@ static BOOL _isInInterfaceBuilder = NO;
 /**
  * Get the value of the next available oid.
  */
-- (int) nextOid
+- (NSInteger) nextOid
 {
   return _nextOid;
 }

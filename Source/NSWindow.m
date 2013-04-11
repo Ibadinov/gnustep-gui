@@ -124,7 +124,7 @@ BOOL GSViewAcceptsDrag(NSView *v, id<NSDraggingInfo> dragInfo);
 @end
 
 @interface NSScreen (PrivateMethods)
-- (id) _initWithScreenNumber: (int)screen;
+- (id) _initWithScreenNumber: (NSInteger)screen;
 @end
 
 @interface NSApplication(Inactive)
@@ -888,8 +888,8 @@ many times.
 
 - (NSString*) description
 {
-  return [[super description] stringByAppendingFormat: @"Number: %d Title: %@",
-    [self windowNumber], [self title]];
+  return [[super description] stringByAppendingFormat: @"Number: %ld Title: %@",
+    (long)[self windowNumber], [self title]];
 }
 
 - (void) _startBackendWindow
@@ -1156,10 +1156,10 @@ many times.
 - (id) initWithWindowRef: (void *)windowRef
 {
   NSRect contentRect;
-  unsigned int aStyle;
+  NSUInteger aStyle;
   NSBackingStoreType bufferingType;
   NSScreen* aScreen;
-  int screen;
+  NSInteger screen;
   NSInteger winNum;
   GSDisplayServer *srv = GSCurrentServer();
 
@@ -2653,7 +2653,7 @@ discardCursorRectsForView(NSView *theView)
 
       if (theView->_rFlags.has_subviews)
         {
-          NSArray *s = theView->_sub_views;
+          NSArray *s = [theView subviews];
           NSUInteger count = [s count];
 
           if (count)
@@ -2716,7 +2716,7 @@ resetCursorRectsForView(NSView *theView)
 
       if (theView->_rFlags.has_subviews)
         {
-          NSArray *s = theView->_sub_views;
+          NSArray *s = [theView subviews];
           NSUInteger count = [s count];
 
           if (count)
@@ -3412,7 +3412,7 @@ resetCursorRectsForView(NSView *theView)
  * loop status */
 - (NSPoint) mouseLocationOutsideOfEventStream
 {
-  int screen;
+  NSInteger screen;
   NSPoint p;
 
   screen = [_screen screenNumber];
@@ -3454,7 +3454,7 @@ resetCursorRectsForView(NSView *theView)
   if (theView->_rFlags.has_trkrects)
     {
       BOOL isFlipped = [theView isFlipped];
-      NSArray *tr = theView->_tracking_rects;
+      NSArray *tr = [theView _trackingRects];
       NSUInteger count = [tr count];
 
       /*
@@ -3550,7 +3550,7 @@ resetCursorRectsForView(NSView *theView)
    */
   if (theView->_rFlags.has_subviews)
     {
-      NSArray *sb = theView->_sub_views;
+      NSArray *sb = [theView subviews];
       NSUInteger count = [sb count];
 
       if (count > 0)
@@ -3572,7 +3572,7 @@ resetCursorRectsForView(NSView *theView)
 {
   if (theView->_rFlags.valid_rects)
     {
-      NSArray *tr = theView->_cursor_rects;
+      NSArray *tr = [theView _cursorRects];
       NSUInteger count = [tr count];
 
       // Loop through cursor rectangles
@@ -3640,7 +3640,7 @@ resetCursorRectsForView(NSView *theView)
    */
   if (theView->_rFlags.has_subviews)
     {
-      NSArray *sb = theView->_sub_views;
+      NSArray *sb = [theView subviews];
       NSUInteger count = [sb count];
 
       if (count > 0)
@@ -3961,7 +3961,7 @@ resetCursorRectsForView(NSView *theView)
       case NSAppKitDefined:
         {
           id dragInfo;
-          int action;
+          NSInteger action;
           NSEvent *e;
           GSAppKitSubtype sub = [theEvent subtype];
 

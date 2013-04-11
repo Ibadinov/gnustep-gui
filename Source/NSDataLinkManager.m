@@ -396,7 +396,7 @@
     }
   else
     {
-      int version = [aCoder versionForClassName: @"NSDataLinkManager"];
+      NSInteger version = [aCoder versionForClassName: @"NSDataLinkManager"];
       if (version == 0)
 	{
 	  BOOL flag = NO;

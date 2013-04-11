@@ -394,7 +394,7 @@ static GSMemoryPanel *sharedGSMemoryPanel = nil;
 
 - (void) reorder: (id)sender
 {
-  int selectedColumn = [table clickedColumn];
+  NSInteger selectedColumn = [table clickedColumn];
   NSArray *tableColumns = [table tableColumns];
   id identifier;
   SEL newOrderingBy = @selector(compareByCount:); 

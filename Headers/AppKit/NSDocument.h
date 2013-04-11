@@ -86,8 +86,9 @@ typedef enum _NSSaveOperationType {
 
 @interface NSDocument : NSObject
 {
-  @private
+  @protected /* used by Gorm */
     NSWindow		*_window;		// Outlet for the single window case
+  @private
     NSMutableArray 	*_window_controllers;	// WindowControllers for this document
     NSURL		*_file_url;		// Save location as URL
     NSString		*_file_name;		// Save location

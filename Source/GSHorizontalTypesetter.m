@@ -103,7 +103,7 @@ struct GSHorizontalTypesetter_glyph_cache_s
 {
   /* These fields are filled in by the caching: */
   NSGlyph g;
-  unsigned int char_index;
+  NSUInteger char_index;
 
   NSFont *font;
   struct
@@ -155,13 +155,13 @@ the last time or not, we wouldn't need to clear the cache every time */
     attributes.superscript = 0;
 }
 
--(void) _cacheMoveTo: (unsigned int)glyph
+-(void) _cacheMoveTo: (NSUInteger)glyph
 {
   BOOL valid;
 
   if (cache_base <= glyph && cache_base + cache_length > glyph)
     {
-      int delta = glyph - cache_base;
+      NSInteger delta = glyph - cache_base;
       cache_length -= delta;
       memmove(cache, &cache[delta], sizeof(glyph_cache_t) * cache_length);
       cache_base = glyph;
@@ -176,7 +176,7 @@ the last time or not, we wouldn't need to clear the cache every time */
 
   if (valid)
     {
-      unsigned int i;
+      NSUInteger i;
 
       at_end = NO;
       i = [curLayoutManager characterIndexForGlyphAtIndex: glyph];
@@ -201,7 +201,7 @@ the last time or not, we wouldn't need to clear the cache every time */
     at_end = YES;
 }
 
--(void) _cacheGlyphs: (unsigned int)new_length
+-(void) _cacheGlyphs: (NSUInteger)new_length
 {
   glyph_cache_t *g;
   BOOL valid;
@@ -263,7 +263,7 @@ Should return the first glyph on the next line, which must be <=gi and
 logic below will fall back to char wrapping if necessary). Glyphs up to and
 including gi will have been cached.
 */
--(unsigned int) breakLineByWordWrappingBefore: (unsigned int)gi
+-(NSUInteger) breakLineByWordWrappingBefore: (NSUInteger)gi
 {
   glyph_cache_t *g;
   unichar ch;
@@ -316,7 +316,7 @@ struct GSHorizontalTypesetter_line_frag_s
 {
   NSRect rect;
   CGFloat last_used;
-  unsigned int last_glyph; /* last_glyph+1, actually */
+  NSUInteger last_glyph; /* last_glyph+1, actually */
 };
 typedef struct GSHorizontalTypesetter_line_frag_s line_frag_t;
 
@@ -326,11 +326,11 @@ For bigger values the width gets ignored.
 */
 #define LARGE_SIZE 1e7
 
--(void) fullJustifyLine: (line_frag_t *)lf : (int)num_line_frags
+-(void) fullJustifyLine: (line_frag_t *)lf : (NSInteger)num_line_frags
 {
-  unsigned int i, start;
+  NSUInteger i, start;
   CGFloat extra_space, delta;
-  unsigned int num_spaces;
+  NSUInteger num_spaces;
   NSString *str = [curTextStorage string];
   glyph_cache_t *g;
   unichar ch;
@@ -420,8 +420,8 @@ For bigger values the width gets ignored.
   */
   NSRect r0, r;
   NSSize shift;
-  int i;
-  unsigned int g, g2, first;
+  NSInteger i;
+  NSUInteger g, g2, first;
   CGFloat container_height;
   /*
   Ask the layout manager for soft-invalidated layout for the current
@@ -699,7 +699,7 @@ restart: ;
 
 
   {
-    unsigned int i = 0;
+    NSUInteger i = 0;
     glyph_cache_t *g;
 
     NSPoint p;
@@ -711,9 +711,9 @@ restart: ;
     NSGlyph last_glyph = NSNullGlyph;
     NSPoint last_p;
 
-    unsigned int first_glyph;
+    NSUInteger first_glyph;
     line_frag_t *lf = line_frags;
-    int lfi = 0;
+    NSInteger lfi = 0;
 
     BOOL prev_had_non_nominal_width;
 
@@ -829,7 +829,7 @@ restart: ;
 		*/
 		NSArray *tabs = [curParagraphStyle tabStops];
 		NSTextTab *tab = nil;
-		int i, c = [tabs count];
+		NSUInteger i, c = [tabs count];
 		/* Find first tab beyond our current position. */
 		for (i = 0; i < c; i++)
 		  {
@@ -1200,11 +1200,11 @@ restart: ;
 
 
 -(int) layoutGlyphsInLayoutManager: (GSLayoutManager *)layoutManager
-		   inTextContainer: (NSTextContainer *)textContainer
-	      startingAtGlyphIndex: (unsigned int)glyphIndex
-	  previousLineFragmentRect: (NSRect)previousLineFragRect
-		    nextGlyphIndex: (unsigned int *)nextGlyphIndex
-	     numberOfLineFragments: (unsigned int)howMany
+                   inTextContainer: (NSTextContainer *)textContainer
+              startingAtGlyphIndex: (NSUInteger)glyphIndex
+          previousLineFragmentRect: (NSRect)previousLineFragRect
+                    nextGlyphIndex: (NSUInteger *)nextGlyphIndex
+             numberOfLineFragments: (NSUInteger)howMany
 {
   int ret, real_ret;
   BOOL newParagraph;
@@ -1257,7 +1257,7 @@ NS_DURING
 	    }
 	  else
 	    {
-	      unsigned int chi;
+	      NSUInteger chi;
 	      unichar ch;
 	      chi = [curLayoutManager characterRangeForGlyphRange: NSMakeRange(curGlyph - 1, 1)
 						 actualGlyphRange: NULL].location;

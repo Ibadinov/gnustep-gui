@@ -79,7 +79,7 @@
   char ptype;
   char buffer[256];
   unsigned char *pchar;
-  unsigned length;
+  NSUInteger length;
   id colorspace;
   const char *ptr;
   const char *bytes = [imageData bytes];

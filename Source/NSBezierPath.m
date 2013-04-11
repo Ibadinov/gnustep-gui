@@ -1791,32 +1791,32 @@ static int winding_curve(double_point from, double_point to, double_point c1,
     }
   else
     {
-      int i, count;
-      float f;
+      NSInteger i, count;
+      CGFloat f;
       
       f = [self lineWidth];
-      [aCoder encodeValueOfObjCType: @encode(float) at: &f];
+      [aCoder encodeValueOfObjCType: @encode(CGFloat) at: &f];
       i = [self lineCapStyle];
-      [aCoder encodeValueOfObjCType: @encode(int) at: &i];
+      [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &i];
       i = [self lineJoinStyle];
-      [aCoder encodeValueOfObjCType: @encode(int) at: &i];
+      [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &i];
       i = [self windingRule];
-      [aCoder encodeValueOfObjCType: @encode(int) at: &i];
+      [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &i];
       [aCoder encodeValueOfObjCType: @encode(BOOL) at: &_cachesBezierPath];
 
       // version 2
       f = [self flatness];
-      [aCoder encodeValueOfObjCType: @encode(float) at: &f];
+      [aCoder encodeValueOfObjCType: @encode(CGFloat) at: &f];
       f = [self miterLimit];
-      [aCoder encodeValueOfObjCType: @encode(float) at: &f];
+      [aCoder encodeValueOfObjCType: @encode(CGFloat) at: &f];
       
       count = [self elementCount];
-      [aCoder encodeValueOfObjCType: @encode(int) at: &count];
+      [aCoder encodeValueOfObjCType: @encode(NSInteger) at: &count];
       
       for (i = 0; i < count; i++) 
         {
           type = [self elementAtIndex: i associatedPoints: pts];
-          [aCoder encodeValueOfObjCType: @encode(int) at: &type];
+          [aCoder encodeValueOfObjCType: @encode(NSBezierPathElement) at: &type];
           switch(type) 
             {
             case NSMoveToBezierPathElement:
@@ -1885,7 +1885,7 @@ static int winding_curve(double_point from, double_point to, double_point c1,
 	  NSUInteger length;
 	  const uint8_t *data;
           NSData *d;
-          unsigned int cursor = 0;
+          NSUInteger cursor = 0;
 
           data = [aCoder decodeBytesForKey: @"NSSegments"
                               returnedLength: &length]; 
@@ -2008,33 +2008,33 @@ static int winding_curve(double_point from, double_point to, double_point c1,
     {
       NSBezierPathElement type;
       NSPoint pts[3];
-      int i, count;
-      float f;
-      int version = [aCoder versionForClassName: @"NSBezierPath"];
+      NSInteger i, count;
+      CGFloat f;
+      NSInteger version = [aCoder versionForClassName: @"NSBezierPath"];
       
-      [aCoder decodeValueOfObjCType: @encode(float) at: &f];
+      [aCoder decodeValueOfObjCType: @encode(CGFloat) at: &f];
       [self setLineWidth: f];
-      [aCoder decodeValueOfObjCType: @encode(int) at: &i];
-      [self setLineCapStyle: i];
-      [aCoder decodeValueOfObjCType: @encode(int) at: &i];
-      [self setLineJoinStyle: i];
-      [aCoder decodeValueOfObjCType: @encode(int) at: &i];
-      [self setWindingRule: i];
+      [aCoder decodeValueOfObjCType: @encode(NSInteger) at: &i];
+      [self setLineCapStyle: (NSLineCapStyle)i];
+      [aCoder decodeValueOfObjCType: @encode(NSInteger) at: &i];
+      [self setLineJoinStyle: (NSLineJoinStyle)i];
+      [aCoder decodeValueOfObjCType: @encode(NSInteger) at: &i];
+      [self setWindingRule: (NSWindingRule)i];
       [aCoder decodeValueOfObjCType: @encode(BOOL) at: &_cachesBezierPath];
 
       if (version >= 2)
         {
-          [aCoder decodeValueOfObjCType: @encode(float) at: &f];
+          [aCoder decodeValueOfObjCType: @encode(CGFloat) at: &f];
           [self setFlatness: f];
-          [aCoder decodeValueOfObjCType: @encode(float) at: &f];
+          [aCoder decodeValueOfObjCType: @encode(CGFloat) at: &f];
           [self setMiterLimit: f];
         }
 
-      [aCoder decodeValueOfObjCType: @encode(int) at: &count];
+      [aCoder decodeValueOfObjCType: @encode(NSInteger) at: &count];
       
       for (i = 0; i < count; i++) 
         {
-          [aCoder decodeValueOfObjCType: @encode(int) at: &type];
+          [aCoder decodeValueOfObjCType: @encode(NSBezierPathElement) at: &type];
           switch(type) 
             {
             case NSMoveToBezierPathElement:
@@ -2116,7 +2116,7 @@ static NSPoint point_on_curve(double t, NSPoint a, NSPoint b, NSPoint c,
   NSPoint pts[3];
   NSPoint min, max;   /* Path bounding box. */
   NSPoint cmin, cmax; /* Control-point bounding box. */
-  int i, count, num_curves;
+  NSInteger i, count, num_curves;
   
   count = [self elementCount];
   if (!count)

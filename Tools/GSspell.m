@@ -395,7 +395,7 @@ aspell_dictionaries()
 static inline unsigned int
 uniLength(unsigned char *buf, unsigned int len)
 {
-  unsigned int i, size;
+  NSUInteger i, size;
 
   for (i = 0; i < len; i++)
     {

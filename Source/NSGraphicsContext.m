@@ -1624,13 +1624,13 @@ destination point but not the content. */
 
 @implementation NSGraphicsContext (Printing)
 
-- (void) beginPage: (int)ordinalNum
+- (void) beginPage: (NSInteger)ordinalNum
              label: (NSString*)aString
               bBox: (NSRect)pageRect
              fonts: (NSString*)fontNames
 {
   if (aString == nil)
-    aString = [[NSNumber numberWithInt: ordinalNum] description];
+    aString = [[NSNumber numberWithInteger: ordinalNum] description];
   DPSPrintf(self, "%%%%Page: %s %d\n", [aString lossyCString], ordinalNum);
   if (NSIsEmptyRect(pageRect) == NO)
     DPSPrintf(self, "%%%%PageBoundingBox: %d %d %d %d\n",
@@ -1646,7 +1646,7 @@ destination point but not the content. */
                  createdBy: (NSString*)anApplication
                      fonts: (NSString*)fontNames
                    forWhom: (NSString*)user
-                     pages: (int)numPages
+                     pages: (NSInteger)numPages
                      title: (NSString*)aTitle
 {
   NSPrintOperation *printOp = [NSPrintOperation currentOperation];
@@ -1711,7 +1711,7 @@ destination point but not the content. */
   DPSPrintf(self, "%%%%Trailer\n");
 }
 
-- (void) endDocumentPages: (int)pages
+- (void) endDocumentPages: (NSInteger)pages
             documentFonts: (NSSet*)fontNames
 {
   if (pages != 0)

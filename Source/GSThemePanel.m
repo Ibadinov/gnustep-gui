@@ -255,13 +255,13 @@ static GSThemePanel	*sharedPanel = nil;
   NSMutableSet		*set = AUTORELEASE([NSMutableSet new]);
 
   NSString		*selected = RETAIN([[matrix selectedCell] title]);
-  unsigned		existing = [[matrix cells] count];
+  NSUInteger		existing = [[matrix cells] count];
   NSFileManager		*mgr = [NSFileManager defaultManager];
   NSEnumerator		*enumerator;
   NSString		*path;
   NSString		*name;
   NSButtonCell		*cell;
-  unsigned		count = 0;
+  NSUInteger		count = 0;
 
   /* Ensure the first cell contains the default theme.
    */

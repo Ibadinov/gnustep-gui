@@ -53,9 +53,9 @@ this, either directly, or indirectly (by using the backend).
 @interface GSWindowDecorationView : NSView
 {
   NSWindow *window; /* not retained */
-  int windowNumber;
+  NSInteger windowNumber;
   NSRect contentRect;
-  int inputState;
+  NSInteger inputState;
   BOOL documentEdited;
   BOOL hasMenu;
   BOOL hasToolbar;
@@ -75,14 +75,14 @@ this, either directly, or indirectly (by using the backend).
 - (void) setBackgroundColor: (NSColor *)color;
 - (void) setContentView: (NSView *)contentView;
 - (void) setDocumentEdited: (BOOL)flag;
-- (void) setInputState: (int)state;
+- (void) setInputState: (NSInteger)state;
 - (void) setTitle: (NSString *)title;
 
 /*
 Called when the backend window is created or destroyed. When it's destroyed,
 windowNumber will be 0.
 */
-- (void) setWindowNumber: (int)windowNumber;			  
+- (void) setWindowNumber: (NSInteger)windowNumber;			  
 
 // Flags controlling if elements are present
 - (void) setHasMenu: (BOOL) flag;

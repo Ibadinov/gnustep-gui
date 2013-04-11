@@ -93,8 +93,8 @@
       pixelsWide <= 0 || pixelsHigh <= 0)
     {
       [NSException raise: NSInvalidArgumentException
-		  format: @"NSCachedImageRep created with size %@ pixelsWide %d pixelsHigh %d",
-		   NSStringFromSize(aSize), pixelsWide, pixelsHigh];
+		  format: @"NSCachedImageRep created with size %@ pixelsWide %ld pixelsHigh %ld",
+		   NSStringFromSize(aSize), (long)pixelsWide, (long)pixelsHigh];
     }
 
   // FIXME: Only create new window when separate is YES

@@ -69,17 +69,18 @@ enum {
    functionality.
  */
 @protocol NSTextAttachmentCell <NSObject>
+
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView;
 - (void)drawWithFrame:(NSRect)cellFrame 
-	       inView:(NSView *)controlView 
-       characterIndex:(unsigned)charIndex;
+               inView:(NSView *)controlView 
+       characterIndex:(NSUInteger)charIndex;
 - (void)drawWithFrame:(NSRect)cellFrame 
-	       inView:(NSView *)controlView 
-       characterIndex:(unsigned)charIndex
-	layoutManager:(NSLayoutManager *)layoutManager;
+               inView:(NSView *)controlView 
+       characterIndex:(NSUInteger)charIndex
+        layoutManager:(NSLayoutManager *)layoutManager;
 - (void)highlight:(BOOL)flag 
-	withFrame:(NSRect)cellFrame 
-	   inView:(NSView *)controlView;
+        withFrame:(NSRect)cellFrame 
+           inView:(NSView *)controlView;
 
 
 /** The old way of placing the cell. The text system will never call
@@ -115,27 +116,30 @@ returned rectangle to prevent the typesetting process from getting stuck.
 The class uses -cellSize and -cellBaselineOffset to return a rect.
 */
 -(NSRect) cellFrameForTextContainer: (NSTextContainer *)textContainer
-	       proposedLineFragment: (NSRect)lineFrag
-		      glyphPosition: (NSPoint)position
-		     characterIndex: (unsigned int)charIndex;
+               proposedLineFragment: (NSRect)lineFrag
+                      glyphPosition: (NSPoint)position
+                     characterIndex: (NSUInteger)charIndex;
 
 
 - (BOOL)wantsToTrackMouse;
 - (BOOL)wantsToTrackMouseForEvent:(NSEvent *)theEvent 
-			   inRect:(NSRect)cellFrame 
-			   ofView:(NSView *)controlView
-		 atCharacterIndex:(unsigned)charIndex;
+                           inRect:(NSRect)cellFrame 
+                           ofView:(NSView *)controlView
+                 atCharacterIndex:(NSUInteger)charIndex;
+
 - (BOOL)trackMouse:(NSEvent *)theEvent 
-	    inRect:(NSRect)cellFrame 
-	    ofView:(NSView *)controlView 
+            inRect:(NSRect)cellFrame 
+            ofView:(NSView *)controlView 
       untilMouseUp:(BOOL)flag;
 - (BOOL)trackMouse:(NSEvent *)theEvent 
-	    inRect:(NSRect)cellFrame 
-	    ofView:(NSView *)controlView
-  atCharacterIndex:(unsigned)charIndex 
+            inRect:(NSRect)cellFrame 
+            ofView:(NSView *)controlView
+  atCharacterIndex:(NSUInteger)charIndex 
       untilMouseUp:(BOOL)flag;
+
 - (void)setAttachment:(NSTextAttachment *)anObject;
 - (NSTextAttachment *)attachment;
+
 @end
 
 

@@ -522,7 +522,7 @@ static NSMutableDictionary *units = nil;
 
 - (float) _stepForIndex: (int)index
 {
-  int newindex;
+  NSInteger newindex;
   NSArray *stepCycle;
 
   if (index > 0) 

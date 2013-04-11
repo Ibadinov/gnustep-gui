@@ -88,7 +88,7 @@ enum {
 /* OPT: This is just a simple implementation that should let me figure out
 how it's supposed to work. It's functional and correct, but it isn't fast. */
 
-  unsigned int layout_glyph, layout_char;
+  NSUInteger layout_glyph, layout_char;
 
   struct GSLayoutManager_textcontainer_s *textcontainers;
   int num_textcontainers;
@@ -108,7 +108,7 @@ how it's supposed to work. It's functional and correct, but it isn't fast. */
   the last run so we can quickly get more information for the next glyph.
   */
   struct GSLayoutManager_glyph_run_s *cached_run;
-  unsigned int cached_pos, cached_cpos;
+  NSUInteger cached_pos, cached_cpos;
 }
 
 
@@ -154,9 +154,9 @@ changes (contains range but may be larger due to eg. attribute fixing).
 If characters have been edited, lengthChange has the text length delta.
 */
 - (void) textStorage: (NSTextStorage *)aTextStorage
-	edited: (unsigned int)mask
+	edited: (NSUInteger)mask
 	range: (NSRange)range
-	changeInLength: (int)lengthChange
+	changeInLength: (NSInteger)lengthChange
 	invalidatedRange: (NSRange)invalidatedRange;
 
 /**
@@ -185,52 +185,52 @@ This method is used internally and should _not_ be called. (It interacts
 in complex ways with layout invalidation.)
 */
 - (void) invalidateGlyphsForCharacterRange: (NSRange)aRange 
-	changeInLength: (int)lengthChange
+	changeInLength: (NSInteger)lengthChange
 	actualCharacterRange: (NSRange *)actualRange;
 
 /*
 These are internal methods and should _not_ be called.
 */
 - (void) insertGlyph: (NSGlyph)aGlyph
-	atGlyphIndex: (unsigned int)glyphIndex
-	characterIndex: (unsigned int)charIndex;
-- (void) replaceGlyphAtIndex: (unsigned int)glyphIndex
+	atGlyphIndex: (NSUInteger)glyphIndex
+	characterIndex: (NSUInteger)charIndex;
+- (void) replaceGlyphAtIndex: (NSUInteger)glyphIndex
 	withGlyph: (NSGlyph)newGlyph;
 - (void) deleteGlyphsInRange: (NSRange)aRange;
-- (void) setCharacterIndex: (unsigned int)charIndex
-	forGlyphAtIndex: (unsigned int)glyphIndex;
+- (void) setCharacterIndex: (NSUInteger)charIndex
+	forGlyphAtIndex: (NSUInteger)glyphIndex;
 
 
 /* Returns total number of glyphs. */
-- (unsigned int) numberOfGlyphs;
+- (NSUInteger) numberOfGlyphs;
 
 /* Returns the glyph at glyphIndex or raises an NSRangeException if the
 index is invalid (past the end of the glyphs). */
-- (NSGlyph) glyphAtIndex: (unsigned int)glyphIndex;
+- (NSGlyph) glyphAtIndex: (NSUInteger)glyphIndex;
 
 /* Returns the glyph at glyphIndex and sets isValidIndex to YES if the index
 is valid. Otherwise, the return value is arbitrary and isValidIndex is set
 to NO. */
-- (NSGlyph) glyphAtIndex: (unsigned int)glyphIndex
+- (NSGlyph) glyphAtIndex: (NSUInteger)glyphIndex
 	isValidIndex: (BOOL *)isValidIndex;
 
 /* Returns if the glyph at glyphIndex is valid or not */
-- (BOOL) isValidGlyphIndex: (unsigned int)glyphIndex;
+- (BOOL) isValidGlyphIndex: (NSUInteger)glyphIndex;
 
 /* Copies displayed glyphs to glyphArray for glyphRange. Returns the number
 of glyphs actually copied to the array. NSRangeException of the range is
 invalid (extends beyond the end of glyphs). */
-- (unsigned int) getGlyphs: (NSGlyph *)glyphArray
+- (NSUInteger) getGlyphs: (NSGlyph *)glyphArray
 	range: (NSRange)glyphRange;
 
 /* Return the first character for the glyph at glyphIndex.
 (NSRangeException?) */
-- (unsigned int) characterIndexForGlyphAtIndex: (unsigned int)glyphIndex;
+- (NSUInteger) characterIndexForGlyphAtIndex: (NSUInteger)glyphIndex;
 
 /**
  * GNUstep extension
  */
-- (NSSize) advancementForGlyphAtIndex: (unsigned int)glyphIndex;
+- (NSSize) advancementForGlyphAtIndex: (NSUInteger)glyphIndex;
 
 /* Returns the range of glyphs for the characters in charRange. If
 actualRange isn't NULL, the exact range of characters for the glyphs in the
@@ -249,12 +249,12 @@ it isn't NULL. */
 Non-negative tags are reserved. You must provide storage yourself (by
 subclassing). */
 #if !OS_API_VERSION(MAC_OS_X_VERSION_10_3, GS_API_LATEST)
-- (void) setIntAttribute: (int)attributeTag 
-	value: (int)anInt
-	forGlyphAtIndex: (unsigned int)glyphIndex;
+- (void) setIntAttribute: (NSInteger)attributeTag 
+	value: (NSInteger)anInt
+	forGlyphAtIndex: (NSUInteger)glyphIndex;
 #endif
-- (int) intAttribute: (int)attributeTag
-	forGlyphAtIndex: (unsigned int)glyphIndex;
+- (NSInteger) intAttribute: (NSInteger)attributeTag
+	forGlyphAtIndex: (NSUInteger)glyphIndex;
 
 
 /* Returns the font actually used for a range of glyphs. This isn't
@@ -262,17 +262,17 @@ necessarily the font specified by NSFontAttributeName; both the typesetter
 and the layout manager can substitute a different font (the typesetter might
 eg. substitute a smaller font for sub-/super-scripted text, and the layout
 manager might be substituting screen fonts. */
-- (NSFont *) effectiveFontForGlyphAtIndex: (unsigned int)glyphIndex
+- (NSFont *) effectiveFontForGlyphAtIndex: (NSUInteger)glyphIndex
 	range: (NSRange *)range; /* GNUstep extension */
 
 
 - (void) setDrawsOutsideLineFragment: (BOOL)flag
-	forGlyphAtIndex: (unsigned int)glyphIndex;
-- (BOOL) drawsOutsideLineFragmentForGlyphAtIndex: (unsigned int) glyphIndex;
+	forGlyphAtIndex: (NSUInteger)glyphIndex;
+- (BOOL) drawsOutsideLineFragmentForGlyphAtIndex: (NSUInteger) glyphIndex;
 
 - (void) setNotShownAttribute: (BOOL)flag 
-	forGlyphAtIndex: (unsigned int)glyphIndex;
-- (BOOL) notShownAttributeForGlyphAtIndex: (unsigned int) glyphIndex;
+	forGlyphAtIndex: (NSUInteger)glyphIndex;
+- (BOOL) notShownAttributeForGlyphAtIndex: (NSUInteger) glyphIndex;
 
 @end
 
@@ -285,8 +285,8 @@ manager might be substituting screen fonts. */
 
 - (void) addTextContainer: (NSTextContainer *)container;
 - (void) insertTextContainer: (NSTextContainer*)aTextContainer 
-	atIndex: (unsigned int)index;
-- (void) removeTextContainerAtIndex: (unsigned int)index;
+	atIndex: (NSUInteger)index;
+- (void) removeTextContainerAtIndex: (NSUInteger)index;
 
 - (void) textContainerChangedGeometry: (NSTextContainer *)aContainer;
 
@@ -353,10 +353,10 @@ invalidated.
 
 /* Extension, but without this, there's no way to get the starting locations
 of the nominally spaced glyphs. */
-- (NSRange) rangeOfNominallySpacedGlyphsContainingIndex:(unsigned int)glyphIndex
+- (NSRange) rangeOfNominallySpacedGlyphsContainingIndex:(NSUInteger)glyphIndex
 	startLocation: (NSPoint *)p;
 
-- (NSRange) rangeOfNominallySpacedGlyphsContainingIndex:(unsigned int)glyphIndex;
+- (NSRange) rangeOfNominallySpacedGlyphsContainingIndex:(NSUInteger)glyphIndex;
 
 /* The union of all line frag rects' used rects. (TODO: shouldn't this be
 just the union of all the line frag rects?) */
@@ -365,25 +365,25 @@ just the union of all the line frag rects?) */
 - (NSRange) glyphRangeForTextContainer: (NSTextContainer *)container;
 
 
-- (unsigned int) firstUnlaidCharacterIndex;
-- (unsigned int) firstUnlaidGlyphIndex;
-- (void) getFirstUnlaidCharacterIndex: (unsigned int *)charIndex
-	glyphIndex: (unsigned int *)glyphIndex;
+- (NSUInteger) firstUnlaidCharacterIndex;
+- (NSUInteger) firstUnlaidGlyphIndex;
+- (void) getFirstUnlaidCharacterIndex: (NSUInteger *)charIndex
+	glyphIndex: (NSUInteger *)glyphIndex;
 
 
 /*
 Basic (and experimental) methods that let the typesetter use soft-invalidated
 layout information.
 */
--(void) _softInvalidateUseLineFrags: (int)num
+-(void) _softInvalidateUseLineFrags: (NSInteger)num
 			  withShift: (NSSize)shift
 		    inTextContainer: (NSTextContainer *)textContainer;
--(NSRect) _softInvalidateLineFragRect: (int)index
-			   firstGlyph: (unsigned int *)first_glyph
-			    nextGlyph: (unsigned int *)next_glyph
+-(NSRect) _softInvalidateLineFragRect: (NSInteger)index
+			   firstGlyph: (NSUInteger *)first_glyph
+			    nextGlyph: (NSUInteger *)next_glyph
 		      inTextContainer: (NSTextContainer *)textContainer;
--(unsigned int) _softInvalidateFirstGlyphInTextContainer: (NSTextContainer *)textContainer;
--(unsigned int) _softInvalidateNumberOfLineFragsInTextContainer: (NSTextContainer *)textContainer;
+-(NSUInteger) _softInvalidateFirstGlyphInTextContainer: (NSTextContainer *)textContainer;
+-(NSUInteger) _softInvalidateNumberOfLineFragsInTextContainer: (NSTextContainer *)textContainer;
 
 @end
 

@@ -111,9 +111,9 @@ static inline void _loadNSSoundPlugIns (void)
 
   if ((ext == nil) || [ext isEqualToString:@""])
     {
-      NSArray	*types = [NSSound soundUnfilteredFileTypes];
-      unsigned	c = [types count];
-      unsigned	i;
+      NSArray *types = [NSSound soundUnfilteredFileTypes];
+      NSUInteger c = [types count];
+      NSUInteger i;
 
       for (i = 0; path == nil && i < c; i++)
 	      {

@@ -106,14 +106,10 @@ typedef enum _NSFocusRingType {
   id _matrixFromWindow;
 
   NSView* _super_view;
-@public /* used by libgmodel.bundle O_o */
   NSMutableArray *_sub_views;
-@protected
   NSWindow *_window;
-@public /* used by ProjectCenter FIXME!!!!! */
   NSMutableArray *_tracking_rects;
   NSMutableArray *_cursor_rects;
-@protected
   NSRect _invalidRect;
   NSRect _visibleRect;
   NSInteger _gstate;
@@ -531,8 +527,8 @@ typedef enum _NSFocusRingType {
                       right: (CGFloat)oldRight
                       limit: (CGFloat)rightLimit;
 - (CGFloat) heightAdjustLimit;
-- (BOOL) knowsPagesFirst: (int*)firstPageNum
-                    last: (int*)lastPageNum;
+- (BOOL) knowsPagesFirst: (NSInteger*)firstPageNum
+                    last: (NSInteger*)lastPageNum;
 #if OS_API_VERSION(GS_API_MACOSX, GS_API_LATEST)
 - (BOOL) knowsPageRange: (NSRange*)range;
 #endif
@@ -544,7 +540,7 @@ typedef enum _NSFocusRingType {
  * Writing Conforming PostScript
  */
 - (void) addToPageSetup;
-- (void) beginPage: (int)ordinalNum
+- (void) beginPage: (NSInteger)ordinalNum
 	     label: (NSString*)aString
 	      bBox: (NSRect)pageRect
 	     fonts: (NSString*)fontNames;
@@ -555,7 +551,7 @@ typedef enum _NSFocusRingType {
 		 createdBy: (NSString*)anApplication
 		     fonts: (NSString*)fontNames
 		   forWhom: (NSString*)user
-		     pages: (int)numPages
+		     pages: (NSInteger)numPages
 		     title: (NSString*)aTitle;
 - (void) beginSetup;
 - (void) beginTrailer;
@@ -604,6 +600,8 @@ typedef enum _NSFocusRingType {
 
 - (void) _setIgnoresBacking: (BOOL) flag;
 - (BOOL) _ignoresBacking;
+- (NSMutableArray *) _trackingRects;
+- (NSMutableArray *) _cursorRects;
 
 @end
 #endif

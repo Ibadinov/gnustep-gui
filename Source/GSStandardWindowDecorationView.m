@@ -48,7 +48,7 @@
 
 @implementation GSStandardWindowDecorationView
 
-+ (void) offsets: (float *)l : (float *)r : (float *)t : (float *)b
++ (void) offsets: (CGFloat *)l : (CGFloat *)r : (CGFloat *)t : (CGFloat *)b
     forStyleMask: (NSUInteger)style
 {
   GSTheme *theme = [GSTheme theme];
@@ -78,7 +78,7 @@
 + (CGFloat) minFrameWidthWithTitle: (NSString *)aTitle
 		       styleMask: (NSUInteger)aStyle
 {
-  float l, r, t, b, width;
+  CGFloat l, r, t, b, width;
 
   [self offsets: &l : &r : &t : &b forStyleMask: aStyle];
 
@@ -195,7 +195,7 @@
   [super setTitle: newTitle];
 }
 
-- (void) setInputState: (int)state
+- (void) setInputState: (NSInteger)state
 {
   NSAssert(state >= 0 && state <= 2, @"Invalid state!");
   [super setInputState: state];
@@ -222,7 +222,7 @@
 
 - (NSPoint) mouseLocationOnScreenOutsideOfEventStream
 {
-  int screen = [[window screen] screenNumber];
+  NSInteger screen = [[window screen] screenNumber];
   return [GSServerForWindow(window) mouseLocationOnScreen: screen
 						   window: NULL];
 }

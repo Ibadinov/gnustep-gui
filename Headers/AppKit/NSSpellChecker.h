@@ -53,8 +53,8 @@
   NSMutableDictionary *_ignoredWords;
 
   // Variables to keep state...
-  int _position; 
-  int _currentTag;
+  NSInteger _position; 
+  NSInteger _currentTag;
   BOOL _wrapFlag;
 
   // GUI ...
@@ -88,16 +88,16 @@
 //
 // Checking Spelling 
 //
-- (int)countWordsInString:(NSString *)aString
-		 language:(NSString *)language;
+- (NSInteger)countWordsInString:(NSString *)aString
+                       language:(NSString *)language;
 - (NSRange)checkSpellingOfString:(NSString *)stringToCheck
-		      startingAt:(int)startingOffset;
+		      startingAt:(NSInteger)startingOffset;
 - (NSRange)checkSpellingOfString:(NSString *)stringToCheck
-		      startingAt:(int)startingOffset
+		      startingAt:(NSInteger)startingOffset
 			language:(NSString *)language
 			    wrap:(BOOL)wrapFlag
-	  inSpellDocumentWithTag:(int)tag
-		       wordCount:(int *)wordCount;
+	  inSpellDocumentWithTag:(NSInteger)tag
+		       wordCount:(NSInteger *)wordCount;
 - (NSArray *)guessesForWord:(NSString *)word;
 
 //
@@ -109,16 +109,14 @@
 //
 // Managing the Spelling Process 
 //
-+ (int)uniqueSpellDocumentTag;
-- (void)closeSpellDocumentWithTag:(int)tag;
-- (void)ignoreWord:(NSString *)wordToIgnore
-  inSpellDocumentWithTag:(int)tag;
-- (NSArray *)ignoredWordsInSpellDocumentWithTag:(int)tag;
-- (void)setIgnoredWords:(NSArray *)someWords
-  inSpellDocumentWithTag:(int)tag;
++ (NSInteger)uniqueSpellDocumentTag;
+- (void)closeSpellDocumentWithTag:(NSInteger)tag;
+- (void)ignoreWord:(NSString *)wordToIgnore inSpellDocumentWithTag:(NSInteger)tag;
+- (NSArray *)ignoredWordsInSpellDocumentWithTag:(NSInteger)tag;
+- (void)setIgnoredWords:(NSArray *)someWords inSpellDocumentWithTag:(NSInteger)tag;
 - (void)setWordFieldStringValue:(NSString *)aString;
 - (void)updateSpellingPanelWithMisspelledWord:(NSString *)word;
 
 @end
-#endif // _GNUstep_H_NSSpellChecker
 
+#endif // _GNUstep_H_NSSpellChecker

@@ -257,7 +257,7 @@ static BOOL menuBarVisible = YES;
 {
   NSString *infoString = _(@"Info");
   NSString *servicesString = _(@"Services");
-  int i;
+  NSInteger i;
 
   if ([self isEqual: [NSApp mainMenu]] == YES)
     {
@@ -293,7 +293,7 @@ static BOOL menuBarVisible = YES;
             }
           else
             {
-              int index = [self indexOfItem: appItem];
+              NSInteger index = [self indexOfItem: appItem];
               
               if (index != 0)
                 {
@@ -365,7 +365,7 @@ static BOOL menuBarVisible = YES;
                * Everything above the Serives menu goes into the info submenu,
                * the rest into the main menu.
                */
-              int k = [appMenu indexOfItemWithTitle: servicesString];
+              NSInteger k = [appMenu indexOfItemWithTitle: servicesString];
 
               // The menu may not be localized, so we have to 
               // check both the English and the local version.
@@ -715,7 +715,7 @@ static BOOL menuBarVisible = YES;
 }
 
 - (void) insertItem: (id <NSMenuItem>)newItem
-	    atIndex: (NSInteger)index
+            atIndex: (NSInteger)index
 {
   NSNotification *inserted;
   NSDictionary   *d;
@@ -742,7 +742,7 @@ static BOOL menuBarVisible = YES;
   
   // Create the notification for the menu representation.
   d = [NSDictionary
-	  dictionaryWithObject: [NSNumber numberWithInt: index]
+	  dictionaryWithObject: [NSNumber numberWithInteger: index]
 	  forKey: @"NSMenuItemIndex"];
   inserted = [NSNotification
 		 notificationWithName: NSMenuDidAddItemNotification
@@ -759,10 +759,10 @@ static BOOL menuBarVisible = YES;
   [newItem setMenu: self];
 }
 
-- (id <NSMenuItem>) insertItemWithTitle: (NSString*)aString
-			         action: (SEL)aSelector
-			  keyEquivalent: (NSString*)charCode 
-			        atIndex: (NSInteger)index
+- (id <NSMenuItem>) insertItemWithTitle: (NSString *)aString
+                                 action: (SEL)aSelector
+                          keyEquivalent: (NSString *)charCode 
+                                atIndex: (NSInteger)index
 {
   NSMenuItem *anItem = [[NSMenuItem alloc] initWithTitle: aString
 					   action: aSelector
@@ -792,7 +792,7 @@ static BOOL menuBarVisible = YES;
 
 - (void) removeItem: (id <NSMenuItem>)anItem
 {
-  int index = [self indexOfItem: anItem];
+  NSInteger index = [self indexOfItem: anItem];
 
   if (-1 == index)
     return;
@@ -814,7 +814,7 @@ static BOOL menuBarVisible = YES;
   _menu.needsSizing = YES;
   [(NSMenuView*)_view setNeedsSizing: YES];
   
-  d = [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: index]
+  d = [NSDictionary dictionaryWithObject: [NSNumber numberWithInteger: index]
 		    forKey: @"NSMenuItemIndex"];
   removed = [NSNotification
 		notificationWithName: NSMenuDidRemoveItemNotification
@@ -840,7 +840,7 @@ static BOOL menuBarVisible = YES;
   _menu.needsSizing = YES;
   [(NSMenuView*)_view setNeedsSizing: YES];
 
-  d = [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: index]
+  d = [NSDictionary dictionaryWithObject: [NSNumber numberWithInteger: index]
 		    forKey: @"NSMenuItemIndex"];
   changed = [NSNotification
 	      notificationWithName: NSMenuDidChangeItemNotification
@@ -862,8 +862,8 @@ static BOOL menuBarVisible = YES;
  */
 - (id <NSMenuItem>) itemWithTag: (NSInteger)aTag
 {
-  unsigned i;
-  unsigned count = [_items count];
+  NSUInteger i;
+  NSUInteger count = [_items count];
 
   for (i = 0; i < count; i++)
     {
@@ -877,8 +877,8 @@ static BOOL menuBarVisible = YES;
 
 - (id <NSMenuItem>) itemWithTitle: (NSString*)aString
 {
-  unsigned i;
-  unsigned count = [_items count];
+  NSUInteger i;
+  NSUInteger count = [_items count];
 
   for (i = 0; i < count; i++)
     {
@@ -945,10 +945,10 @@ static BOOL menuBarVisible = YES;
 }
 
 - (NSInteger) indexOfItemWithTarget: (id)anObject
-		    andAction: (SEL)actionSelector
+                          andAction: (SEL)actionSelector
 {
-  unsigned i;
-  unsigned count = [_items count];
+  NSUInteger i;
+  NSUInteger count = [_items count];
 
   for (i = 0; i < count; i++)
     {
@@ -1129,7 +1129,7 @@ static BOOL menuBarVisible = YES;
 
   if ([self autoenablesItems])
     {
-      unsigned i, count;
+      NSUInteger i, count;
 
       count = [_items count];  
       
@@ -1231,12 +1231,12 @@ static BOOL menuBarVisible = YES;
 //
 - (BOOL) performKeyEquivalent: (NSEvent*)theEvent
 {
-  unsigned      i;
-  unsigned      count = [_items count];
+  NSUInteger      i;
+  NSUInteger      count = [_items count];
   NSEventType   type = [theEvent type];
-  unsigned int modifiers = [theEvent modifierFlags];
+  NSUInteger modifiers = [theEvent modifierFlags];
   NSString	*keyEquivalent = [theEvent charactersIgnoringModifiers];
-  unsigned int relevantModifiersMask = NSCommandKeyMask | NSAlternateKeyMask | NSControlKeyMask;
+  NSUInteger relevantModifiersMask = NSCommandKeyMask | NSAlternateKeyMask | NSControlKeyMask;
   /* Take shift key into account only for control keys and arrow and function keys */
   if ((modifiers & NSFunctionKeyMask)
       || ([keyEquivalent length] > 0 && [[NSCharacterSet controlCharacterSet] characterIsMember:[keyEquivalent characterAtIndex:0]]))
@@ -1274,7 +1274,7 @@ static BOOL menuBarVisible = YES;
         }
       else
         {
-          unsigned int mask = [item keyEquivalentModifierMask];
+          NSUInteger mask = [item keyEquivalentModifierMask];
 
           if ([[item keyEquivalent] isEqualToString: keyEquivalent] 
             && (modifiers & relevantModifiersMask) == (mask & relevantModifiersMask))
@@ -1364,7 +1364,7 @@ static BOOL menuBarVisible = YES;
   _delegate = delegate;
 }
 
-- (float) menuBarHeight
+- (CGFloat) menuBarHeight
 {
   // FIXME
   return [NSMenuView menuBarHeight];
@@ -1701,8 +1701,8 @@ static BOOL menuBarVisible = YES;
 - (id) copyWithZone: (NSZone*)zone
 {
   NSMenu *new = [[NSMenu allocWithZone: zone] initWithTitle: _title];
-  unsigned i;
-  unsigned count = [_items count];
+  NSUInteger i;
+  NSUInteger count = [_items count];
 
   [new setAutoenablesItems: _menu.autoenable];
   for (i = 0; i < count; i++)

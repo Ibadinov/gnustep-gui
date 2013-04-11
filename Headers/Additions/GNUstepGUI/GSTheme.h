@@ -744,14 +744,14 @@ APPKIT_EXPORT	NSString	*GSThemeWillDeactivateNotification;
 - (void) drawButton: (NSRect)frame
 	         in: (NSCell*)cell
 	       view: (NSView*)view
-	      style: (int)style
+	      style: (NSInteger)style
 	      state: (GSThemeControlState)state;
 
 /**
  * Amount by which the button is inset by the border.
  */
 - (GSThemeMargins) buttonMarginsForCell: (NSCell*)cell
-				  style: (int)style 
+				  style: (NSInteger)style 
 				  state: (GSThemeControlState)state;
 
 /** 
@@ -826,7 +826,7 @@ APPKIT_EXPORT	NSString	*GSThemeWillDeactivateNotification;
  * current theme.  Drawing code is entitled to assume that this value will
  * remain constant until the theme is deactivated.
  */
-- (float) defaultScrollerWidth;
+- (CGFloat) defaultScrollerWidth;
 
 /** 
  * Method for toolbar theming.
@@ -835,7 +835,7 @@ APPKIT_EXPORT	NSString	*GSThemeWillDeactivateNotification;
 - (NSColor *) toolbarBorderColor;
 - (void) drawToolbarRect: (NSRect)aRect
                    frame: (NSRect)viewFrame
-              borderMask: (unsigned int)borderMask;
+              borderMask: (NSUInteger)borderMask;
 - (BOOL) toolbarIsOpaque;
 
 // Methods to deal with steppers..
@@ -1038,7 +1038,7 @@ APPKIT_EXPORT	NSString	*GSThemeWillDeactivateNotification;
 - (void) drawProgressIndicator: (NSProgressIndicator*)progress
                     withBounds: (NSRect)bounds
                       withClip: (NSRect)rect
-                       atCount: (int)count
+                       atCount: (NSInteger)count
                       forValue: (double)val;
 
 - (NSRect) drawProgressIndicatorBezel: (NSRect)bounds withClip: (NSRect) rect;
@@ -1052,14 +1052,14 @@ APPKIT_EXPORT	NSString	*GSThemeWillDeactivateNotification;
                       inView: (NSView *)controlView
                        state: (GSThemeControlState)state;
 
-- (float) titlebarHeight;
+- (CGFloat) titlebarHeight;
 
-- (float) resizebarHeight;
+- (CGFloat) resizebarHeight;
 
 - (void) drawWindowBorder: (NSRect)rect
                 withFrame: (NSRect)frame 
-             forStyleMask: (unsigned int)styleMask
-                    state: (int)inputState
+             forStyleMask: (NSUInteger)styleMask
+                    state: (NSInteger)inputState
                  andTitle: (NSString*)title;
 
 - (void) drawBrowserHeaderCell: (NSTableHeaderCell*)cell
@@ -1121,7 +1121,7 @@ APPKIT_EXPORT	NSString	*GSThemeWillDeactivateNotification;
 					inView: (NSView *)view
 			      selectingColumns: (BOOL)selectingColumns;
 
-- (void) drawTableViewRow: (int)rowIndex 
+- (void) drawTableViewRow: (NSInteger)rowIndex 
 		 clipRect: (NSRect)clipRect
 		   inView: (NSView *)view;
 @end
@@ -1258,7 +1258,7 @@ withRepeatedImage: (NSImage*)image
 	    withCellFrame: (NSRect)cellFrame
 	controlViewWindow: (NSWindow *)cvWin
 	    preferredEdge: (NSRectEdge)edge
-	     selectedItem: (int)selectedItem;
+	     selectedItem: (NSInteger)selectedItem;
 
 /**
  * Process events for popups.
@@ -1280,7 +1280,7 @@ withRepeatedImage: (NSImage*)image
  * Calculate the height of the menu for in-window menus.  The default
  * implementation returns [NSMenuView menuBarHeight];
  */
-- (float) menuHeightForWindow: (NSWindow *)window;
+- (CGFloat) menuHeightForWindow: (NSWindow *)window;
 
 /**
  * Update the menu for the window.  This refreshes the menu contents.

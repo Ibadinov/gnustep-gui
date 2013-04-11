@@ -97,10 +97,10 @@ static void reader_func(png_structp png_struct, png_bytep data,
   png_structp png_struct;
   png_infop png_info, png_end_info;
 
-  int width,height;
+  png_uint_32 width,height;
   unsigned char *buf;
-  int bytes_per_row;
-  int type,channels,depth;
+  png_size_t bytes_per_row;
+  png_byte type,channels,depth;
 
   BOOL alpha;
   int bpp;
@@ -301,9 +301,9 @@ static void writer_func(png_structp png_struct, png_bytep data,
   png_structp png_struct;
   png_infop png_info;
 
-  int width, height, depth;
+  NSInteger width, height, depth;
   unsigned char * bitmapData;
-  int bytes_per_row;
+  NSInteger bytes_per_row;
   NSString * colorspace;
   NSMutableData * PNGRep = nil;
   int type = -1;	// illegal value
@@ -365,9 +365,8 @@ static void writer_func(png_structp png_struct, png_bytep data,
   png_info_init_3(&png_info, png_sizeof(png_info));
 #endif
   png_set_write_fn(png_struct, PNGRep, writer_func, NULL);
-  png_set_IHDR(png_struct, png_info, width, height, depth,
-   type, interlace, PNG_COMPRESSION_TYPE_BASE,
-   PNG_FILTER_TYPE_BASE);
+  png_set_IHDR(png_struct, png_info, (png_uint_32)width, (png_uint_32)height,
+               (int)depth, type, interlace, PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
 
   if (gammaNumber)
   {

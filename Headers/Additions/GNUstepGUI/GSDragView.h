@@ -99,7 +99,7 @@
   NSPoint	newPosition;
 
   // OS specific current window target of the drag operation
-  int		targetWindowRef;
+  NSInteger		targetWindowRef;
 
   // Operations supported by the target, only valid if targetWindowRef isn't 0
   NSDragOperation targetMask;
@@ -116,20 +116,20 @@
 
 + (id) sharedDragView;
 - (void) dragImage: (NSImage*)anImage
-		at: (NSPoint)screenLocation
-	    offset: (NSSize)initialOffset
-	     event: (NSEvent*)event
-	pasteboard: (NSPasteboard*)pboard
-	    source: (id)sourceObject
+                at: (NSPoint)screenLocation
+            offset: (NSSize)initialOffset
+             event: (NSEvent*)event
+        pasteboard: (NSPasteboard*)pboard
+            source: (id)sourceObject
          slideBack: (BOOL)slideFlag;
 - (void) postDragEvent: (NSEvent*)theEvent;
 - (void) sendExternalEvent: (GSAppKitSubtype)subtype
-		    action: (NSDragOperation)action
-		  position: (NSPoint)eventLocation
-		 timestamp: (NSTimeInterval)time
-		  toWindow: (int)dWindowNumber;
+                    action: (NSDragOperation)action
+                  position: (NSPoint)eventLocation
+                 timestamp: (NSTimeInterval)time
+                  toWindow: (NSInteger)dWindowNumber;
 - (NSWindow*) windowAcceptingDnDunder: (NSPoint)mouseLocation
-			    windowRef: (int*)mouseWindowRef;
+                            windowRef: (NSInteger*)mouseWindowRef;
 
 @end
 #endif

@@ -667,7 +667,7 @@ float _floatValueForMousePoint (NSPoint point, NSRect knobRect,
 - (double) closestTickMarkValueToValue: (double)aValue
 {
   double d, f;
-  int effectiveTicks;
+  NSInteger effectiveTicks;
 
   if (_numberOfTickMarks == 0)
     return aValue;
@@ -924,7 +924,7 @@ float _floatValueForMousePoint (NSPoint point, NSRect knobRect,
   if ([decoder allowsKeyedCoding])
     {
       _allowsTickMarkValuesOnly = [decoder decodeBoolForKey: @"NSAllowsTickMarkValuesOnly"];
-      _numberOfTickMarks = [decoder decodeIntForKey: @"NSNumberOfTickMarks"];
+      _numberOfTickMarks = [decoder decodeIntegerForKey: @"NSNumberOfTickMarks"];
       _tickMarkPosition = [decoder decodeIntForKey: @"NSTickMarkPosition"];
       [self setMinValue: [decoder decodeFloatForKey: @"NSMinValue"]];
       [self setMaxValue: [decoder decodeFloatForKey: @"NSMaxValue"]];
@@ -966,7 +966,7 @@ float _floatValueForMousePoint (NSPoint point, NSRect knobRect,
   if ([coder allowsKeyedCoding])
     {
       [coder encodeBool: _allowsTickMarkValuesOnly forKey: @"NSAllowsTickMarkValuesOnly"];
-      [coder encodeInt: _numberOfTickMarks forKey: @"NSNumberOfTickMarks"];
+      [coder encodeInteger: _numberOfTickMarks forKey: @"NSNumberOfTickMarks"];
       [coder encodeInt: _tickMarkPosition forKey: @"NSTickMarkPosition"];
       [coder encodeFloat: _minValue forKey: @"NSMinValue"];
       [coder encodeFloat: _maxValue forKey: @"NSMaxValue"];

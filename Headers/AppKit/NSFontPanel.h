@@ -66,10 +66,10 @@ enum {
   // store currently selected information
   NSArray *_familyList;
   NSArray *_faceList;
-  int _family;
-  int _face;
+  NSInteger _family;
+  NSInteger _face;
   NSFontTraitMask _traits;
-  int _weight;
+  NSInteger _weight;
   // user typed string for preview area
   NSString *_previewString;
 

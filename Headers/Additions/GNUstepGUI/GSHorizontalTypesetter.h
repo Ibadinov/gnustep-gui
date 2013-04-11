@@ -43,7 +43,7 @@
   NSTextContainer *curTextContainer;
   NSTextStorage *curTextStorage;
 
-  unsigned int curGlyph;
+  NSUInteger curGlyph;
   NSPoint curPoint;
 
 
@@ -64,7 +64,7 @@
   NSRange fontRange; /* glyphs */
 
   struct GSHorizontalTypesetter_glyph_cache_s *cache;
-  unsigned int cache_base, cache_size, cache_length;
+  NSUInteger cache_base, cache_size, cache_length;
   BOOL at_end;
 
 

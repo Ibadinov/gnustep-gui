@@ -59,7 +59,7 @@
 @implementation GSKeyBindingActionSelectorArray
 - (id) initWithSelectorNames: (NSArray *)sels
 {
-  int i;
+  NSUInteger i;
   
   _selectorsCount = [sels count];
 

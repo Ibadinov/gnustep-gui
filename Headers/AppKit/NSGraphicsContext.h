@@ -53,12 +53,10 @@
 /*
  * Backing Store Types
  */
-enum _NSBackingStoreType
-{
-  NSBackingStoreRetained,
-  NSBackingStoreNonretained,
-  NSBackingStoreBuffered
-
+enum {
+    NSBackingStoreRetained     = 0,
+    NSBackingStoreNonretained  = 1,
+    NSBackingStoreBuffered     = 2
 };
 typedef NSUInteger NSBackingStoreType;
 
@@ -492,7 +490,7 @@ transform between current user space and image space for this image.</desc>
 /* ----------------------------------------------------------------------- */
 @interface NSGraphicsContext (Printing)
 
-- (void) beginPage: (int)ordinalNum
+- (void) beginPage: (NSInteger)ordinalNum
              label: (NSString*)aString
               bBox: (NSRect)pageRect
              fonts: (NSString*)fontNames;
@@ -501,11 +499,11 @@ transform between current user space and image space for this image.</desc>
                  createdBy: (NSString*)anApplication
                      fonts: (NSString*)fontNames
                    forWhom: (NSString*)user
-                     pages: (int)numPages
+                     pages: (NSInteger)numPages
                      title: (NSString*)aTitle;
 - (void) beginSetup;
 - (void) beginTrailer;
-- (void) endDocumentPages: (int)pages
+- (void) endDocumentPages: (NSInteger)pages
             documentFonts: (NSSet*)fontNames;
 - (void) endHeaderComments;
 - (void) endPageSetup;

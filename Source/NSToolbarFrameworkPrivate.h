@@ -69,14 +69,14 @@
 
 // Private methods with broadcast support
 - (void) _insertItemWithItemIdentifier: (NSString *)itemIdentifier 
-                               atIndex: (int)index 
+                               atIndex: (NSInteger)index 
                              broadcast: (BOOL)broadcast;
-- (void) _removeItemAtIndex: (int)index broadcast: (BOOL)broadcast;
+- (void) _removeItemAtIndex: (NSInteger)index broadcast: (BOOL)broadcast;
 - (void) _setAllowsUserCustomization: (BOOL)flag broadcast: (BOOL)broadcast;
 - (void) _setAutosavesConfiguration: (BOOL)flag broadcast: (BOOL)broadcast;
 - (void) _setConfigurationFromDictionary: (NSDictionary *)configDict 
                                broadcast: (BOOL)broadcast;
-- (void) _moveItemFromIndex: (int)index toIndex: (int)newIndex broadcast: (BOOL)broadcast;
+- (void) _moveItemFromIndex: (NSInteger)index toIndex: (NSInteger)newIndex broadcast: (BOOL)broadcast;
 - (void) _setDisplayMode: (NSToolbarDisplayMode)displayMode 
                broadcast: (BOOL)broadcast;
 - (void) _setSizeMode: (NSToolbarSizeMode)sizeMode 
@@ -85,11 +85,11 @@
 
 // Few other private methods
 - (void) _build;
-- (int) _indexOfItem: (NSToolbarItem *)item;
+- (NSInteger) _indexOfItem: (NSToolbarItem *)item;
 - (void) _concludeRemoveItem: (NSToolbarItem *)item 
-         atIndex: (int)index 
-         broadcast: (BOOL)broadcast;
-- (void) _insertPassivelyItem: (NSToolbarItem *)item atIndex: (int)newIndex;
+                     atIndex: (NSInteger)index 
+                   broadcast: (BOOL)broadcast;
+- (void) _insertPassivelyItem: (NSToolbarItem *)item atIndex: (NSInteger)newIndex;
 - (void) _performRemoveItem: (NSToolbarItem *)item; // Used by drag setup
 - (NSToolbar *) _toolbarModel;
 - (void) _validate: (NSWindow *)observedWindow;

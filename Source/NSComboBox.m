@@ -47,6 +47,10 @@ static NSNotificationCenter *nc;
 			 inView: (NSView *)controlView;
 @end
 
+@interface NSTextField (GNUstepPrivate)
+- (BOOL) textView: (NSTextView *)textView doCommandBySelector: (SEL)command;
+@end
+
 /**
  <unit>
  <heading>Class Description</heading> 

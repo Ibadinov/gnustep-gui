@@ -1545,7 +1545,7 @@ static inline NSRect buttonCellFrameFromRect(NSRect cellRect)
   if ([coder allowsKeyedCoding])
     {
       [coder encodeBool: [self hasVerticalScroller] forKey: @"NSHasVerticalScroller"];
-      [coder encodeInt: [self numberOfVisibleItems] forKey: @"NSVisibleItemCount"];
+      [coder encodeInteger: [self numberOfVisibleItems] forKey: @"NSVisibleItemCount"];
       [coder encodeBool: [self completes] forKey: @"NSCompletes"];
       [coder encodeDouble: _intercellSpacing.width forKey: @"NSIntercellSpacingWidth"];
       [coder encodeDouble: _intercellSpacing.height forKey: @"NSIntercellSpacingHeight"];

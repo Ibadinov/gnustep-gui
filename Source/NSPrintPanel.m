@@ -368,7 +368,7 @@ static NSPrintPanel *shared_instance = nil;
 
 - (BOOL) _getSavePath
 {
-  int result;
+  NSInteger result;
   NSSavePanel *sp;
 
   sp = [NSSavePanel savePanel];
@@ -385,7 +385,7 @@ static NSPrintPanel *shared_instance = nil;
 /* Private communication with our panel objects */
 - (void) _pickedButton: (id)sender
 {
-  int tag = [sender tag];
+  NSInteger tag = [sender tag];
 
   if (tag == NSPPSaveButton)
     {
@@ -462,9 +462,9 @@ static NSPrintPanel *shared_instance = nil;
   else
     {
       NSString *str;
-      str = [NSString stringWithFormat: @"%d", _pages.location];
+      str = [NSString stringWithFormat: @"%lu", (unsigned long)_pages.location];
       [[fromRangeForm cellAtIndex: 0] setStringValue: str];
-      str = [NSString stringWithFormat: @"%d", NSMaxRange(_pages)-1];
+      str = [NSString stringWithFormat: @"%lu", (unsigned long)NSMaxRange(_pages)-1];
       [[toRangeForm cellAtIndex: 0] setStringValue: str];
     }
 }
@@ -676,13 +676,13 @@ static NSPrintPanel *shared_instance = nil;
     [control addItemWithTitle: _(@"Unknown")];
 }
 
-#define NSNUMBER(a) [NSNumber numberWithInt: (a)]
+#define NSNUMBER(a) [NSNumber numberWithInteger: (a)]
 
 - (void)_finalWritePrintInfo: (NSPrintInfo*)info
 {
   id control;
   double scale;
-  int layout;
+  NSInteger layout;
   NSString *sel;
   NSArray  *list;
   NSPrinter *printer;
@@ -762,7 +762,7 @@ static NSPrintPanel *shared_instance = nil;
   list = [printer stringListForKey:@"InputSlot" inTable: @"PPD"];
   if (list)
     {
-      int selected;
+      NSInteger selected;
       NSString *def, *manual;
       sel = nil;
       selected = [control indexOfSelectedItem];

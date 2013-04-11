@@ -136,11 +136,11 @@ first. Remaining cases, highest priority first:
 @end
 
 @interface NSLayoutManager (LayoutHelpers)
--(void) _doLayoutToContainer: (int)cindex  point: (NSPoint)p;
+-(void) _doLayoutToContainer: (NSInteger)cindex  point: (NSPoint)p;
 @end
 
 @implementation NSLayoutManager (LayoutHelpers)
--(void) _doLayoutToContainer: (int)cindex  point: (NSPoint)p
+-(void) _doLayoutToContainer: (NSInteger)cindex  point: (NSPoint)p
 {
   [self _doLayout];
 }
@@ -169,7 +169,7 @@ first. Remaining cases, highest priority first:
 /* Helper for searching for the line frag of a glyph. */
 #define LINEFRAG_FOR_GLYPH(glyph) \
   do { \
-    int lo, hi, mid; \
+    NSInteger lo, hi, mid; \
 \
     lf = tc->linefrags; \
     for (lo = 0, hi = tc->num_linefrags - 1; lo < hi;) \
@@ -248,11 +248,11 @@ container? necessary? */
 			 rectCount: (NSUInteger *)rectCount
 {
   NSUInteger last;
-  int i;
+  NSInteger i;
   textcontainer_t *tc;
   linefrag_t *lf;
-  int num_rects;
-  float x0, x1;
+  NSInteger num_rects;
+  CGFloat x0, x1;
   NSRect r;
 
   *rectCount = 0;
@@ -309,11 +309,11 @@ container? necessary? */
 	  The start index is inside the line frag rect, so we need to
 	  search through it to find the exact starting location.
 	  */
-	  unsigned int i;
-	  int j;
+	  NSUInteger i;
+	  NSInteger j;
 	  linefrag_point_t *lp;
 	  glyph_run_t *r;
-	  unsigned int gpos, cpos;
+	  NSUInteger gpos, cpos;
 
 	  for (j = 0, lp = lf->points; j < lf->num_points; j++, lp++)
 	    if (lp->pos + lp->length > glyphRange.location)
@@ -352,10 +352,10 @@ container? necessary? */
 	  exact end location.
 	  */
 	  NSUInteger i;
-	  int j;
+	  NSInteger j;
 	  linefrag_point_t *lp;
 	  glyph_run_t *r;
-	  unsigned int gpos, cpos;
+	  NSUInteger gpos, cpos;
 
 	  /*
 	  At this point there is a glyph in our range that is in this
@@ -394,7 +394,7 @@ container? necessary? */
 	  */
 	  NSUInteger i;
 	  glyph_run_t *r;
-	  unsigned int gpos, cpos;
+	  NSUInteger gpos, cpos;
 
 	  r = run_for_glyph_index(last - 1, glyphs, &gpos, &cpos);
 	  i = (last - 1) - gpos;
@@ -500,9 +500,9 @@ line frag rect. */
 -(NSRange) glyphRangeForBoundingRect: (NSRect)bounds
 		     inTextContainer: (NSTextContainer *)container
 {
-  int i;
-  unsigned int j;
-  int low, high, mid;
+  NSInteger i;
+  NSUInteger j;
+  NSInteger low, high, mid;
   textcontainer_t *tc;
   linefrag_t *lf;
 
@@ -623,12 +623,12 @@ line frag rect. */
 }
 
 
--(unsigned int) glyphIndexForPoint: (NSPoint)aPoint
-		   inTextContainer: (NSTextContainer *)aTextContainer
+-(NSUInteger) glyphIndexForPoint: (NSPoint)aPoint
+                 inTextContainer: (NSTextContainer *)aTextContainer
 {
-  return [self glyphIndexForPoint: aPoint
-	       inTextContainer: aTextContainer
-	       fractionOfDistanceThroughGlyph: NULL];
+    return [self glyphIndexForPoint: aPoint
+                    inTextContainer: aTextContainer
+     fractionOfDistanceThroughGlyph: NULL];
 }
 
 /*
@@ -639,7 +639,7 @@ anything visible
                  inTextContainer: (NSTextContainer *)container
   fractionOfDistanceThroughGlyph: (CGFloat *)partialFraction
 {
-  int i;
+  NSInteger i;
   textcontainer_t *tc;
   linefrag_t *lf;
   linefrag_point_t *lp;
@@ -750,10 +750,10 @@ anything visible
     {
       /* There are points in this line frag before the point we're looking
       for. */
-      float cur, prev, next;
+      CGFloat cur, prev, next;
       glyph_run_t *r;
-      unsigned int glyph_pos, char_pos, last_visible;
-      unsigned j;
+      NSUInteger glyph_pos, char_pos, last_visible;
+      NSUInteger j;
 
       if (i < lf->num_points)
         next = lp->p.x;
@@ -803,8 +803,8 @@ anything visible
 Determines at which glyph, and how far through it, the insertion point
 should be placed for a certain character index.
 */
--(unsigned int) _glyphIndexForCharacterIndex: (unsigned int)cindex
-			     fractionThrough: (float *)fraction
+-(NSUInteger) _glyphIndexForCharacterIndex: (NSUInteger)cindex
+                           fractionThrough: (CGFloat *)fraction
 {
   if (cindex == [[_textStorage string] length])
     {
@@ -814,8 +814,8 @@ should be placed for a certain character index.
   else
     {
       NSRange glyphRange, charRange;
-      unsigned int glyph_index;
-      float fraction_through;
+      NSUInteger glyph_index;
+      CGFloat fraction_through;
 
       glyphRange = [self glyphRangeForCharacterRange: NSMakeRange(cindex, 1)
 				actualCharacterRange: &charRange];
@@ -850,17 +850,17 @@ should be placed for a certain character index.
 Note: other methods rely a lot on the fact that the rectangle returned here
 has the same y origin and height as the line frag rect it is in.
 */
--(NSRect) _insertionPointRectForCharacterIndex: (unsigned int)cindex
-				 textContainer: (int *)textContainer
+-(NSRect) _insertionPointRectForCharacterIndex: (NSUInteger)cindex
+                                 textContainer: (NSInteger *)textContainer
 {
-  int i;
+  NSInteger i;
   textcontainer_t *tc;
   linefrag_t *lf;
-  float x0, x1;
+  CGFloat x0, x1;
   NSRect r;
 
-  unsigned int glyph_index;
-  float fraction_through;
+  NSUInteger glyph_index;
+  CGFloat fraction_through;
 
 
   glyph_index = [self _glyphIndexForCharacterIndex: cindex
@@ -928,11 +928,11 @@ has the same y origin and height as the line frag rect it is in.
     }
 
   {
-    unsigned int i;
-    int j;
+    NSUInteger i;
+    NSInteger j;
     linefrag_point_t *lp;
     glyph_run_t *r;
-    unsigned int gpos, cpos;
+    NSUInteger gpos, cpos;
 
     for (j = 0, lp = lf->points; j < lf->num_points; j++, lp++)
       if (lp->pos + lp->length > glyph_index)
@@ -966,30 +966,30 @@ has the same y origin and height as the line frag rect it is in.
   return r;
 }
 
--(NSRect) insertionPointRectForCharacterIndex: (unsigned int)cindex
-			      inTextContainer: (NSTextContainer *)textContainer
+-(NSRect) insertionPointRectForCharacterIndex: (NSUInteger)cindex
+                              inTextContainer: (NSTextContainer *)textContainer
 {
-  int i;
-  NSRect r;
-
-  r = [self _insertionPointRectForCharacterIndex: cindex
-				   textContainer: &i];
-  if (i == -1 || textcontainers[i].textContainer != textContainer)
-    return NSZeroRect;
-
-  return r;
+    NSInteger i;
+    NSRect r;
+    
+    r = [self _insertionPointRectForCharacterIndex: cindex
+                                     textContainer: &i];
+    if (i == -1 || textcontainers[i].textContainer != textContainer)
+        return NSZeroRect;
+    
+    return r;
 }
 
 
--(unsigned int) characterIndexMoving: (GSInsertionPointMovementDirection)direction
-		  fromCharacterIndex: (unsigned int)from
-	      originalCharacterIndex: (unsigned int)original
-			    distance: (float)distance
+-(NSUInteger) characterIndexMoving: (GSInsertionPointMovementDirection)direction
+                fromCharacterIndex: (NSUInteger)from
+            originalCharacterIndex: (NSUInteger)original
+                          distance: (CGFloat)distance
 {
   NSRect from_rect, new_rect;
-  int from_tc, new_tc;
-  unsigned int new;
-  unsigned int length = [_textStorage length];
+  NSInteger from_tc, new_tc;
+  NSUInteger new;
+  NSUInteger length = [_textStorage length];
 
   /* This call will ensure that layout is built to 'from', and that layout
   for the line 'from' is in is built. */
@@ -1020,8 +1020,8 @@ has the same y origin and height as the line frag rect it is in.
       else if (direction == GSInsertionPointMoveUp ||
 	       direction == GSInsertionPointMoveDown)
 	{
-	  int orig_tc;
-	  const float target = [self _insertionPointRectForCharacterIndex: original
+	  NSInteger orig_tc;
+	  const CGFloat target = [self _insertionPointRectForCharacterIndex: original
 							    textContainer: &orig_tc].origin.x;
 
 	  const int delta = (direction == GSInsertionPointMoveUp) ? -1 : 1;
@@ -1040,7 +1040,7 @@ has the same y origin and height as the line frag rect it is in.
 						  textContainer: &new_tc];
 	  while ((direction == GSInsertionPointMoveUp) ? (new > 0) : (new < length))
 	    {
-	      int prev_tc = new_tc;
+	      NSInteger prev_tc = new_tc;
 	      NSRect prev_rect = new_rect;
 	      new_rect = [self _insertionPointRectForCharacterIndex: new + delta
 						      textContainer: &new_tc];
@@ -1074,7 +1074,7 @@ has the same y origin and height as the line frag rect it is in.
   if (direction == GSInsertionPointMoveLeft ||
       direction == GSInsertionPointMoveRight)
     {
-      float target;
+      CGFloat target;
 
       /*
       This is probably very inefficient, but it shouldn't be a bottleneck,
@@ -1122,11 +1122,11 @@ has the same y origin and height as the line frag rect it is in.
       direction == GSInsertionPointMoveDown)
     {
       NSRect orig_rect, prev_rect;
-      int orig_tc;
-      float target;
+      NSInteger orig_tc;
+      CGFloat target;
       textcontainer_t *tc;
       linefrag_t *lf;
-      int i;
+      NSInteger i;
 
       orig_rect = [self _insertionPointRectForCharacterIndex: original
 					       textContainer: &orig_tc];
@@ -1372,8 +1372,8 @@ container
 {
   NSTextContainer *textContainer;
   glyph_run_t *glyph_run;
-  unsigned int glyph_pos, char_pos, first_char_pos;
-  int i, j;
+  NSUInteger glyph_pos, char_pos, first_char_pos;
+  NSInteger i, j;
   NSRect *rects;
   NSUInteger count;
   NSColor *color, *last_color;
@@ -1386,7 +1386,7 @@ container
   [self _doLayoutToGlyph: range.location + range.length - 1];
 
   {
-    int i;
+    NSInteger i;
     textcontainer_t *tc;
 
     for (i = 0, tc = textcontainers; i < num_textcontainers; i++, tc++)
@@ -1537,7 +1537,7 @@ attachmentSize(linefrag_t *lf, NSUInteger glyphIndex)
 - (NSSize) attachmentSizeForGlyphAtIndex: (NSUInteger)glyphIndex
 {
   textcontainer_t *tc;
-  int i;
+  NSInteger i;
   linefrag_t *lf;
 
   for (i = 0, tc = textcontainers; i < num_textcontainers; i++, tc++)
@@ -1567,13 +1567,13 @@ attachmentSize(linefrag_t *lf, NSUInteger glyphIndex)
 -(void) drawGlyphsForGlyphRange: (NSRange)range
 			atPoint: (NSPoint)containerOrigin
 {
-  int i, j;
+  NSInteger i, j;
   textcontainer_t *tc;
   linefrag_t *lf;
   linefrag_point_t *lp;
 
   NSPoint p;
-  unsigned int g;
+  NSUInteger g;
 
   NSDictionary *attributes;
   NSFont *f;
@@ -1582,7 +1582,7 @@ attachmentSize(linefrag_t *lf, NSUInteger glyphIndex)
   BOOL currentGlyphIsSelected;
 
   glyph_run_t *glyph_run;
-  unsigned int glyph_pos, char_pos;
+  NSUInteger glyph_pos, char_pos;
   glyph_t *glyph;
 
   NSGraphicsContext *ctxt = GSCurrentContext();
@@ -1601,7 +1601,7 @@ attachmentSize(linefrag_t *lf, NSUInteger glyphIndex)
 #define GBUF_SIZE 16 /* TODO: tweak */
   NSGlyph gbuf[GBUF_SIZE];
   NSSize advancementbuf[GBUF_SIZE];
-  int gbuf_len, gbuf_size;
+  NSInteger gbuf_len, gbuf_size;
   NSPoint gbuf_point = NSZeroPoint;
 
   if (!range.length)
@@ -1810,7 +1810,7 @@ attachmentSize(linefrag_t *lf, NSUInteger glyphIndex)
 	    {
 	      if (g >= range.location)
 		{
-		  unsigned int char_index =
+		  NSUInteger char_index =
 		    [self characterRangeForGlyphRange: NSMakeRange(g, 1)
 				     actualGlyphRange: NULL].location;
 		  NSObject<NSTextAttachmentCell> *cell = [[_textStorage attribute: NSAttachmentAttributeName
@@ -2260,7 +2260,7 @@ static void GSDrawPatternLine(NSPoint start, NSPoint end, NSInteger pattern, CGF
 }
 
 -(void) insertTextContainer: (NSTextContainer *)aTextContainer
-		    atIndex: (unsigned int)index
+		    atIndex: (NSUInteger)index
 {
   int i;
 
@@ -2271,7 +2271,7 @@ static void GSDrawPatternLine(NSPoint start, NSPoint end, NSInteger pattern, CGF
     [[textcontainers[i].textContainer textView] _updateMultipleTextViews];
 }
 
--(void) removeTextContainerAtIndex: (unsigned int)index
+-(void) removeTextContainerAtIndex: (NSUInteger)index
 {
   int i;
   NSTextView *tv = [textcontainers[index].textContainer textView];
@@ -2409,8 +2409,8 @@ TODO: not really clear what these should do
 */
 -(void) invalidateDisplayForGlyphRange: (NSRange)aRange
 {
-  int i;
-  unsigned int m;
+  NSInteger i;
+  NSUInteger m;
   NSRange r;
   NSRect rect;
   NSPoint p;
@@ -2464,8 +2464,8 @@ TODO: not really clear what these should do
 
 -(void) _didInvalidateLayout
 {
-  unsigned int g;
-  int i;
+  NSUInteger g;
+  NSInteger i;
 
   /* Invalidate from the first glyph not laid out (which will
   generally be the first glyph to have been invalidated). */
@@ -2486,42 +2486,42 @@ TODO: not really clear what these should do
 
 -(void) _dumpLayout
 {
-  int i, j, k;
-  textcontainer_t *tc;
-  linefrag_t *lf;
-  linefrag_point_t *lp;
-  linefrag_attachment_t *la;
-
-  for (i = 0, tc = textcontainers; i < num_textcontainers; i++, tc++)
+    NSInteger i, j, k;
+    textcontainer_t *tc;
+    linefrag_t *lf;
+    linefrag_point_t *lp;
+    linefrag_attachment_t *la;
+    
+    for (i = 0, tc = textcontainers; i < num_textcontainers; i++, tc++)
     {
-      printf("tc %2i, %5i+%5i  (complete %i)\n",
-	i,tc->pos,tc->length,tc->complete);
-      printf("  lfs: (%3i)\n", tc->num_linefrags);
-      for (j = 0, lf = tc->linefrags; j < tc->num_linefrags; j++, lf++)
-	{
-	  printf("   %3i : %5i+%5i  (%g %g)+(%g %g)\n",
-	    j,lf->pos,lf->length,
-	    lf->rect.origin.x,lf->rect.origin.y,
-	    lf->rect.size.width,lf->rect.size.height);
-	  for (k = 0, lp = lf->points; k < lf->num_points; k++, lp++)
-	    printf("               p%3i : %5i+%5i\n",k,lp->pos,lp->length);
-	  for (k = 0, la = lf->attachments; k < lf->num_attachments; k++, la++)
-	    printf("               a%3i : %5i+%5i\n",k,la->pos,la->length);
-	}
-      printf("  softs: (%3i)\n", tc->num_soft);
-      for (; j < tc->num_linefrags + tc->num_soft; j++, lf++)
-	{
-	  printf("   %3i : %5i+%5i  (%g %g)+(%g %g)\n",
-	    j,lf->pos,lf->length,
-	    lf->rect.origin.x,lf->rect.origin.y,
-	    lf->rect.size.width,lf->rect.size.height);
-	  for (k = 0, lp = lf->points; k < lf->num_points; k++, lp++)
-	    printf("               p%3i : %5i+%5i\n",k,lp->pos,lp->length);
-	  for (k = 0, la = lf->attachments; k < lf->num_attachments; k++, la++)
-	    printf("               a%3i : %5i+%5i\n",k,la->pos,la->length);
-	}
+        printf("tc %2ld, %5ld+%5ld  (complete %i)\n",
+               (long)i, (long)tc->pos, (long)tc->length, tc->complete);
+        printf("  lfs: (%3ld)\n", (long)tc->num_linefrags);
+        for (j = 0, lf = tc->linefrags; j < tc->num_linefrags; j++, lf++)
+        {
+            printf("   %3ld : %5ld+%5ld  (%g %g)+(%g %g)\n",
+                   (long)j, (long)lf->pos, (long)lf->length,
+                   lf->rect.origin.x, lf->rect.origin.y,
+                   lf->rect.size.width, lf->rect.size.height);
+            for (k = 0, lp = lf->points; k < lf->num_points; k++, lp++)
+                printf("               p%3ld : %5ld+%5ld\n", (long)k, (long)lp->pos, (long)lp->length);
+            for (k = 0, la = lf->attachments; k < lf->num_attachments; k++, la++)
+                printf("               a%3ld : %5ld+%5ld\n", (long)k, (long)la->pos, (long)la->length);
+        }
+        printf("  softs: (%3ld)\n", (long)tc->num_soft);
+        for (; j < tc->num_linefrags + tc->num_soft; j++, lf++)
+        {
+            printf("   %3ld : %5ld+%5ld  (%g %g)+(%g %g)\n",
+                   (long)j, (long)lf->pos, (long)lf->length,
+                   lf->rect.origin.x, lf->rect.origin.y,
+                   lf->rect.size.width, lf->rect.size.height);
+            for (k = 0, lp = lf->points; k < lf->num_points; k++, lp++)
+                printf("               p%3ld : %5ld+%5ld\n", (long)k, (long)lp->pos, (long)lp->length);
+            for (k = 0, la = lf->attachments; k < lf->num_attachments; k++, la++)
+                printf("               a%3ld : %5ld+%5ld\n", (long)k, (long)la->pos, (long)la->length);
+        }
     }
-    printf("layout to: char %i, glyph %i\n",layout_char,layout_glyph);
+    printf("layout to: char %ld, glyph %ld\n", (long)layout_char, (long)layout_glyph);
 }
 
 
@@ -2531,13 +2531,13 @@ about layout to do smarter invalidation. The comments at the beginning of
 this file describes this.
 */
 - (void) textStorage: (NSTextStorage *)aTextStorage
-	      edited: (unsigned int)mask
-	       range: (NSRange)range
-      changeInLength: (int)lengthChange
+              edited: (NSUInteger)mask
+               range: (NSRange)range
+      changeInLength: (NSInteger)lengthChange
     invalidatedRange: (NSRange)invalidatedRange
 {
   NSRange r;
-  unsigned int original_last_glyph;
+  NSUInteger original_last_glyph;
 
 /*  printf("\n*** invalidating\n");
   [self _dumpLayout];*/
@@ -2556,7 +2556,7 @@ this file describes this.
 
   if (_temporaryAttributes != nil && (mask & NSTextStorageEditedCharacters) != 0)
     {
-      int i;
+      NSInteger i;
       NSArray *attrs;
       NSRange oldRange = NSMakeRange(range.location, range.length - lengthChange);
 
@@ -2596,14 +2596,14 @@ this file describes this.
   */
   if (layout_char > 0 && layout_char >= r.location)
     {
-      unsigned int glyph_index, last_glyph;
+      NSUInteger glyph_index, last_glyph;
       textcontainer_t *tc;
       linefrag_t *lf;
-      int i, j, k;
-      int new_num;
+      NSInteger i, j, k;
+      NSInteger new_num;
       NSRange char_range;
-      unsigned int new_last_glyph;
-      int glyph_delta;
+      NSUInteger new_last_glyph;
+      NSInteger glyph_delta;
 
       /*
       If we had layout beyond the modified characters, update layout_char.

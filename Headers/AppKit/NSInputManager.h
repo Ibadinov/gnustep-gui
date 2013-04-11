@@ -125,7 +125,7 @@
      encounter this keystroke, we abort all pending keystrokes and
      reset ourselves immediately into vanilla root input state.  */
   unichar _abortCharacter;
-  unsigned int _abortFlags;
+  NSUInteger _abortFlags;
 
   /* When it is YES, keystrokes containing the NSControlKeyMask as not
      inserted into the text.  This is so that if you press Control-x,
@@ -163,7 +163,7 @@
    the modifiers.  */
 + (BOOL) parseKey: (NSString *)key 
     intoCharacter: (unichar *)character
-     andModifiers: (unsigned int *)modifiers;
+     andModifiers: (NSUInteger *)modifiers;
 
 /* This is used to produce a key description which can be put into a
    keybinding file from an actual keystroke.  The gnustep-gui never
@@ -174,7 +174,7 @@
    files.  Pass 0 as modifiers if you only want the name of the
    keystroke, ignoring modifiers.  */
 + (NSString *) describeKeyStroke: (unichar)character
-		   withModifiers: (unsigned int)modifiers;
+		   withModifiers: (NSUInteger)modifiers;
 
 /* Methods used internally ... not really part of the public API, can change
    without notice.  */

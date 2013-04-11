@@ -827,7 +827,7 @@ static NSNotificationCenter *nc = nil;
 	  [aCoder encodeObject: parent forKey: @"NSParentWindow"];
 	}
 
-      [aCoder encodeInt: _preferredEdge forKey: @"NSPreferredEdge"];
+      [aCoder encodeInteger: _preferredEdge forKey: @"NSPreferredEdge"];
       [aCoder encodeFloat: _trailingOffset forKey: @"NSTrailingOffset"];
     }
   else
@@ -838,7 +838,7 @@ static NSNotificationCenter *nc = nil;
       [aCoder encodeSize: _maxContentSize];
       [aCoder encodeSize: _minContentSize];
       [aCoder encodeObject: parent];
-      [aCoder encodeValueOfObjCType: @encode(unsigned) at: &_preferredEdge];
+      [aCoder encodeValueOfObjCType: @encode(NSUInteger) at: &_preferredEdge];
       [aCoder encodeValueOfObjCType: @encode(float) at: &_trailingOffset];
     }
 }
@@ -867,12 +867,12 @@ static NSNotificationCenter *nc = nil;
 	      parentWindow = [aDecoder decodeObjectForKey: @"NSParentWindow"];
 	    }
 
-	  _preferredEdge = [aDecoder decodeIntForKey: @"NSPreferredEdge"];
+	  _preferredEdge = [aDecoder decodeIntegerForKey: @"NSPreferredEdge"];
 	  _trailingOffset = [aDecoder decodeFloatForKey: @"NSTrailingOffset"];
 	}
       else
 	{
-	  int version = [aDecoder versionForClassName: @"NSDrawer"];
+	  NSInteger version = [aDecoder versionForClassName: @"NSDrawer"];
 	  if (version == 0)
 	    {
 	      _contentSize = [aDecoder decodeSize];
@@ -882,7 +882,7 @@ static NSNotificationCenter *nc = nil;
 	      _maxContentSize = [aDecoder decodeSize];
 	      _minContentSize = [aDecoder decodeSize];
 	      parentWindow = [aDecoder decodeObject];
-	      [aDecoder decodeValueOfObjCType: @encode(unsigned)
+	      [aDecoder decodeValueOfObjCType: @encode(NSUInteger)
 					   at: &_preferredEdge];
 	      [aDecoder decodeValueOfObjCType: @encode(float)
 					   at: &_trailingOffset];	      
@@ -890,8 +890,8 @@ static NSNotificationCenter *nc = nil;
 	  else      
 	    {
 	      [NSException raise: NSInternalInconsistencyException
-		format: @"Invalid version of NSDrawer (version = %d).",
-		version];
+		format: @"Invalid version of NSDrawer (version = %ld).",
+		(long)version];
 	      return nil; // not reached, but keeps gcc happy...
 	    }
 	}
