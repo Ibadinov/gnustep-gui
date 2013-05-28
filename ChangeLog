@@ -1,3 +1,132 @@
+2013-04-24 05:23-EDT Gregory John Casamento <greg.casamento@gmail.com>
+
+	* Headers/AppKit/NSPopover.h: correct delegate method
+	for popoverShouldClose:
+	* Headers/AppKit/NSWindow.h: add convertRectToScreen: and
+	convertRectFromScreen: methods.
+	* Source/NSPopover.m: Correct delegate method for popoverShouldClose:.
+	Changes to align popover window with rect it is being placed relative
+	to.
+	* Source/NSWindow.m: implementation of convertRectToScreen: and
+	convertRectFromScreen: methods.
+
+2013-04-23  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/GSXibLoader.m: Add -replaceObject:withObject: method.
+
+2013-04-21  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/AppKit/NSPopover.h,
+	* Source/NSPopover.m: Adjust to GNUstep coding standards.
+	* Source/externs.m: Move new strings to here.
+
+2013-04-21  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/AppKit/AppKit.h: Add NSCollectionView.h and NSCollectionViewItem.h.
+
+2013-04-21  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/NSCollectionView.m (-_moveUpAndExpandSelection:): Correct
+	the comparision. Bug reported by Gregory John Casamento
+	<greg.casamento@gmail.com>
+	* Headers/AppKit/NSPopover.h: Add missing import.
+	* Source/GSXibLoader.m: Disable NSCustomView hack again.
+	* Headers/AppKit/NSApplication.h: Replace GSAppDelegateProtocol
+	with NSApplicationDelegate.
+	* Source/NSApplication.m: Adjust documentation to this replacement.
+
+
+2013-04-21 09:26-EDT Gregory John Casamento <greg.casamento@gmail.com>
+
+	* Headers/AppKit/AppKit.h: Add NSPopover.h to set of files
+	included.
+	* Headers/AppKit/NSApplication.h: Add NSApplicationDelegate.
+	Inherit from GSAppDelegateProtocol.
+	* Headers/AppKit/NSPopover.h: NSPopover header.
+	* Source/GNUmakefile: Added NSPopover.[hm]
+	* Source/GSXibLoader.m: Translate NSCustomView to NSView when
+	unarchiving.
+	* Source/NSPopover.m: Skeletal implementation of NSPopover.m.
+
+2013-04-21  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/NSTableView.m (-selectedColumnIndexes, -selectedRowIndexes): Return an
+	autoreleased copy of the corresponding ivar. Returning a reference to the ivar
+	leads to issues (and behavior different from Cocoa) when iterating thru the
+	indexsets if at a time they would be being altered.
+	Patch by Frank LeGrand (flegrand@testplant.com).
+	* Source/GNUmakefile: Add NSCollectionViewItem.
+	* Headers/AppKit/NSCollectionView.h,
+	* Headers/AppKit/NSCollectionViewItem.h,
+	* Source/NSCollectionViewItem.m,
+	* Source/NSCollectionView.m: Bring closer to the GNUstep coding standard.
+
+2013-04-17 23:54-EDT Gregory John Casamento <greg.casamento@gmail.com>
+
+	* Headers/AppKit/NSCollectionView.h
+	* Headers/AppKit/NSCollectionViewItem.h
+	* Source/GNUmakefile
+	* Source/NSCollectionViewItem.m
+	* Source/NSCollectionView.m: Added NSCollectionView and
+	NSCollectionViewItem classes from testplant branch.  Made changes
+	to original patch to conform to coding standards, NSCoding for
+	non-keyed archiving and moved instances of float/integer to
+	CGFloat and NSInteger/NSUInteger as appropriate.
+	Patch by Doug Simons (dsimons@testplant.com) and
+	Frank LeGrand (flegrand@testplant.com).
+
+2013-04-15  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Headers/AppKit/NSKeyValueBinding.h,
+	* Source/externs.m: Additional binding name NSContentValuesBinding.
+	* Source/NSPopUpButton.m: Add KVB for NSContentValuesBinding.
+	Patch by Marcian Lytwyn <marcian.lytwyn@advcsi.com>
+	* Source/NSArrayController.m: Encode/decode clearsFilterPredicateOnInsertion.
+
+2013-04-06  Eric Wasylishen <ewasylishen@gmail.com>
+
+	* Source/GSTheme.m:
+	* Source/NSImage.m: Revert previous commit and write a much cleaner
+	implementation that fixes the same bug.
+
+	I removed the step in theme activation where we call
+	+[NSImage _setImagePath:name:] on each image in the theme, and instead
+	modified +[NSImage _pathForImageNamed:] to also search the theme images
+	directory.
+
+	When a GSTheme activates now, it only calls +[NSImage _reloadCachedImages]
+	which checks all NSImage cached by name and reloads any whose path has
+	changed.
+
+2013-04-06  Eric Wasylishen <ewasylishen@gmail.com>
+
+	* Source/GSTheme.m:
+	* Source/NSImage.m: Allow themes to override only a "base" image like
+	common_3DArrowRight and have images that map to it (NSMenuArrow)
+	automatically update.
+
+2013-04-03  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Tools/speech/GSSpeechSynthesizer.m: Use object_getClass()
+	instead of isa. Make exitIfUnneeded: a class method. Reformat code.
+
+2013-04-03  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/NSBitmapImageRep+GIF.m (-_bitmapIsGIF:): Prepare for
+	additional argument to function DGifOpen in newer libgif versions.
+
+2013-03-28  Richard Frith-Macdonald <rfm@gnu.org>
+
+        Make release
+        * Version 0.23.1
+        * Update release notes
+
+2013-03-20  Fred Kiefer <FredKiefer@gmx.de>
+
+	* Source/GSToolTips.m (+initialize): Set the level of the tool tip
+	window to NSPopUpMenuWindowLevel.
+	Change suggested by Wolfgang Lux  <wolfgang.lux@gmail.com>
+
 2013-03-18  Fred Kiefer <FredKiefer@gmx.de>
 
 	* Tests/gui/NSImage/basic.m: Add basic tests for NSImage.
