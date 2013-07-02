@@ -387,7 +387,7 @@ NSTiffRead(TIFF *image, NSTiffInfo *info, unsigned char *data)
   uint8* buf;
   uint8* raster;
   NSTiffColormap* map;
-  int scan_line_size;
+  tmsize_t scan_line_size;
 
   if (data == NULL)
     return -1;
@@ -492,7 +492,7 @@ NSTiffWrite(TIFF *image, NSTiffInfo *info, unsigned char *data)
   int		i;
   unsigned int 	row;
   int           error = 0;
-  int           scan_line_size;
+  tmsize_t      scan_line_size;
 
   TIFFSetField(image, TIFFTAG_IMAGEWIDTH, info->width);
   TIFFSetField(image, TIFFTAG_IMAGELENGTH, info->height);
